@@ -1,0 +1,147 @@
+/* General Styles */
+h1, h2, nav a, .sidebar ul li a, #nav-name {
+    font-weight: 400;
+}
+
+body {
+    font-family: 'Newsreader', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, p, a {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    color: #6e4c7c;
+    font-size: 2rem;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #000;
+}
+
+/* Button - Adjusted size */
+.btn {
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    padding: 10px 20px;  /* Reduced padding for smaller button size */
+    font-size: 1rem;     /* Adjusted font size */
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Main Layout */
+.dashboard-main {
+    display: flex;
+    flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    width: 250px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 10px 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.sidebar-link.active {
+    color: #6e4c7c;
+    font-weight: 600;
+}
+
+.sidebar-link:hover {
+    color: #6e4c7c;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f4f1f7;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background-color: #f4f1f7;
+    color: #6e4c7c;
+    font-size: 1rem;
+    outline: none;
+}
+
+.back-btn, .search-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    color: #6e4c7c;
+    cursor: pointer;
+}
+
+
+/* Ensure Schedule Button is consistent */
+.schedule-btn {
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Same padding as Logout button */
+    font-size: 1rem;     /* Same font size as Logout button */
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    max-width: 300px;  /* Adjusted max width */
+    text-align: center;
+}

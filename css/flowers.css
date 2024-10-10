@@ -1,0 +1,186 @@
+/* General Styles */
+h1, h2, nav a, .sidebar ul li a, #nav-name {
+    font-weight: 400;
+}
+
+body {
+    font-family: 'Newsreader', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fff;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, p, a {
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo-text {
+    color: #6e4c7c;
+    font-size: 2rem;
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000;
+}
+
+.logout-btn {
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Main Layout */
+.dashboard-main {
+    display: flex;
+    flex: 1;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #f9f9f9;
+    padding: 20px;
+    width: 250px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar-list {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 10px 0;
+    color: #333;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.sidebar-link.active {
+    color: #6e4c7c;
+    font-weight: 600;
+}
+
+.sidebar-link:hover {
+    color: #6e4c7c;
+}
+
+/* Content Area */
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+/* Search Bar */
+.search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #f4f1f7;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background-color: #f4f1f7;
+    color: #6e4c7c;
+    font-size: 1rem;
+    outline: none;
+}
+
+.back-btn, .search-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #6e4c7c;
+    cursor: pointer;
+}
+
+/* Item List */
+.item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.item {
+    display: flex;
+    align-items: center; /* Align image and text in a row */
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.item-image {
+    width: 100px; /* Adjust image size */
+    height: auto;
+    margin-right: 20px; /* Space between image and text */
+    border-radius: 5px; /* Optional: rounded corners for the image */
+}
+
+.item-details {
+    flex: 1; /* Allow text to take up remaining space */
+}
+
+.item-title {
+    font-size: 1.5rem;
+    color: #6e4c7c;
+}
+
+.item-description {
+    font-size: 1rem;
+    color: #333;
+    padding-top: 10px;
+}
+
+
+/* Button */
+.btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.schedule-btn {
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 30px;
+    max-width: 300px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
