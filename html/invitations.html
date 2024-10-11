@@ -3,50 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitations - Colors Dashboard</title>
+    <title>Invitations and Handcrafts - Colors Dashboard</title>
+    <link rel="stylesheet" href="../css/invitations.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
+    <header class="header">
         <div class="logo">
-            <h1>Colors.</h1>
+            <h1 class="logo-text">Colors.</h1>
         </div>
-        <nav>
-            <a href="#">Shop</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Reviews</a>
-            <button class="logout-btn">Logout</button>
+        <nav class="nav-menu">
+            <a href="#" class="nav-link">Home</a>
+            <a href="#" class="nav-link">About</a>
+            <a href="#" class="nav-link">Contact</a>
+            <a href="#" class="nav-link">Reviews</a>
+            <button class="btn logout-btn">Logout</button>
         </nav>
     </header>
 
-    <main>
+    <main class="dashboard-main">
         <aside class="sidebar">
-            <ul>
-                <li><a href="venue.html" class="active">Venue</a></li>
-                <li><a href="officiant.html">Officiant</a></li>
-                <li><a href="music.html">Music</a></li>
-                <li><a href="photographer.html">Photographer</a></li>
-                <li><a href="makeup.html">Make-up and Hair</a></li>
-                <li><a href="invitations.html">Invitations and Handcrafts</a></li>
-                <li><a href="flowers.html">Flowers and Decorations</a></li>
-                <li><a href="review_payment.html">Review Payment</a></li>
+            <ul class="sidebar-list">
+                <li><a href="venue.html" class="sidebar-link">Venue</a></li>
+                <li><a href="officiant.html" class="sidebar-link">Officiant</a></li>
+                <li><a href="music.html" class="sidebar-link">Music</a></li>
+                <li><a href="photographer.html" class="sidebar-link">Photographer</a></li>
+                <li><a href="makeup.html" class="sidebar-link">Make-up and Hair</a></li>
+                <li><a href="invitations.html" class="sidebar-link active">Invitations and Handcrafts</a></li>
+                <li><a href="flowers.html" class="sidebar-link">Flowers and Decorations</a></li>
+                <li><a href="review_payment.html" class="sidebar-link">Review Payment</a></li>
             </ul>
         </aside>
 
         <section class="content">
             <div class="search-bar">
-                <button class="back-btn">&#8592;</button>
-                <input type="text" placeholder="Search for venues...">
-                <button class="search-btn">&#x1F50D;</button>
+                <button class="btn back-btn">&#8592;</button>
+                <input type="text" class="search-input" placeholder="Search for venues...">
+                <button class="btn search-btn">&#x1F50D;</button>
             </div>
             <div class="item-list">
                 <div class="item">
-                    <h2>Invitations and Handcrafts</h2>
-                    <p>Details...</p>
+                    <img src="https://via.placeholder.com/100" alt="Venue Image" class="item-image">
+                    <div class="item-details">
+                        <h2 class="item-title">Artist Name</h2>
+                        <p class="item-description">Details about the artist.</p>
+                    </div>
                 </div>
                 <!-- Add more items as needed -->
-            </div>
-            <button class="schedule-btn">Schedule Meeting with the Organizer</button>
+            </div>            
+            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
     </main>
 </body>

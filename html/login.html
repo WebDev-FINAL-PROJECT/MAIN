@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1 id="nav-name">Colors.</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+            <a href="#">Reviews</a>
+            <button id="signup-button">Sign up</button> <!-- Button directs to sign-up page -->
+        </nav>
+    </header>
+
+    <main>
+        <h1>LOGIN</h1>
+        <div><!--flex dis sheesh-->
+            <div class="login-form">
+                <h2>Welcome back.</h2>
+
+                <div class="email">
+                    <input type="text" placeholder="Your email" />
+                    <div class="error hidden">Required</div>
+                </div>
+                <div class="password">
+                    <input type="password" placeholder="Your password" />
+                    <div class="error hidden">Required</div>
+                </div>
+                <button>Login</button>
+
+                <!-- Add the sign-up redirect here -->
+                <p class="signup-redirect">
+                    Don't have an account yet? <a href="signup.html">Sign up now</a>.
+                </p>
+            </div>  
+        </div>
+    </main>
+</body>
+</html>
