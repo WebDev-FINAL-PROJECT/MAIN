@@ -23,24 +23,32 @@
 
     <main>
         <h1>SIGN UP NOW!</h1>
-        <div><!--flex dis sheesh-->
+        <div action="connect.php" method="post"><!--flex dis sheesh-->
             <div class="registration-form">
                 <h2>WE WILL PLAN YOUR DAY, YOUR WAY.</h2>
 
-                <div class="name">
-                    <input type="text" placeholder="Your name" />
+                <div class="fname">
+                    <input type="text" placeholder="Your First Name" />
+                    <div class="error hidden">Required</div>
+                </div>
+                <div class="lname">
+                    <input type="text" placeholder="Your Last Name" />
                     <div class="error hidden">Required</div>
                 </div>
                 <div class="phone">
-                    <input type="text" placeholder="Your phone" />
+                    <input type="text" placeholder="Your Phone Number" />
                     <div class="error hidden">Required</div>
                 </div>
                 <div class="email">
-                    <input type="text" placeholder="Your email" />
+                    <input type="text" placeholder="Your Email" />
                     <div class="error hidden">Required</div>
                 </div>
-                <div class="events">
-                    <input type="text" placeholder="Your event" />
+                <div class="password">
+                    <input type="text" placeholder="Password" />
+                    <div class="error hidden">Required</div>
+                </div>
+                <div class="confirm">
+                    <input type="text" placeholder="Confirm yout Password" />
                     <div class="error hidden">Required</div>
                 </div>
                 <button>Sign up</button>
