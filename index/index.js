@@ -1,10 +1,24 @@
 // index.js
 
-const { connectToDatabase } = require('./dbClient');
+const supabase = require('./supabaseClient');
 
-async function main() {
-    await connectToDatabase();
-    // You can now perform database operations here
-}
+const fetchData = async () => {
+    try {
+        console.log('Attempting to connect to the database...');
 
-main();
+        // Example: Fetch data from a table named 'User-information'
+        const { data, error } = await supabase
+            .from('User_information') // Replace with your table name
+            .select('*');
+
+        if (error) {
+            throw error; // Handle error appropriately
+        }
+
+        console.log('Data fetched successfully:', data);
+    } catch (error) {
+        console.error('Error connecting to the database:', error.message);
+    }
+};
+
+fetchData();
