@@ -1,23 +1,10 @@
-const express=require("express")
-const app=express()
-const path=require("path")
-const hbs=require("hbs")
+// index.js
 
-const templatePath=path.join(__dirname, '..templates')
+const { connectToDatabase } = require('./dbClient');
 
-app.use(express.json())
-app.set("view engine", "hbs")
-app.set("views", templatePath)
+async function main() {
+    await connectToDatabase();
+    // You can now perform database operations here
+}
 
-app.get("/",(req, res)=>{
-    res.render("login")
-})
-
-
-app.get("/signup",(req, res)=>{
-    res.render("signup")
-})
-
-app.listen(3000,()=>{
-    console.log("Port Connected");
-})
+main();
