@@ -1,13 +1,11 @@
+<!-- signup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
-    <link rel="stylesheet" href="../css/signup.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/signup.css">
 </head>
 <body>
     <header>
@@ -23,37 +21,19 @@
 
     <main>
         <h1>SIGN UP NOW!</h1>
-        <div action="connect.php" method="post"><!--flex dis sheesh-->
+        <form id="signup-form">
             <div class="registration-form">
                 <h2>WE WILL PLAN YOUR DAY, YOUR WAY.</h2>
-
-                <div class="fname">
-                    <input type="text" placeholder="Your First Name" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <div class="lname">
-                    <input type="text" placeholder="Your Last Name" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <div class="phone">
-                    <input type="text" placeholder="Your Phone Number" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <div class="email">
-                    <input type="text" placeholder="Your Email" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <div class="password">
-                    <input type="text" placeholder="Password" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <div class="confirm">
-                    <input type="text" placeholder="Confirm yout Password" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <button>Sign up</button>
+                <input type="text" id="fname" placeholder="Your First Name" required>
+                <input type="text" id="lname" placeholder="Your Last Name" required>
+                <input type="text" id="phone" placeholder="Your Phone Number" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirm" placeholder="Confirm your Password" required>
+                <button type="submit">Sign up</button>
             </div>  
-        </div>
+        </form>
     </main>
+    <script src="index.js"></script>
 </body>
 </html>

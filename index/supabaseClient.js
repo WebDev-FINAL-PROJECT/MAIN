@@ -1,10 +1,9 @@
-// supabaseClient.js
-
-require('dotenv').config(); // Load environment variables first
+require('dotenv').config(); // Load environment variables
 const { createClient } = require('@supabase/supabase-js');
 
-const supabaseUrl = process.env.SUPABASE_URL; // Get Supabase URL
-const supabaseKey = process.env.ANON_KEY; // Get Supabase Key
+// Ensure you have the correct environment variables in your .env file
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.ANON_KEY;
 
 if (!supabaseUrl || !supabaseKey) {
     throw new Error('Supabase URL and Key must be provided.');
