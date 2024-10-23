@@ -67,6 +67,46 @@
             <h2>Planning your perfect event is our passion</h2>
         </section>
     </main>
+    <!--wala pa design ang login and sign up diri-->
+    <section class="login"><!--broski, ana si ian dito login tapos may nakalagay na "no acc yet? sign up" -->
+        <h1>LOGIN</h1>
+        <div><!--flex dis sheesh-->
+            <form class="login-form">
+                <h2>Welcome back.</h2>
+
+                <div class="email">
+                    <input type="text" placeholder="Your email" />
+                    <div class="error hidden">Required</div>
+                </div>
+                <div class="password">
+                    <input type="password" placeholder="Your password" />
+                    <div class="error hidden">Required</div>
+                </div>
+                <button>Login</button>
+
+                <!-- Add the sign-up redirect here -->
+                <p class="signup-redirect">
+                    Don't have an account yet? <a href="signup.html">Sign up now</a>.
+                </p>
+            </form>  
+        </div>
+    </section>
+
+    <section class="signup">
+        <h1>SIGN UP NOW!</h1>
+        <form id="signup-form">
+            <div class="registration-form">
+                <h2>WE WILL PLAN YOUR DAY, YOUR WAY.</h2>
+                <input type="text" id="fname" placeholder="Your First Name" required>
+                <input type="text" id="lname" placeholder="Your Last Name" required>
+                <input type="text" id="phone" placeholder="Your Phone Number" required>
+                <input type="email" id="email" placeholder="Your Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="confirm" placeholder="Confirm your Password" required>
+                <button type="submit">Sign up</button>
+            </div>  
+        </form>
+    </section>
 
     <footer>
         <h3>Where to contact us?</h3>
@@ -85,6 +125,7 @@
             </a>
         </div>
     </footer>
+
     
 </body>
 </html>
