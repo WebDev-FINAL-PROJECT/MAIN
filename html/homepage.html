@@ -71,24 +71,15 @@
 
 
     <!--wala pa design ang login and sign up diri-->
-    <!-- Login Modal -->
     <div id="loginModal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span> <!-- Close button -->
             <h1>LOGIN</h1>
-            <form class="login-form">
+            <form id="login-form" class="login-form">
                 <h2>Welcome back.</h2>
-
-                <div class="email">
-                    <input type="text" placeholder="Your email" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <div class="password">
-                    <input type="password" placeholder="Your password" />
-                    <div class="error hidden">Required</div>
-                </div>
-                <button>Login</button>
-
+                <input type="text" id="login-email" placeholder="Your email" required />
+                <input type="password" id="login-password" placeholder="Your password" required />
+                <button type="submit">Login</button>
                 <p class="signup-redirect">
                     Don't have an account yet? <a href="#">Sign up now</a>.
                 </p>
@@ -136,7 +127,6 @@
         </div>
     </footer>
 <script src="../pagination.js"></script>
-<script src="../main.js"></script>
 <script src="../signup.js"></script>
     
 </body>

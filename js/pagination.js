@@ -45,14 +45,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Add a click event listener to the "Sign up now" link
     signupRedirectLink.addEventListener("click", function (e) {
-        e.preventDefault(); // Prevent default navigation
-        loginSection.style.display = "none";  // Hide the login section
-        signupSection.style.display = "block";  // Show the signup section
+        e.preventDefault(); 
+        loginSection.style.display = "none";  
+        signupSection.style.display = "block";  
     });
 
-    // Optional: Add a function to hide both sections when clicked outside
     document.addEventListener('click', function (event) {
         if (!loginSection.contains(event.target) && !loginButton.contains(event.target) &&
             !signupSection.contains(event.target) && !signupRedirectLink.contains(event.target)) {
@@ -62,33 +60,27 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-/// Wait for the DOM to load
 document.addEventListener("DOMContentLoaded", function () {
-    // Get the modals
+ 
     const loginModal = document.getElementById("loginModal");
     const signupModal = document.getElementById("signupModal");
 
-    // Get the buttons that open the modals
-    const loginButton = document.querySelector('nav button'); // Assuming this is the login button
-    const signupRedirectLink = document.querySelector('.signup-redirect a'); // For "Sign up now" link in login form
+    const loginButton = document.querySelector('nav button');
+    const signupRedirectLink = document.querySelector('.signup-redirect a'); 
 
-    // Get the close buttons
     const loginCloseButton = document.querySelector(".close");
     const signupCloseButton = document.querySelector(".signup-close");
 
-    // When the user clicks the login button, open the login modal
     loginButton.addEventListener("click", function () {
         loginModal.style.display = "block";
     });
 
-    // When the user clicks the "Sign up now" link, open the signup modal and close login modal
     signupRedirectLink.addEventListener("click", function (e) {
-        e.preventDefault(); // Prevent default navigation
-        loginModal.style.display = "none";  // Hide the login modal
-        signupModal.style.display = "block";  // Show the signup modal
+        e.preventDefault(); 
+        loginModal.style.display = "none";  
+        signupModal.style.display = "block";  
     });
 
-    // When the user clicks on <span> (x), close the modals
     loginCloseButton.addEventListener("click", function () {
         loginModal.style.display = "none";
     });
@@ -97,7 +89,6 @@ document.addEventListener("DOMContentLoaded", function () {
         signupModal.style.display = "none";
     });
 
-    // When the user clicks anywhere outside of the modal, close both
     window.addEventListener("click", function (event) {
         if (event.target === loginModal) {
             loginModal.style.display = "none";

@@ -1,4 +1,4 @@
-// This code should be saved in a file named `signup.js` in your 'js' directory
+
 document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signup-form');
     signupForm.addEventListener('submit', async function(event) {
@@ -24,3 +24,31 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Login successful') {
+                alert(data.message);
+                
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            alert('Failed to log in');
+        });
+    });
+});
+
