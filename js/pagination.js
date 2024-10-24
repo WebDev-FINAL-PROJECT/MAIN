@@ -98,7 +98,33 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+//DASHBOARD
+document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('.content');
+    const links = document.querySelectorAll('.sidebar-link');
 
+    function showSection(event) {
+        event.preventDefault();
+        const sectionId = event.target.getAttribute('href'); // Get the href attribute of the clicked link
+        sections.forEach(section => {
+            if ('#' + section.id === sectionId) {
+                section.style.display = 'block'; // Show the linked section
+            } else {
+                section.style.display = 'none'; // Hide all other sections
+            }
+        });
+    }
+
+    links.forEach(link => {
+        link.addEventListener('click', showSection); // Add click event listener to each link
+    });
+
+    // Optionally hide all sections on load and show only the first one or a specific section
+    sections.forEach((section, index) => {
+        if (index === 0) section.style.display = 'block'; // Show only the first section initially
+        else section.style.display = 'none';
+    });
+});
 
 
 

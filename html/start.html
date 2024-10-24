@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Form</title>
+    <link rel="stylesheet" href="../css/start.css">
+</head>
+<body>
+    <div class="container">
+        <form action="#" method="POST">
+            <h1>Event Planner Form</h1>
+            <p>What event are you Planning?</p>
+            <div class="event-kind">
+                <button type="button">Wedding</button>
+                <button type="button">Birthday</button>
+                <button type="button">Others</button>
+            </div>
+            <div class="input-group">
+                <input type="text" id="first-name" placeholder="Your first name">
+                <input type="text" id="partner-name" placeholder="Partner's first name">
+            </div>
+            <div class="wedding-style">
+                <h2>Wedding style</h2>
+                <p>Have you decided what style your wedding will be?</p>
+                <div class="style-buttons">
+                    <!-- Multiple buttons for style options -->
+                    <button type="button">Classic</button>
+                    <button type="button">Modern</button>
+                    <button type="button">Artsy</button>
+                    <!-- Add all other buttons similarly -->
+                </div>
+            </div>
+            <div class="budget">
+                <h2>Budget</h2>
+                <p>What is your wedding budget?</p>
+                <div class="budget-options">
+                    <button type="button">$ (.-10K)</button>
+                    <button type="button">$$ (10-25K)</button>
+                    <button type="button">$$$ (25-50K)</button>
+                    <button type="button">$$$$ (50K+)</button>
+                </div>
+            </div>
+            <button type="submit" class="submit-btn">Continue</button>
+        </form>
+    </div>
+</body>
+</html>
