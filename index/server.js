@@ -17,8 +17,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'html', 'homepage.html')); // Serve the homepage
 });
 
-app.post('/signup', async (req, res) => {
+app.get('/dashboard.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'html', 'dashboard.html')); // Serve the dashboard page
+});
 
+app.post('/signup', async (req, res) => {
     console.log(req.body);
     const { fName, lName, phone, email, password } = req.body;
     const { data, error } = await supabase
@@ -38,13 +41,6 @@ app.post('/signup', async (req, res) => {
     res.json({ message: 'Signup successful', data: data });
 });
 
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-});
-
-//LOGIN
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
@@ -57,10 +53,15 @@ app.post('/login', async (req, res) => {
         if (data.length === 0) {
             res.status(401).json({ message: 'Login failed: User not found or password incorrect' });
         } else {
-            res.json({ message: 'Login successful', user: data[0] });
+            res.json({ message: 'Login successful', user: data[0], redirect: '/dashboard.html' }); // Include redirect URL in the successful login response
         }
     } catch (err) {
         console.error('Error logging in:', err.message);
         res.status(500).json({ message: 'Error logging in', error: err.message });
     }
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on http://localhost:${PORT}`);
 });

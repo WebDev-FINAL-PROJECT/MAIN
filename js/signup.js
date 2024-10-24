@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.message === 'Login successful') {
                 alert(data.message);
-                
+                window.location.href = '/dashboard.html'; // Redirects to dashboard page
             } else {
                 alert(data.message);
             }
@@ -51,4 +51,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 
