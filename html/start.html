@@ -1,13 +1,15 @@
+<!--start.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Event Form</title>
-    <link rel="stylesheet" href="../css/start.css">
+    <link rel="stylesheet" href="../start.css">
 </head>
 <body>
     <div class="container">
+<<<<<<< HEAD
         <form action="#" method="POST">
             <h1>Event Planner Form</h1>
             <p>What event are you Planning?</p>
@@ -18,10 +20,32 @@
             </div>
             <!--if wedding gi click of what kind of event, kani mu appear-->
             <section class = "wedding">
+=======
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <form id="start" class="start" action="/submit-event" method="POST">
+            <section class="section" data-section="1">
+                <h1>Event Planner Form</h1>
+                <p>What event are you Planning?</p>
+                <div class="event-kind">
+                    <button id="wedding" type="button" class="event-choice" data-next="2">Wedding</button>
+                    <button id="birthday" type="button" class="event-choice" data-next="3">Birthday</button>
+                    <button id="other" type="button" class="event-choice" data-next="4">Others</button>
+                </div>
+            </section>
+
+            <!-- Wedding Section -->
+            <section class="section" data-section="2">
+                <h2>Wedding Details</h2>
+>>>>>>> fc81be6625ae62f61fa076527b1a09983d3a0d0d
                 <div class="input-group">
                     <input type="text" id="name" placeholder="Your name">
                     <input type="text" id="partner-name" placeholder="Partner's name">
                 </div>
+<<<<<<< HEAD
             </section>
             <!--if birthday gi click of what kind of event, kani mu appear-->
             <section class = "birthday">
@@ -50,22 +74,182 @@
                     <button type="button">Beach</button>
                     <button type="button">Retro</button>
                     <input type="text" id="theme" placeholder="Others">
+=======
+                <button type="button" data-back="1">Back</button>
+                <button type="button" data-next="5">Continue</button>
+            </section>
+
+            <!-- Birthday Section -->
+            <section class="section" data-section="3">
+                <h2>Birthday Details</h2>
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Name of celebrant">
                 </div>
-            </div>
-            <div class="budget">
+                <button type="button" data-back="1">Back</button>
+                <button type="button" data-next="5">Continue</button>
+            </section>
+
+            <!-- Others Section -->
+            <section class="section" data-section="4">
+                <h2>Other Event Details</h2>
+                <div class="input-group">
+                    <input type="text" id="name" placeholder="Your name">
+                </div>
+                <button type="button" data-back="1">Back</button>
+                <button type="button" data-next="5">Continue</button>
+            </section>
+
+            <!-- Theme Section -->
+            <section class="section" data-section="5">
+                <h2>Theme</h2>
+                <p>Have you decided what theme your event will be?</p>
+                <div class="style-buttons">
+                    <button type="button" class="theme-btn">Classic</button>
+                    <button type="button" class="theme-btn">Modern</button>
+                    <button type="button" class="theme-btn">Artsy</button>
+                    <button type="button" class="theme-btn">Simple</button>
+                    <button type="button" class="theme-btn">Bohemian</button>
+                    <button type="button" class="theme-btn">Garden</button>
+                    <button type="button" class="theme-btn">Beach</button>
+                    <button type="button" class="theme-btn">Retro</button>
+                    <input type="text" id="theme" placeholder="Others (Please specify)">
+>>>>>>> fc81be6625ae62f61fa076527b1a09983d3a0d0d
+                </div>
+                <button type="button" data-back="2">Back</button>
+                <button type="button" data-next="6">Continue</button>
+            </section>
+            
+
+            <!-- Budget Section -->
+            <section class="section" data-section="6">
                 <h2>Budget</h2>
-                <p>What is your wedding budget?</p>
+                <p>What is your event budget?</p>
                 <div class="budget-options">
+<<<<<<< HEAD
                     <button type="button">₱ >10K</button>
                     <button type="button">₱ 10-25K</button>
                     <button type="button">₱ 25-50K</button>
                     <button type="button">₱ 50K+</button>
+=======
+                    <button type="button" data-next="7">₱ >10K</button>
+                    <button type="button" data-next="7">₱ 10-25K</button>
+                    <button type="button" data-next="7">₱ 25-50K</button>
+                    <button type="button" data-next="7">₱ 50K+</button>
+>>>>>>> fc81be6625ae62f61fa076527b1a09983d3a0d0d
                 </div>
-            </div>
-            <button type="submit" class="submit-btn">Continue</button>
+                <button type="button" data-back="5">Back</button>
+            </section>
+
+            <!-- Date Section -->
+            <section class="section" data-section="7">
+                <h1>When?</h1>
+                <p>Do you have a specific date in mind or are you flexible?</p>
+                <div class="date">
+                    <button type="button" data-next="8">Specific date</button>
+                    <button type="button" data-next="9">I'm flexible</button>
+                </div>
+                <button type="button" data-back="6">Back</button>
+            </section>
+
+            <!-- Specific Date Calendar Section -->
+            <section class="section" data-section="8">
+                <h1>Which date are you considering?</h1>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <span class="arrow">&#x2190;</span>
+                        <span class="month" id="monthYear">May 2025</span>
+                        <span class="arrow">&#x2192;</span>
+                    </div>
+                    <div class="days weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days" id="calendarDays">
+                        <!-- Days of the month will go here -->
+                    </div>
+                    <button type="button" data-back="7">Back</button>
+                    <button type="button" data-next="10">Continue</button>
+                </div>
+            </section>
+
+            <!-- Flexible Date Section -->
+            <section class="section" data-section="9">
+                <h1>Which month are you considering?</h1>
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <span class="arrow">&#x2190;</span>
+                        <span id="currentYear">2024</span>
+                        <span class="arrow">&#x2192;</span>
+                    </div>
+                    <div class="months-container" id="monthsGrid">
+                        <!-- Month elements will be inserted here dynamically -->
+                    </div>
+                    <button type="button" data-back="7">Back</button>
+                    <button type="button" data-next="10">Continue</button>
+                </div>
+            </section>
+
+            <!-- Guest Count Section -->
+            <section class="section" data-section="10">
+                <h1>How many guests are you inviting?</h1>
+                <button type="button" data-next="11">>50</button>
+                <button type="button" data-next="11">50-100</button>
+                <button type="button" data-next="11">100-200</button>
+                <button type="button" data-next="11">200+</button>
+                <button type="button" data-back="8">Back</button>
+            </section>
+
+            <!-- Venue Section -->
+            <section class="section" data-section="11">
+                <h1>Venue</h1>
+                <p>Have you already decided on your wedding venue?</p>
+                <button type="button" data-next="12">Yes</button>
+                <button type="button" data-next="12">No</button>
+                <div class="venue-info">
+                    <p>Please input the name of the chosen venue</p>
+                    <input type="text" id="venue-name" placeholder="Enter a location">
+                </div>
+                <p>Discuss the venue with the organizer in the meeting that will be set after filling out the necessary information.</p>
+                <button type="button" data-back="10">Back</button>
+            </section>
+
+            <!-- Agreements Section -->
+            <section class="section" data-section="12">
+                <h1>Any agreements already?</h1>
+                <p>Are there any services you have already agreed with vendors, friends, or family?</p>
+                <button type="button">Yes</button>
+                <button type="button">No</button>
+                <div class="items-container">
+                    <div><p>Venue</p></div>
+                    <div><p>Officiant</p></div>
+                    <div><p>Music</p></div>
+                    <div><p>Photographer</p></div>
+                    <div><p>Hair and Make-up</p></div>
+                    <div><p>Invitations and Handcrafts</p></div>
+                    <div><p>Flowers and Decorations</p></div>
+                </div>
+                <button type="button" data-back="11">Back</button>
+                <button type="button" data-next="13">Continue</button>
+            </section>
+
+            <!-- Additional Details Section -->
+            <section class="section" data-section="13">
+                <h1>Any other details the organizer should know?</h1>
+                <p>Write here ideas and thoughts about how you see your ideal event. Every little detail helps us better understand your vision and thus send you more thoughtful quotes, which reduces the time and energy spent on planning and communication.</p>
+                <input type="text" id="extra-details" placeholder="Share your ideas.">
+                <button type="button" data-back="12">Back</button>
+                <button type="submit" class="submit-btn">Submit</button>
+            </section>
+
         </form>
     </div>
 
+<<<<<<< HEAD
     <div>
         <form>
             <h1>When?</h1>
@@ -454,5 +638,10 @@
             <button type="submit" class="submit-btn">Continue</button>
         </form>
     </div>
+=======
+    <!-- Link to your separate JavaScript file -->
+    <script src="pagination.js"></script>
+    <script src="eventActions.js"></script>
+>>>>>>> fc81be6625ae62f61fa076527b1a09983d3a0d0d
 </body>
 </html>

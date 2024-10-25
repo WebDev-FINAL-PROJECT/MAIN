@@ -1,61 +1,239 @@
 /* General Styles */
-body {
-    font-family: 'Newsreader', sans-serif;
-    background-color: #fff;
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: 'Newsreader', sans-serif;
+}
+
+body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #fff;
 }
 
 .container {
     width: 100%;
-    max-width: 700px;
-    margin: 50px auto;
-    padding: 20px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
+/* Form and Section Styles */
 form {
-    display: flex;
-    flex-direction: column;
+    width: 100%;
 }
 
-.input-group {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
+section {
+    display: none;
 }
 
-input[type="text"] {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 48%;
+section.active {
+    display: block;
 }
 
-.wedding-style, .budget {
-    margin-bottom: 20px;
+h1, h2 {
+    color: #6e4c7c;
+    font-weight: 400;
+    margin-bottom: 1rem;
 }
 
-.style-buttons button, .budget-options button {
+p {
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+/* Button Styles */
+button {
     background-color: #6e4c7c;
     color: white;
     border: none;
     padding: 10px 20px;
-    margin-right: 10px;
+    font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
+    margin: 5px;
 }
 
-.style-buttons button:last-child, .budget-options button:last-child {
-    margin-right: 0;
+button:hover {
+    background-color: #5d3a63;
 }
 
+input[type="text"] {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: #6e4c7c;
+    background-color: #f9f9f9;
+}
+
+input[type="text"]::placeholder {
+    color: #aaa;
+}
+
+/* Event Type and Style Buttons */
+.event-kind, .style-buttons, .budget-options, .date, .items-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.event-kind button, .style-buttons button, .budget-options button, .date button {
+    flex: 1;
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    background-color: #f4f1f7;
+    color: #6e4c7c;
+    border: 1px solid #ddd;
+}
+
+.event-kind button:hover, .style-buttons button:hover, .budget-options button:hover, .date button:hover {
+    background-color: #6e4c7c;
+    color: #fff;
+}
+
+/* Calendar Styles */
+.calendar-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.arrow {
+    font-size: 20px;
+    cursor: pointer;
+    color: #6e4c7c;
+}
+
+.month {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding-top: 10px;
+}
+
+.days div {
+    padding: 10px;
+    background-color: #f4f1f7;
+    border-radius: 5px;
+    color: #6e4c7c;
+}
+
+.days .weekdays div {
+    color: gray;
+    font-weight: bold;
+}
+
+/* Additional Section Styles */
+.venue-info, .items-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding-top: 15px;
+}
+
+/* Submit Button */
 .submit-btn {
     background-color: #6e4c7c;
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 24px;
     font-size: 1rem;
-    cursor: pointer;
     border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 200px;
+    text-align: center;
 }
+
+.submit-btn:hover {
+    background-color: #5d3a63;
+}
+
+/* Progress Bar Container */
+.progress-container {
+    width: 100%;
+    height: 4px;
+    background-color: #e0e0e0;
+    border-radius: 2px;
+    position: relative;
+    margin: 20px 0;
+}
+
+/* Active Segment of the Progress Bar */
+.progress-bar {
+    height: 4px;
+    background-color: #f54d98; /* The active color of the bar */
+    border-radius: 2px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    transition: width 0.3s ease;
+}
+
+/* Progress Bar Segments */
+.progress-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        transparent calc(20% - 2px),
+        #e0e0e0 calc(20% - 2px),
+        #e0e0e0 20%,
+        transparent 20%,
+        transparent calc(40% - 2px),
+        #e0e0e0 calc(40% - 2px),
+        #e0e0e0 40%,
+        transparent 40%,
+        transparent calc(60% - 2px),
+        #e0e0e0 calc(60% - 2px),
+        #e0e0e0 60%,
+        transparent 60%,
+        transparent calc(80% - 2px),
+        #e0e0e0 calc(80% - 2px),
+        #e0e0e0 80%,
+        transparent 80%,
+        transparent calc(100% - 2px),
+        #e0e0e0 calc(100% - 2px),
+        #e0e0e0 100%
+    );
+    z-index: 0;
+    border-radius: 2px;
+}
+/* Highlight selected buttons */
+.theme-btn.selected {
+    background-color: #6e4c7c;
+    color: #fff;
+}
+
+
