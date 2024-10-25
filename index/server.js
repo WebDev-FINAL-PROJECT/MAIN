@@ -53,7 +53,7 @@ app.post('/login', async (req, res) => {
         if (data.length === 0) {
             res.status(401).json({ message: 'Login failed: User not found or password incorrect' });
         } else {
-            res.json({ message: 'Login successful', user: data[0], redirect: '/dashboard.html' }); // Include redirect URL in the successful login response
+            res.json({ message: 'Login successful', user: data[0], redirect: '/start.html' }); // Include redirect URL in the successful login response
         }
     } catch (err) {
         console.error('Error logging in:', err.message);
