@@ -133,6 +133,8 @@ main {
     font-size: 1.2rem;
     margin-bottom: 20px;
     color: #555;
+    text-align: justify; 
+    line-height: 1.8; 
 }
 
 .about button {
@@ -174,6 +176,8 @@ main {
     font-size: 1.2rem;
     color: #555;
     margin-bottom: 40px;
+    text-align: justify; /* Justify text in the Reviews section */
+    line-height: 1.8; /* Adjust line spacing */
 }
 
 .rev.container {
@@ -196,6 +200,13 @@ main {
     justify-content: center;
     align-items: center;
     background-color: #fff;
+}
+.contacts h2 {
+    font-size: 2rem;
+    margin-left: 20px;
+    color: #6e4c7c;
+    text-align: center; /* Center the text */
+    line-height: 1.4; /* Adjust line spacing */
 }
 
 #smaller-img {
