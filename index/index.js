@@ -29,4 +29,32 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Failed to sign up.');
         });
     });
+    // index.js
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Login successful') {
+                alert(data.message);
+                // Store client name in sessionStorage
+                sessionStorage.setItem('clientName', data.user.client_name);
+                window.location.href = '/start.html'; // Redirects to dashboard page
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Login error:', error);
+            alert('Failed to log in');
+        });
+    });
+
 });

@@ -1,4 +1,4 @@
-
+//signup.js
 document.addEventListener('DOMContentLoaded', function() {
     const signupForm = document.getElementById('signup-form');
     signupForm.addEventListener('submit', async function(event) {
@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const result = await response.json();
             if (response.ok) {
-                alert('Signup successful!');
+                alert('Signup successful! Please log in.');
+                closeSignupModal(); // Close the signup modal
+                openLoginModal(); // Open the login modal
             } else {
                 alert('Signup failed: ' + result.error);
             }
@@ -24,6 +26,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
     loginForm.addEventListener('submit', function(event) {
@@ -40,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.message === 'Login successful') {
                 alert(data.message);
-                window.location.href = '/dashboard.html'; // Redirects to dashboard page
+                window.location.href = '/start.html'; // Redirects to dashboard page
             } else {
                 alert(data.message);
             }
@@ -51,5 +55,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+function closeSignupModal() {
+    const modal = document.getElementById('signupModal');
+    modal.style.display = 'none';
+}
+
+function openLoginModal() {
+    const modal = document.getElementById('loginModal');
+    modal.style.display = 'block';
+}
+
+
 
 

@@ -1,3 +1,4 @@
+//pagination.js
 document.addEventListener("DOMContentLoaded", function () {
     // Smooth scroll function
     function smoothScroll(target) {
@@ -125,6 +126,105 @@ document.addEventListener('DOMContentLoaded', function() {
         else section.style.display = 'none';
     });
 });
+//Start.html
+document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll(".section");
+    let currentSection = 1;
 
+    function showSection(sectionNumber) {
+        sections.forEach((section) => {
+            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
+        });
+    }
+
+    document.querySelectorAll("[data-next]").forEach((button) => {
+        button.addEventListener("click", function () {
+            const nextSection = this.getAttribute("data-next");
+            currentSection = nextSection;
+            showSection(currentSection);
+        });
+    });
+
+    // Show the first section initially
+    showSection(currentSection);
+});
+
+// pagination.js
+document.addEventListener("DOMContentLoaded", function () {
+    const sections = document.querySelectorAll(".section");
+    let currentSection = 1;
+
+    // Function to show the correct section
+    function showSection(sectionNumber) {
+        sections.forEach((section) => {
+            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
+        });
+    }
+
+    // Function to update the progress bar
+    function updateProgress(sectionNumber) {
+        const progressBar = document.getElementById("progressBar");
+        const totalSections = sections.length;
+        const progressWidth = (sectionNumber / totalSections) * 100;
+        progressBar.style.width = `${progressWidth}%`;
+    }
+
+    // Add event listeners to Next buttons
+    document.querySelectorAll("[data-next]").forEach((button) => {
+        button.addEventListener("click", function () {
+            const nextSection = parseInt(this.getAttribute("data-next"), 10);
+            currentSection = nextSection;
+            showSection(currentSection);
+            updateProgress(currentSection);
+        });
+    });
+
+    // Add event listeners to Back buttons
+    document.querySelectorAll("[data-back]").forEach((button) => {
+        button.addEventListener("click", function () {
+            const previousSection = parseInt(this.getAttribute("data-back"), 10);
+            currentSection = previousSection;
+            showSection(currentSection);
+            updateProgress(currentSection);
+        });
+    });
+
+    // Show the first section initially
+    showSection(currentSection);
+    updateProgress(currentSection);
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const themeButtons = document.querySelectorAll('.theme-btn');
+    const otherInput = document.getElementById('theme');
+    let selectedThemes = [];
+
+    themeButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Toggle the selected class
+            this.classList.toggle('selected');
+
+            const theme = this.textContent.trim();
+            
+            // Add or remove the theme from the selectedThemes array
+            if (selectedThemes.includes(theme)) {
+                selectedThemes = selectedThemes.filter(t => t !== theme);
+            } else {
+                selectedThemes.push(theme);
+            }
+        });
+    });
+
+    document.querySelector('[data-next="6"]').addEventListener('click', function () {
+        const otherTheme = otherInput.value.trim();
+
+        if (otherTheme) {
+            selectedThemes.push(otherTheme);
+        }
+
+        console.log("Selected Themes:", selectedThemes);
+        // You can store or send the selectedThemes as needed before continuing to the next section
+    });
+});
 
 
