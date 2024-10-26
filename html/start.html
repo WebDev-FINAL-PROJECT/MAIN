@@ -156,6 +156,7 @@
             <!-- Venue Section -->
             <section class="section" data-section="11">
                 <h1>Venue</h1>
+<<<<<<< HEAD
                 <p>Have you already decided on your wedding venue?</p>
                 <button type="button" id="venueYesButton">Yes</button>
                 <button type="button" id="venueNoButton" data-next="12">No</button>
@@ -166,6 +167,19 @@
                     <input type="text" id="venue-name" placeholder="Enter a location">
                 </div>
             
+=======
+                <p>Have you already decided on your venue?</p>
+                <button type="button" data-next="12">Yes</button>
+                <button type="button" data-next="12">No</button>
+
+                <!--if yes gituplok sa user kani mu appear-->
+                <div class="venue-info">
+                    <p>Please input the name of the chosen venue</p>
+                    <input type="text" id="venue-name" placeholder="Enter a location">
+                </div>
+
+                <!--if user chose no, kani-->
+>>>>>>> c885abb639c7c80cb0890699ad6fa6291bb5ccde
                 <p>Discuss the venue with the organizer in the meeting that will be set after filling out the necessary information.</p>
                 <button type="button" data-back="10">Back</button>
                 <button type="button" data-next="12">Continue</button>
@@ -178,11 +192,19 @@
             <section class="section" data-section="12">
                 <h1>Any agreements already?</h1>
                 <p>Are there any services you have already agreed with vendors, friends, or family?</p>
+<<<<<<< HEAD
                 <button type="button" id="yesButton">Yes</button>
                 <button type="button" id="noButton" data-next="13">No</button>
                 
                 <!-- Items container initially hidden -->
                 <div class="items-container" style="display: none;">
+=======
+                <button type="button">Yes</button>
+                <button type="button">No</button>
+
+                <!--if yes, kani. If no, walay mahitabo mag click sila ng continue button-->
+                <div class="items-container">
+>>>>>>> c885abb639c7c80cb0890699ad6fa6291bb5ccde
                     <div><p>Venue</p></div>
                     <div><p>Officiant</p></div>
                     <div><p>Music</p></div>
