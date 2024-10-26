@@ -236,4 +236,22 @@ input[type="text"]::placeholder {
     color: #fff;
 }
 
+.day {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.day:hover {
+    background-color: #e0e0e0;
+}
+
+.month {
+    padding: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.month:hover {
+    background-color: #e0e0e0;
+}
 

@@ -84,6 +84,82 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    // Elements for navigating the calendar
+    const monthYearElement = document.getElementById("monthYear");
+    const calendarDaysElement = document.getElementById("calendarDays");
+    const monthsGridElement = document.getElementById("monthsGrid");
+    const currentYear = 2024; // Fixed year 2024
+    let selectedMonth = new Date().getMonth();
+    let selectedDate;
+
+    // Month names for display
+    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+    // Function to render the days in the selected month
+    function renderCalendar() {
+        monthYearElement.textContent = `${monthNames[selectedMonth]} ${currentYear}`;
+        calendarDaysElement.innerHTML = "";
+
+        // Get the first day and number of days in the month
+        const firstDay = new Date(currentYear, selectedMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, selectedMonth + 1, 0).getDate();
+
+        // Add empty divs for the days before the first day of the month
+        for (let i = 0; i < firstDay; i++) {
+            calendarDaysElement.appendChild(document.createElement("div"));
+        }
+
+        // Add actual days of the month
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dayElement = document.createElement("div");
+            dayElement.textContent = day;
+            dayElement.classList.add("day");
+            dayElement.addEventListener("click", () => selectDate(day));
+            calendarDaysElement.appendChild(dayElement);
+        }
+    }
+
+    // Function to handle selecting a specific date
+    function selectDate(day) {
+        selectedDate = new Date(currentYear, selectedMonth, day);
+        alert(`Selected date: ${selectedDate.toDateString()}`);
+    }
+
+    // Month navigation event listeners
+    document.querySelectorAll(".calendar-header .arrow")[0].addEventListener("click", () => changeMonth(-1));
+    document.querySelectorAll(".calendar-header .arrow")[1].addEventListener("click", () => changeMonth(1));
+
+    function changeMonth(direction) {
+        selectedMonth += direction;
+        if (selectedMonth < 0) {
+            selectedMonth = 11; // Wrap around to December
+        } else if (selectedMonth > 11) {
+            selectedMonth = 0; // Wrap around to January
+        }
+        renderCalendar();
+    }
+
+    // Render the calendar on load
+    renderCalendar();
+
+    // Render the months for the flexible date section
+    function renderMonths() {
+        monthsGridElement.innerHTML = "";
+        monthNames.forEach((month, index) => {
+            const monthElement = document.createElement("div");
+            monthElement.textContent = month;
+            monthElement.classList.add("month");
+            monthElement.addEventListener("click", () => selectMonth(index));
+            monthsGridElement.appendChild(monthElement);
+        });
+    }
+
+    
+
+    // Render the flexible date section months on load
+    renderMonths();
+});
 
 
 

@@ -50,7 +50,7 @@
             <section class="section" data-section="4">
                 <h2>Other Event Details</h2>
                 <div class="input-group">
-                    <input type="text" id="name" placeholder="Your name">
+                    <input type="text" id="name" placeholder="Name of event">
                 </div>
                 <button type="button" data-back="1">Back</button>
                 <button type="button" data-next="5">Continue</button>
@@ -157,23 +157,32 @@
             <section class="section" data-section="11">
                 <h1>Venue</h1>
                 <p>Have you already decided on your wedding venue?</p>
-                <button type="button" data-next="12">Yes</button>
-                <button type="button" data-next="12">No</button>
-                <div class="venue-info">
+                <button type="button" id="venueYesButton">Yes</button>
+                <button type="button" id="venueNoButton" data-next="12">No</button>
+                
+                <!-- Venue info initially hidden -->
+                <div class="venue-info" style="display: none;">
                     <p>Please input the name of the chosen venue</p>
                     <input type="text" id="venue-name" placeholder="Enter a location">
                 </div>
+            
                 <p>Discuss the venue with the organizer in the meeting that will be set after filling out the necessary information.</p>
                 <button type="button" data-back="10">Back</button>
+                <button type="button" data-next="12">Continue</button>
             </section>
+            
 
-            <!-- Agreements Section -->
+            
+
+            <!-- Additional Details Section -->
             <section class="section" data-section="12">
                 <h1>Any agreements already?</h1>
                 <p>Are there any services you have already agreed with vendors, friends, or family?</p>
-                <button type="button">Yes</button>
-                <button type="button">No</button>
-                <div class="items-container">
+                <button type="button" id="yesButton">Yes</button>
+                <button type="button" id="noButton" data-next="13">No</button>
+                
+                <!-- Items container initially hidden -->
+                <div class="items-container" style="display: none;">
                     <div><p>Venue</p></div>
                     <div><p>Officiant</p></div>
                     <div><p>Music</p></div>
@@ -182,11 +191,11 @@
                     <div><p>Invitations and Handcrafts</p></div>
                     <div><p>Flowers and Decorations</p></div>
                 </div>
+            
                 <button type="button" data-back="11">Back</button>
                 <button type="button" data-next="13">Continue</button>
             </section>
 
-            <!-- Additional Details Section -->
             <section class="section" data-section="13">
                 <h1>Any other details the organizer should know?</h1>
                 <p>Write here ideas and thoughts about how you see your ideal event. Every little detail helps us better understand your vision and thus send you more thoughtful quotes, which reduces the time and energy spent on planning and communication.</p>
@@ -195,6 +204,7 @@
                 <button type="submit" class="submit-btn">Submit</button>
             </section>
 
+            
         </form>
     </div>
 

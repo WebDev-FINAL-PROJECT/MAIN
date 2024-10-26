@@ -226,5 +226,53 @@ document.addEventListener("DOMContentLoaded", function () {
         // You can store or send the selectedThemes as needed before continuing to the next section
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
+    const itemsContainer = document.querySelector(".items-container");
+    const continueButton = document.querySelector('button[data-next="13"]');
+
+    // Show items-container when "Yes" is clicked
+    yesButton.addEventListener("click", function () {
+        itemsContainer.style.display = "block";
+    });
+
+    // Hide items-container and go to next section when "No" is clicked
+    noButton.addEventListener("click", function () {
+        itemsContainer.style.display = "none";
+        showSection(13); // Jump directly to section 13
+    });
+
+    // Helper function to show a specific section by its data-section number
+    function showSection(sectionNumber) {
+        document.querySelectorAll(".section").forEach(section => {
+            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
+        });
+    }
+});
+document.addEventListener("DOMContentLoaded", function () {
+    const venueYesButton = document.getElementById("venueYesButton");
+    const venueNoButton = document.getElementById("venueNoButton");
+    const venueInfo = document.querySelector(".venue-info");
+
+    // Show venue-info when "Yes" is clicked
+    venueYesButton.addEventListener("click", function () {
+        venueInfo.style.display = "block";
+    });
+
+    // Hide venue-info and go to next section when "No" is clicked
+    venueNoButton.addEventListener("click", function () {
+        venueInfo.style.display = "none";
+        showSection(12); // Jump directly to section 12
+    });
+
+    // Helper function to show a specific section by its data-section number
+    function showSection(sectionNumber) {
+        document.querySelectorAll(".section").forEach(section => {
+            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
+        });
+    }
+});
+
 
 
