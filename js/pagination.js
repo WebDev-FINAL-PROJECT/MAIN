@@ -1,4 +1,4 @@
-//pagination.js
+//js/pagination.js
 document.addEventListener("DOMContentLoaded", function () {
     // Smooth scroll function
     function smoothScroll(target) {

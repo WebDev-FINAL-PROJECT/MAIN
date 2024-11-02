@@ -1,4 +1,4 @@
-// index.js
+// index/index.js
 document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('signup-form').addEventListener('submit', async function(event) {
         event.preventDefault();

@@ -14,8 +14,10 @@
     "@supabase/supabase-js": "^2.45.6",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
+    "express-session": "^1.18.1",
     "hbs": "^4.2.0",
-    "mongoose": "^8.7.1"
+    "mongoose": "^8.7.1",
+    "openssl": "^2.0.0"
   },
   "devDependencies": {
     "nodemon": "^3.1.7"

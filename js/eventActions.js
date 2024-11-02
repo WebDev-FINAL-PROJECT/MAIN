@@ -1,4 +1,4 @@
-//eventActions
+//js/eventActions
 document.getElementById('wedding').addEventListener('click', function() {
     sendEventChoice('Wedding');
 });
@@ -160,6 +160,25 @@ document.addEventListener("DOMContentLoaded", function () {
     // Render the flexible date section months on load
     renderMonths();
 });
+document.addEventListener('DOMContentLoaded', function() {
+    const eventButtons = document.querySelectorAll('.event-choice');
+    eventButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const chosenEvent = this.textContent; // Gets "Wedding", "Birthday", or "Others"
+            fetch('/submit-event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chosen_event: chosenEvent })
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Success or error message
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+});
+
 
 
 
