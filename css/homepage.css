@@ -404,4 +404,104 @@ footer h3 {
     text-decoration: underline;
 }
 
+/*responsiveness width less than 996*/
+@media (max-width: 996px) {
+    header {
+        flex-direction: row;
+        align-items: center;
+        padding: 1rem;
+    }
 
+    header nav {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    header nav a {
+        font-size: 1rem;
+    }
+
+    .home h1 {
+        font-size: 3rem;
+    }
+
+    .home p {
+        font-size: 1.2rem;
+    }
+
+    .home.container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img-home {
+        width: 80%;
+        max-width: 1000px;
+        height: auto;
+    }
+
+    .about {
+        flex-direction: column;
+        padding: 30px 10px;
+        text-align: center;
+    }
+
+    .main-contents {
+        padding: 0;
+    }
+
+    .about.container {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .img-about {
+        width: 80%;
+        max-width: 300px;
+        height: auto;
+        margin: 0 auto;
+    }
+
+    .reviews h2 {
+        font-size: 2rem;
+    }
+
+    .reviews p {
+        font-size: 1rem;
+    }
+
+    .rev.container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .img-rev {
+        width: 80%;
+        max-width: 1000px;
+        height: auto;
+        margin: 10px 0;
+    }
+
+    .modal-content {
+        width: 90%;
+        max-width: 500px;
+        padding: 15px;
+    }
+
+    footer h3 {
+        font-size: 1.5rem;
+    }
+
+    .contacts-foot {
+        flex-direction: row;
+        gap: 10px;
+    }
+}
+
+/*devices less than 430px kay di na mu shrink ang design, mag freeze na ang design*/
+@media (max-width: 430px) {
+    body {
+        min-width: 430px; 
+    }
+}
