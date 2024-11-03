@@ -14,17 +14,19 @@
         <div class="logo">
             <h1 class="logo-text">Colors.</h1>
         </div>
-        <nav class="nav-menu">
+        <button class="nav-hamburger" id="nav-hamburger">&#9776;</button> <!-- New hamburger for navbar -->
+        <nav class="nav-menu" id="nav-menu">
             <a href="#" class="nav-link">Home</a>
             <a href="#" class="nav-link">About</a>
             <a href="#" class="nav-link">Contact</a>
             <a href="#" class="nav-link">Reviews</a>
-            <button class="btn logout-btn">Logout</button> <!-- Added btn class -->
+            <button class="btn logout-btn">Logout</button>
         </nav>
     </header>
 
     <main class="dashboard-main">
-        <aside class="sidebar">
+        <div class="overlay" id="overlay"></div> <!-- Added overlay -->
+        <aside class="sidebar" id="sidebar">
             <ul class="sidebar-list">
                 <li><a href="#venue" class="sidebar-link">Venue</a></li>
                 <li><a href="#officiant" class="sidebar-link">Officiant</a></li>
@@ -37,10 +39,10 @@
             </ul>
         </aside>
 
-        
-
+        <!-- Ensure this structure for each section -->
         <section id="venue" class="venue content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for venues...">
                 <button class="btn search-btn">&#x1F50D;</button>
@@ -59,13 +61,13 @@
                         <h2 class="item-title">Add a venue</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="flowers" class="flowers content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for flowers...">
                 <button class="btn search-btn">&#x1F50D;</button>
@@ -84,13 +86,13 @@
                         <h2 class="item-title">Add flower and decorations</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="invitations" class="invitations content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for invites...">
                 <button class="btn search-btn">&#x1F50D;</button>
@@ -108,13 +110,13 @@
                         <h2 class="item-title">Add the number of attendees</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="makeup" class="makeup content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for make-up artists...">
                 <button class="btn search-btn">&#x1F50D;</button>
@@ -123,7 +125,7 @@
                 <div class="item">
                     <img src="https://via.placeholder.com/100" alt="Artist Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Hair and Make-up  Artist Name</h2>
+                        <h2 class="item-title">Hair and Make-up Artist Name</h2>
                         <p class="item-description">Details about the artist.</p>
                     </div>
                 </div>
@@ -133,13 +135,13 @@
                         <h2 class="item-title">Add a hair and make-up artist</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="music" class="music content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for band...">
                 <button class="btn search-btn">&#x1F50D;</button>
@@ -158,15 +160,15 @@
                         <h2 class="item-title">Add a music/band</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="officiant" class="officiant content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
-                <input type="text" class="search-input" placeholder="Search for officitant...">
+                <input type="text" class="search-input" placeholder="Search for officiant...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
             <div class="item-list">
@@ -183,20 +185,20 @@
                         <h2 class="item-title">Add an officiant</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="photographer" class="photographer content">
             <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
                 <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for photographer...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="photographer Image" class="item-image">
+                    <img src="https://via.placeholder.com/100" alt="Photographer Image" class="item-image">
                     <div class="item-details">
                         <h2 class="item-title">Photographer Name</h2>
                         <p class="item-description">Details about the photographer.</p>
@@ -208,12 +210,17 @@
                         <h2 class="item-title">Add a photographer</h2>
                     </div>
                 </div>
-                <!-- Add more items as needed -->
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="payment" class="payment content">
+            <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
+                <input type="text" class="search-input" placeholder="Search for photographer...">
+                <button class="btn search-btn">&#x1F50D;</button>
+            </div>
             <div class="item-list">
                 <div class="item">
                     <h2>Venue</h2>
@@ -259,6 +266,56 @@
             <button class="schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
     </main>
+
+    <script>
+        const hamburgerButtons = document.querySelectorAll('.hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+        const navHamburger = document.getElementById('nav-hamburger');
+        const navMenu = document.getElementById('nav-menu');
+
+        hamburgerButtons.forEach(hamburger => {
+            hamburger.addEventListener('click', () => {
+                sidebar.classList.toggle('active');
+                overlay.classList.toggle('active');
+            });
+        });
+
+        overlay.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+            navMenu.classList.remove('active');
+        });
+
+        // Close the sidebar when a link is clicked on small screens (1024px or less)
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.remove('active');
+                    overlay.classList.remove('active');
+                }
+            });
+        });
+
+        // Toggle nav menu for small screens (600px or less)
+        navHamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        });
+
+        // Ensure the sidebar and nav menu are hidden initially for mobile view
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 1024) {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+            if (window.innerWidth > 600) {
+                navMenu.classList.remove('active');
+                overlay.classList.remove('active');
+            }
+        });
+    </script>
     <script src="../pagination.js"></script>
 </body>
 </html>
