@@ -235,23 +235,150 @@ input[type="text"]::placeholder {
     background-color: #6e4c7c;
     color: #fff;
 }
-
-.day {
-    padding: 10px;
-    cursor: pointer;
+/* Normal state of the buttons */
+.budget-btn {
+    background-color: #f0f0f0; /* Light grey background */
+    color: black;
+    transition: background-color 0.3s ease; /* Smooth transition for color change */
 }
 
-.day:hover {
-    background-color: #e0e0e0;
+/* Hover state changes */
+.budget-btn:hover {
+    background-color: #ddd; /* Darker grey on hover */
+    color: black;
+}
+
+/* Selected state overrides */
+.selected {
+    background-color:  #6e4c7c; /* Green background for selected */
+    color: white;
+}
+/* Ensure selected state overrides hover by repeating the class if necessary */
+.budget-btn.selected, .budget-btn.selected:hover {
+    background-color:  #6e4c7c;/* Green background for selected and on hover */
+    color: white;
+}
+.hidden {
+    display: none;
+}
+
+#calendarSection {
+    padding: 20px;
+    background-color: #f9f9f9; /* Light grey background */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Three months per row */
+    gap: 10px;
+    margin-bottom: 10px;
 }
 
 .month {
     padding: 10px;
-    cursor: pointer;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.day {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
     text-align: center;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: #fff; /* White background for days */
 }
 
-.month:hover {
-    background-color: #e0e0e0;
+.day:hover {
+    background-color: #eaeaea; /* Light hover effect */
 }
 
+.day.selected {
+    background-color: #ff8abc; /* Selected day background */
+    color: white;
+}
+
+#clearSelection {
+    padding: 5px 15px;
+    background-color: #eaeaea;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.months-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.month-option {
+    padding: 10px;
+    margin: 5px;
+    border: 1px solid pink; /* Adjust color as per your theme */
+    text-align: center;
+    width: 100px;
+    cursor: pointer;
+}
+
+.month-option.selected {
+    background-color: pink; /* Adjust color as per your theme */
+}
+
+.year-label {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+.year-nav {
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.budget-btn.selected {
+    background-color: #6e4c7c; /* Purple background */
+    color: white; /* White text */
+}
+
+.guest-btn.selected {
+    background-color: #6e4c7c; /* Dark purple background for selected */
+    color: white; /* White text */
+}
+.agreement-buttons button {
+    border: none;
+    background: none;
+    color: #FF69B4; /* Or any other color */
+    font-size: 1em;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.agreement-buttons button.selected {
+    background-color: #FF69B4;
+    color: white;
+}
+
+.service-btn {
+    display: inline-block;
+    width: 100px; /* Adjust size as needed */
+    height: 100px;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px solid #FF69B4; /* Pink border */
+    color: #FF69B4;
+    font-size: 0.9em;
+    background: #FFF;
+}
+
+.service-btn.selected {
+    color: white;
+    background-color: #FF69B4;
+}

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
         event.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
-
+    
         fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -44,9 +44,9 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             if (data.message === 'Login successful') {
                 alert(data.message);
-                // Store client name in sessionStorage
+                // Ensure client name is stored in session storage
                 sessionStorage.setItem('clientName', data.user.client_name);
-                window.location.href = '/start.html'; // Redirects to dashboard page
+                window.location.href = '/start.html'; // Redirects to the event form page
             } else {
                 alert(data.message);
             }
@@ -56,5 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Failed to log in');
         });
     });
+    
 
 });

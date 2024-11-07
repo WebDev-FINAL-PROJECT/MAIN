@@ -127,72 +127,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 //Start.html
-document.addEventListener("DOMContentLoaded", function () {
-    const sections = document.querySelectorAll(".section");
-    let currentSection = 1;
-
-    function showSection(sectionNumber) {
-        sections.forEach((section) => {
-            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
-        });
-    }
-
-    document.querySelectorAll("[data-next]").forEach((button) => {
-        button.addEventListener("click", function () {
-            const nextSection = this.getAttribute("data-next");
-            currentSection = nextSection;
-            showSection(currentSection);
-        });
-    });
-
-    // Show the first section initially
-    showSection(currentSection);
-});
 
 // pagination.js
-document.addEventListener("DOMContentLoaded", function () {
-    const sections = document.querySelectorAll(".section");
-    let currentSection = 1;
-
-    // Function to show the correct section
-    function showSection(sectionNumber) {
-        sections.forEach((section) => {
-            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
-        });
-    }
-
-    // Function to update the progress bar
-    function updateProgress(sectionNumber) {
-        const progressBar = document.getElementById("progressBar");
-        const totalSections = sections.length;
-        const progressWidth = (sectionNumber / totalSections) * 100;
-        progressBar.style.width = `${progressWidth}%`;
-    }
-
-    // Add event listeners to Next buttons
-    document.querySelectorAll("[data-next]").forEach((button) => {
-        button.addEventListener("click", function () {
-            const nextSection = parseInt(this.getAttribute("data-next"), 10);
-            currentSection = nextSection;
-            showSection(currentSection);
-            updateProgress(currentSection);
-        });
-    });
-
-    // Add event listeners to Back buttons
-    document.querySelectorAll("[data-back]").forEach((button) => {
-        button.addEventListener("click", function () {
-            const previousSection = parseInt(this.getAttribute("data-back"), 10);
-            currentSection = previousSection;
-            showSection(currentSection);
-            updateProgress(currentSection);
-        });
-    });
-
-    // Show the first section initially
-    showSection(currentSection);
-    updateProgress(currentSection);
-});
 
 document.addEventListener("DOMContentLoaded", function () {
     const themeButtons = document.querySelectorAll('.theme-btn');
@@ -226,53 +162,3 @@ document.addEventListener("DOMContentLoaded", function () {
         // You can store or send the selectedThemes as needed before continuing to the next section
     });
 });
-document.addEventListener("DOMContentLoaded", function () {
-    const yesButton = document.getElementById("yesButton");
-    const noButton = document.getElementById("noButton");
-    const itemsContainer = document.querySelector(".items-container");
-    const continueButton = document.querySelector('button[data-next="13"]');
-
-    // Show items-container when "Yes" is clicked
-    yesButton.addEventListener("click", function () {
-        itemsContainer.style.display = "block";
-    });
-
-    // Hide items-container and go to next section when "No" is clicked
-    noButton.addEventListener("click", function () {
-        itemsContainer.style.display = "none";
-        showSection(13); // Jump directly to section 13
-    });
-
-    // Helper function to show a specific section by its data-section number
-    function showSection(sectionNumber) {
-        document.querySelectorAll(".section").forEach(section => {
-            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
-        });
-    }
-});
-document.addEventListener("DOMContentLoaded", function () {
-    const venueYesButton = document.getElementById("venueYesButton");
-    const venueNoButton = document.getElementById("venueNoButton");
-    const venueInfo = document.querySelector(".venue-info");
-
-    // Show venue-info when "Yes" is clicked
-    venueYesButton.addEventListener("click", function () {
-        venueInfo.style.display = "block";
-    });
-
-    // Hide venue-info and go to next section when "No" is clicked
-    venueNoButton.addEventListener("click", function () {
-        venueInfo.style.display = "none";
-        showSection(12); // Jump directly to section 12
-    });
-
-    // Helper function to show a specific section by its data-section number
-    function showSection(sectionNumber) {
-        document.querySelectorAll(".section").forEach(section => {
-            section.style.display = section.dataset.section == sectionNumber ? "block" : "none";
-        });
-    }
-});
-
-
-

@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
-        })
+        })  
         .then(response => response.json())
         .then(data => {
             if (data.message === 'Login successful') {

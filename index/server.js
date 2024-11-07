@@ -9,6 +9,7 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
+app.use(express.json()); // For parsing application/json
 
 app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
 app.use(express.static(path.join(__dirname, '..', 'css')));
@@ -33,30 +34,6 @@ function ensureLoggedIn(req, res, next) {
     }
     next();
 }
-
-app.post('/submit-event', ensureLoggedIn, async (req, res) => {
-    const { chosen_event } = req.body;
-    const client_name = req.session.user.client_name;
-
-    let { data: updatedData, error: updateError } = await supabase
-        .from('user_choices')
-        .update({ chosen_event: chosen_event })
-        .match({ client_name: client_name });
-
-    if (updateError || !updatedData || updatedData.length === 0) {
-        let { data: insertedData, error: insertError } = await supabase
-            .from('user_choices')
-            .insert([{ client_name: client_name, chosen_event: chosen_event }]);
-
-        if (insertError) {
-            console.error('Error inserting data:', insertError.message);
-            return res.status(400).json({ error: insertError.message, message: "Failed to insert new event choice." });
-        }
-        res.json({ message: 'New event choice successfully recorded', data: insertedData });
-    } else {
-        res.json({ message: 'Event choice successfully updated', data: updatedData });
-    }
-});
 
 
 app.get('/dashboard.html', (req, res) => {
@@ -115,40 +92,78 @@ app.post('/login', async (req, res) => {
         .select('*')
         .match({ email: email, Password: password });
 
+
     if (error || data.length === 0) {
         res.status(401).json({ message: 'Login failed: User not found or password incorrect' });
-    } else {
+    } 
+    else {
         req.session.user = { client_name: data[0].FName + ' ' + data[0].LName };
         res.json({ message: 'Login successful', user: data[0], redirect: '/dashboard.html' });
     }
 });
+app.post('/submit-event', async (req, res) => {
+    const { client_name, chosen_event, celebrant_name, theme } = req.body;
 
-app.post('/submit-event-choice', async (req, res) => {
-    const { user_id, chosen_event } = req.body;
-    
-    // Attempt to update an existing record
-    const { data, error } = await supabase
-        .from('user_choices')
-        .update({ chosen_event: chosen_event })
-        .match({ user_id: user_id }); // Match the user_id column
+    try {
+        console.log("Received data:", req.body); // Log the received data
 
-    if (error) {
-        console.error('Error updating data:', error.message);
-        return res.status(400).json({ error: error.message });
+        // First, check if a row already exists for this client_name
+        const { data: existingData, error: selectError } = await supabase
+            .from('user_choice')
+            .select('*')
+            .eq('client_name', client_name)
+            .single(); // Fetch a single row with this client_name
+
+        if (selectError && selectError.code !== 'PGRST116') {
+            // Handle errors other than "row not found"
+            throw selectError;
+        }
+
+        if (existingData) {
+            // If a row exists for this client_name, only update if fields are null
+            let updateData = {};
+
+            if (!existingData.chosen_event && chosen_event) updateData.chosen_event = chosen_event;
+            if (!existingData.celebrant_name && celebrant_name) updateData.celebrant_name = celebrant_name;
+            if (!existingData.theme && theme) updateData.theme = theme;
+
+            if (Object.keys(updateData).length === 0) {
+                // No fields need updating; skip the update
+                return res.json({ message: 'No updates needed; all fields are already set.' });
+            }
+
+            // Update the existing row with only the fields that are still null
+            const { data: updatedData, error: updateError } = await supabase
+                .from('user_choice')
+                .update(updateData)
+                .eq('client_name', client_name);
+
+            if (updateError) throw updateError;
+
+            console.log("Updated existing row:", updatedData);
+            res.json({ message: 'Event details updated successfully!', data: updatedData });
+        } else {
+            // If no row exists, insert a new row
+            const { data: insertedData, error: insertError } = await supabase
+                .from('user_choice')
+                .insert([{ client_name, chosen_event, celebrant_name, theme }]);
+
+            if (insertError) throw insertError;
+
+            console.log("Inserted new row:", insertedData);
+            res.json({ message: 'Event details saved successfully!', data: insertedData });
+        }
+    } catch (error) {
+        console.error('Error saving event details:', error.message);
+        res.status(400).json({ error: error.message });
     }
-
-    res.json({ message: 'Event choice updated successfully', data });
 });
-function ensureLoggedIn(req, res, next) {
-    if (!req.session.user) {
-        res.status(401).json({ error: 'Unauthorized: No session available' });
-    } else {
-        next();
-    }
-}
 
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+
+
