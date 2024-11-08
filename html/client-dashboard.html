@@ -16,10 +16,6 @@
         </div>
         <button class="nav-hamburger" id="nav-hamburger">&#9776;</button> <!-- New hamburger for navbar -->
         <nav class="nav-menu" id="nav-menu">
-            <a href="#" class="nav-link">Home</a>
-            <a href="#" class="nav-link">About</a>
-            <a href="#" class="nav-link">Contact</a>
-            <a href="#" class="nav-link">Reviews</a>
             <button class="btn logout-btn">Logout</button>
         </nav>
     </header>
@@ -229,7 +225,28 @@
             </div>
             <button class="schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
+        <button id="editEventButton">Edit Event</button>
     </main>
+
+    <div class="container" id="bookingFormContainer">
+        <h2>Booking Form</h2>
+        <form action="/submit_booking" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
+    
+            <label for="date">Booking Date</label>
+            <input type="date" id="date" name="date" required>
+    
+            <label for="time">Booking Time</label>
+            <input type="time" id="time" name="time" required>
+    
+            <label for="description">Purpose of Booking</label>
+            <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
+    
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    
 
     <script>
         const hamburgerButtons = document.querySelectorAll('.hamburger');
@@ -279,7 +296,11 @@
                 overlay.classList.remove('active');
             }
         });
+        
     </script>
     <script src="../pagination.js"></script>
+    <script>
+        
+    </script>
 </body>
 </html>

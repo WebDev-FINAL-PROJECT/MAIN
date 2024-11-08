@@ -15,14 +15,70 @@
             <h1 class="logo-text">Colors.</h1>
         </div>
         <button class="nav-hamburger" id="nav-hamburger">&#9776;</button> <!-- New hamburger for navbar -->
-        <nav class="nav-menu" id="nav-menu">
-            <a href="#" class="nav-link">Home</a>
-            <a href="#" class="nav-link">About</a>
-            <a href="#" class="nav-link">Contact</a>
-            <a href="#" class="nav-link">Reviews</a>
+        <nav class="nav-menu" id="nav-menu">`
             <button class="btn logout-btn">Logout</button>
         </nav>
     </header>
+
+    <section class="homepage-admin-dashboard">
+        <aside class="sidebar" id="sidebar">
+            <ul class="sidebar-list">
+                <li><a href="#clients" class="sidebar-link">Clients</a></li>
+                <li><a href="#meetings" class="sidebar-link">Calendar meetings</a></li>
+            </ul>
+        </aside>
+
+        <section id="clients" class="client content">
+            <div class="search-bar">
+                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
+                <input type="text" class="search-input" placeholder="Search for clients...">
+                <button class="btn search-btn">&#x1F50D;</button>
+            </div>
+            <div class="item-list">
+                <div class="item">
+                    <div class="item-details">
+                        <h2 class="item-title">Client 1 Name</h2>
+                        <p class="item-description">Type of event dri. </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="item-details">
+                        <h2 class="item-title">Client 2 Name</h2>
+                        <p class="item-description">Type of event dri. </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="item-details">
+                        <h2 class="item-title">Client 3 Name</h2>
+                        <p class="item-description">Type of event dri. </p>
+                    </div>
+                </div>
+            </div>   
+        </section>
+
+        <section id="meetings" class="meetings content">
+            <div class="item-list">
+                <div class="item">
+                    <div class="item-details">
+                        <h2 class="item-title name">Client 1 Name</h2>
+                        <p class="item-description date">Date format MM/DD/YYYY</p>
+                        <p class="item-description time">Time format 00:00 </p>
+                    </div>
+                </div>
+                <div class="item">
+                    <h2 class="item-title name">Client 1 Name</h2>
+                        <p class="item-description date">Date format MM/DD/YYYY</p>
+                        <p class="item-description time">Time format 00:00 </p>
+                </div>
+                <div class="item">
+                    <h2 class="item-title name">Client 1 Name</h2>
+                        <p class="item-description date">Date format MM/DD/YYYY</p>
+                        <p class="item-description time">Time format 00:00 </p>
+                </div>
+            </div> 
+        </section>
+    </section>
 
     <main class="dashboard-main">
         <div class="overlay" id="overlay"></div> <!-- Added overlay -->
@@ -62,7 +118,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="flowers" class="flowers content">
@@ -87,7 +142,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="invitations" class="invitations content">
@@ -111,7 +165,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="makeup" class="makeup content">
@@ -136,7 +189,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="music" class="music content">
@@ -161,7 +213,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="officiant" class="officiant content">
@@ -186,7 +237,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="photographer" class="photographer content">
@@ -211,7 +261,6 @@
                     </div>
                 </div>
             </div>            
-            <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
 
         <section id="payment" class="payment content">
@@ -263,7 +312,7 @@
                 </div>
                 <br>
             </div>
-            <button class="schedule-btn">Schedule Meeting with the Organizer</button>
+            <button class="schedule-btn">Schedule Meeting with the client.</button>
         </section>
     </main>
 
