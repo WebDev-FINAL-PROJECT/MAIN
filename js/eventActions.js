@@ -66,6 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const month = document.createElement('button');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
+            month.type = 'button'; // Prevent form submission
 
             // Disable month options if they have already passed in the current year
             if (year === currentYear && i < currentMonth) {
@@ -77,6 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
             monthsGrid.appendChild(month);
         }
+
 
         // Navigation buttons for year change
         const prevYear = document.createElement('button');
