@@ -128,13 +128,24 @@ nav a {
     transition: background-color 0.3s ease;
 }
 
-.back-btn, .search-btn {
-    background-color: transparent;
+.back-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    background-color: #6e4c7c;
+    color: white;
     border: none;
-    font-size: 1rem;
-    color: #6e4c7c;
+    border-radius: 5px;
+    text-align: left;
     cursor: pointer;
+    font-size: 1rem;
 }
+
+.back-btn:hover {
+    background-color: #5a3a62;
+}
+
 
 /* Schedule Button */
 .schedule-btn {
@@ -253,50 +264,165 @@ nav a {
     background-color: #45a049;
 }
 
-/* Updated Layout for Homepage Admin Dashboard */
+/* Main Container */
 .homepage-admin-dashboard {
     display: flex;
-    flex: 1;
+    height: calc(100vh - 60px); /* Adjust height considering navbar height (e.g., 60px) */
     background-color: #f9f9f9;
-    padding: 20px;
+    margin-top: 60px; /* Space for the navbar */
 }
 
-.homepage-admin-dashboard .sidebar {
+/* Sidebar Styling */
+.sidebar {
     width: 250px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-right: 1px solid #ddd;
-}
-
-.client.content,
-.meetings.content {
-    flex: 1;
-    margin-left: 20px;
+    height: calc(100vh - 0px); /* Adjust height to not overlap with the navbar */
     padding: 20px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 71px; /* Start below the navbar */
+    left: 0;
+    bottom: 0;
+    flex-shrink: 0;
 }
 
-/* Adjust Item List Layout */
-.client .item-list,
-.meetings .item-list {
+/* Sidebar Links */
+.sidebar-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 10px 15px;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.sidebar-link:hover {
+    background-color: #eaeaea;
+}
+
+/* Main Content Area */
+.main-content {
+    margin-left: 250px; /* Leave space for the sidebar */
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-y: auto;
+    margin-top: 60px; /* Ensure main content aligns below the navbar */
+}
+
+/* Clients Section Styling */
+.client.content {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 40px;
+}
+
+/* Search Bar Styling */
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.search-input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.btn {
+    padding: 10px;
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Item List Styling */
+.item-list {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    max-width: 600px;
-    margin: 0 auto;
 }
 
-/* Styling for Individual Items */
-.client .item,
-.meetings .item {
+/* Individual Item Card */
+.item {
+    display: flex;
+    align-items: flex-start;
+    padding: 15px;
     background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 15px;
+    border-radius: 10px;
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+.item-details {
+    flex: 1;
+}
+
+.item-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px; /* Add space below the title */
+}
+
+.item-description {
+    color: #666;
+    margin: 0; /* Ensure no extra space around the description */
+    font-size: 0.9rem;
+}
+
+
+/* Meetings Section Styling */
+.meetings.content {
+    width: 100%;
+    max-width: 800px;
+}
+
+/* Hamburger Button */
+.hamburger {
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+/* Ensure sections are not covered by the sidebar */
+#venue,
+#officiant,
+#music,
+#photographer,
+#makeup,
+#invitations,
+#flowers,
+#payment {
+    margin-left: 275px; /* Leave space for the fixed sidebar */
+    padding: 20px;
+}
+
+/* Additional Styling for Active Sidebar Link */
+.sidebar-link.active {
+    background-color: #eaeaea;
+    font-weight: 600;
+    color: #6e4c7c;
+    border-radius: 5px;
+}
+
 
 @media (max-width: 1024px) {
     .homepage-admin-dashboard {

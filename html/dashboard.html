@@ -21,70 +21,81 @@
     </header>
 
     <section class="homepage-admin-dashboard">
+        <!-- Sidebar Section -->
         <aside class="sidebar" id="sidebar">
             <ul class="sidebar-list">
                 <li><a href="#clients" class="sidebar-link">Clients</a></li>
-                <li><a href="#meetings" class="sidebar-link">Calendar meetings</a></li>
+                <li><a href="#meetings" class="sidebar-link">Calendar Meetings</a></li>
             </ul>
         </aside>
-
-        <section id="clients" class="client content">
-            <div class="search-bar">
-                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
-                <input type="text" class="search-input" placeholder="Search for clients...">
-                <button class="btn search-btn">&#x1F50D;</button>
-            </div>
-            <div class="item-list">
-                <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Client 1 Name</h2>
-                        <p class="item-description">Type of event dri. </p>
+    
+        <!-- Main Content Section -->
+        <div class="main-content">
+            <!-- Clients Section -->
+            <section id="clients" class="client content">
+                <div class="search-bar">
+                    <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                    <input type="text" class="search-input" placeholder="Search for clients...">
+                    <button class="btn search-btn">&#x1F50D;</button>
+                </div>
+                <div class="item-list">
+                    <div class="item">
+                        <div class="item-details">
+                            <h2 class="item-title">Client 1 Name</h2>
+                            <p class="item-description">Type of event here.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h2 class="item-title">Client 2 Name</h2>
+                            <p class="item-description">Type of event here.</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h2 class="item-title">Client 3 Name</h2>
+                            <p class="item-description">Type of event here.</p>
+                        </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Client 2 Name</h2>
-                        <p class="item-description">Type of event dri. </p>
+            </section>
+    
+            <!-- Meetings Section -->
+            <section id="meetings" class="meetings content">
+                <div class="item-list">
+                    <div class="item">
+                        <div class="item-details">
+                            <h2 class="item-title name">Client 1 Name</h2>
+                            <p class="item-description date">Date format MM/DD/YYYY</p>
+                            <p class="item-description time">Time format 00:00</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h2 class="item-title name">Client 2 Name</h2>
+                            <p class="item-description date">Date format MM/DD/YYYY</p>
+                            <p class="item-description time">Time format 00:00</p>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="item-details">
+                            <h2 class="item-title name">Client 3 Name</h2>
+                            <p class="item-description date">Date format MM/DD/YYYY</p>
+                            <p class="item-description time">Time format 00:00</p>
+                        </div>
                     </div>
                 </div>
-                <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Client 3 Name</h2>
-                        <p class="item-description">Type of event dri. </p>
-                    </div>
-                </div>
-            </div>   
-        </section>
-
-        <section id="meetings" class="meetings content">
-            <div class="item-list">
-                <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title name">Client 1 Name</h2>
-                        <p class="item-description date">Date format MM/DD/YYYY</p>
-                        <p class="item-description time">Time format 00:00 </p>
-                    </div>
-                </div>
-                <div class="item">
-                    <h2 class="item-title name">Client 1 Name</h2>
-                        <p class="item-description date">Date format MM/DD/YYYY</p>
-                        <p class="item-description time">Time format 00:00 </p>
-                </div>
-                <div class="item">
-                    <h2 class="item-title name">Client 1 Name</h2>
-                        <p class="item-description date">Date format MM/DD/YYYY</p>
-                        <p class="item-description time">Time format 00:00 </p>
-                </div>
-            </div> 
-        </section>
+            </section>
+        </div>
     </section>
-
+    
     <main class="dashboard-main">
-        <button class="btn back-btn" id="back-to-dashboard">← Back to Dashboard</button>
         <div class="overlay" id="overlay"></div> <!-- Existing overlay -->
-        <div class="overlay" id="overlay"></div> <!-- Added overlay -->
         <aside class="sidebar" id="sidebar">
+            <!-- Back to Dashboard Button -->
+            <button class="btn back-btn" id="back-to-dashboard">← Back to Dashboard</button>
+            
+            <!-- Sidebar Links -->
             <ul class="sidebar-list">
                 <li><a href="#venue" class="sidebar-link">Venue</a></li>
                 <li><a href="#officiant" class="sidebar-link">Officiant</a></li>
@@ -101,7 +112,6 @@
         <section id="venue" class="venue content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for venues...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -125,7 +135,6 @@
         <section id="flowers" class="flowers content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for flowers...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -149,7 +158,6 @@
         <section id="invitations" class="invitations content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for invites...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -172,7 +180,6 @@
         <section id="makeup" class="makeup content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for make-up artists...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -196,7 +203,6 @@
         <section id="music" class="music content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for band...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -220,7 +226,6 @@
         <section id="officiant" class="officiant content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for officiant...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -244,7 +249,6 @@
         <section id="photographer" class="photographer content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for photographer...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -268,52 +272,54 @@
         <section id="payment" class="payment content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for photographer...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
             <div class="item-list">
                 <div class="item">
-                    <h2>Venue</h2>
-                    <p>Details and Price...</p>
+                    <div class="item-details">
+                        <h2 class="item-title">Venue</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
                 </div>
-                <br>
                 <div class="item">
-                    <h2>Officiant</h2>
-                    <p>Details and Price...</p>
+                    <div class="item-details">
+                        <h2 class="item-title">Officiant</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
                 </div>
-                <br>
                 <div class="item">
-                    <h2>Music</h2>
-                    <p>Details and Price...</p>
-                </div> 
-                <br>
-                <div class="item">
-                    <h2>Photographer</h2>
-                    <p>Details and Price...</p>
-                </div> 
-                <br>
-                <div class="item">
-                    <h2>Hair and Make-up</h2>
-                    <p>Details and Price...</p>
+                    <div class="item-details">
+                        <h2 class="item-title">Music</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
                 </div>
-                <br>
                 <div class="item">
-                    <h2>Invitations</h2>
-                    <p>Details and Price...</p>
+                    <div class="item-details">
+                        <h2 class="item-title">Photographer</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
                 </div>
-                <br>
                 <div class="item">
-                    <h2>Flowers and Decorations</h2>
-                    <p>Details and Price...</p>
+                    <div class="item-details">
+                        <h2 class="item-title">Hair and Make-up</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
                 </div>
-                <br>
-                <br>
-                <div class="total_price">
-                    <h2>Total Price: </h2>
+                <div class="item">
+                    <div class="item-details">
+                        <h2 class="item-title">Invitations</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
                 </div>
-                <br>
+                <div class="item">
+                    <div class="item-details">
+                        <h2 class="item-title">Flowers and Decorations</h2>
+                        <p class="item-description">Details and Price...</p>
+                    </div>
+                </div>
             </div>
+            
             <button class="schedule-btn">Schedule Meeting with the client.</button>
         </section>
     </main>
