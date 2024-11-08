@@ -47,6 +47,24 @@ app.get('/start.html', (req, res) => {
 app.post('/signup', async (req, res) => {
     const { fName, lName, phone, email, password } = req.body;
 
+    // Define regex patterns
+    const namePattern = /^[A-Za-z\s]+$/; // Only letters and spaces
+    const phonePattern = /^\d+$/; // Only digits
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Standard email format
+
+    // Input validation
+    if (!namePattern.test(fName) || !namePattern.test(lName)) {
+        return res.status(400).json({ error: 'First name and last name must only contain letters.' });
+    }
+
+    if (!phonePattern.test(phone)) {
+        return res.status(400).json({ error: 'Phone number must only contain digits.' });
+    }
+
+    if (!emailPattern.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format.' });
+    }
+
     try {
         // Insert user data into User_information
         const { data: userData, error: userError } = await supabase
@@ -73,8 +91,6 @@ app.post('/signup', async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 });
-
-
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
