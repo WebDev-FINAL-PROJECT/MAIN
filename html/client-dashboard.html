@@ -42,6 +42,7 @@
         <section id="venue" class="venue content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for venues...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -51,7 +52,7 @@
                     <div class="item-details">
                         <h2 class="item-title">Venue Name</h2>
                         <p class="item-description">Details about the venue.</p>
-                    </div>
+                    </div> 
                 </div>
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
@@ -60,6 +61,7 @@
         <section id="flowers" class="flowers content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for flowers...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -79,6 +81,7 @@
         <section id="invitations" class="invitations content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for invites...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -97,6 +100,7 @@
         <section id="makeup" class="makeup content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for make-up artists...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -116,6 +120,7 @@
         <section id="music" class="music content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for band...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -135,6 +140,7 @@
         <section id="officiant" class="officiant content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for officiant...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -154,6 +160,7 @@
         <section id="photographer" class="photographer content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for photographer...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -207,32 +214,13 @@
                 </form>
             </div>
         </div>
-        <div class="container" id="bookingFormContainer">
-            <h2>Booking Form</h2>
-            <form id="bookingForm">
-                <label for="name">Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required>
-        
-                <label for="date">Booking Date</label>
-                <input type="date" id="date" name="date" required>
-        
-                <label for="time">Booking Time</label>
-                <input type="time" id="time" name="time" required>
-        
-                <label for="description">Purpose of Booking</label>
-                <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
-        
-                <button type="submit" id="submitBookingButton">Submit</button>
-    
-    
-            </form>
-        </div>
 
 
 
         <section id="payment" class="payment content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
+                <button class="btn back-btn">&#8592;</button>
                 <input type="text" class="search-input" placeholder="Search for photographer...">
                 <button class="btn search-btn">&#x1F50D;</button>
             </div>
@@ -280,13 +268,26 @@
             </div>
             <button class="schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
-        
     </main>
 
+    <div class="container" id="bookingFormContainer">
+        <h2>Booking Form</h2>
+        <form action="/submit_booking" method="POST">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your name" required>
     
+            <label for="date">Booking Date</label>
+            <input type="date" id="date" name="date" required>
     
+            <label for="time">Booking Time</label>
+            <input type="time" id="time" name="time" required>
     
+            <label for="description">Purpose of Booking</label>
+            <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
     
+            <button type="submit">Submit</button>
+        </form>
+    </div>
     
 
     <script>
@@ -341,10 +342,7 @@
     </script>
     <script src="../pagination.js"></script>
     <script src="../userInfo.js"></script>
-    <script src="../eventActions.js"></script>
-
     
-    
-    <button id="editEventButton">View Event Planner Form</button>
+    <button id="editEventButton">Edit Event</button>
 </body>
 </html>
