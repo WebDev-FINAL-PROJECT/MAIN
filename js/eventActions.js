@@ -41,106 +41,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 document.addEventListener("DOMContentLoaded", function() {
-    const specificDateButton = document.getElementById('specificDateButton');
-    const calendarSection = document.getElementById('calendarSection');
-    const clearSelectionButton = document.getElementById('clearSelection');
-    const displayMonths = document.getElementById('displayMonths');
-    const eventDateInput = document.createElement('input');
-    eventDateInput.type = 'hidden';
-    eventDateInput.name = 'event_date';
-    document.getElementById('start').appendChild(eventDateInput); // Add hidden input to form
-
-    let currentYear = new Date().getFullYear();
-    let currentMonth = new Date().getMonth();
-    let selectedDates = [];
-
-    specificDateButton.addEventListener('click', function() {
-        calendarSection.classList.toggle('hidden');
-        renderTwoMonthsCalendar(currentYear, currentMonth);
-    });
-
-    document.getElementById('nextMonth').addEventListener('click', function() {
-        currentMonth += 2;
-        if (currentMonth > 11) {
-            currentMonth %= 12;
-            currentYear++;
-        }
-        renderTwoMonthsCalendar(currentYear, currentMonth);
-    });
-
-    document.getElementById('prevMonth').addEventListener('click', function() {
-        currentMonth -= 2;
-        if (currentMonth < 0) {
-            currentMonth += 12;
-            currentYear--;
-        }
-        renderTwoMonthsCalendar(currentYear, currentMonth);
-    });
-
-    clearSelectionButton.addEventListener('click', function() {
-        selectedDates = [];
-        eventDateInput.value = ''; // Clear hidden input
-        renderTwoMonthsCalendar(currentYear, currentMonth);
-    });
-
-    function renderTwoMonthsCalendar(year, month) {
-        const calendar = document.getElementById("calendar");
-        calendar.innerHTML = '';
-        displayMonths.textContent = `${new Date(year, month).toLocaleString('default', { month: 'long' })} ${year} - ${new Date(year, month + 1).toLocaleString('default', { month: 'long' })} ${year}`;
-        
-        for (let i = 0; i < 2; i++) {
-            const monthDiv = document.createElement('div');
-            monthDiv.className = 'month';
-            const monthName = new Date(year, month + i).toLocaleString('default', { month: 'long' });
-            const header = document.createElement('h3');
-            header.textContent = monthName;
-            monthDiv.appendChild(header);
-            renderMonthDays(monthDiv, year, month + i);
-            calendar.appendChild(monthDiv);
-        }
-    }
-
-    function renderMonthDays(monthDiv, year, month) {
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dayElement = document.createElement('div');
-            dayElement.className = 'day';
-            dayElement.textContent = day;
-            const dateKey = `${year}-${month + 1}-${day}`;
-            dayElement.onclick = () => toggleDateSelection(dateKey, dayElement);
-            if (selectedDates.includes(dateKey)) {
-                dayElement.classList.add('selected');
-            }
-            monthDiv.appendChild(dayElement);
-        }
-    }
-
-    function toggleDateSelection(dateKey, element) {
-        const index = selectedDates.indexOf(dateKey);
-        if (index === -1 && selectedDates.length < 5) {
-            selectedDates.push(dateKey);
-            element.classList.add('selected');
-        } else if (index !== -1) {
-            selectedDates.splice(index, 1);
-            element.classList.remove('selected');
-        }
-
-        // Update hidden input value with selected dates as a comma-separated string
-        eventDateInput.value = selectedDates.join(', ');
-    }
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const flexibleDateButton = document.getElementById('flexibleDateButton');
     const monthsSection = document.getElementById('flexibleDateSection');
-    let selectedMonths = [];
 
-    flexibleDateButton.addEventListener('click', function() {
-        monthsSection.classList.toggle('hidden');
-        if (!monthsSection.classList.contains('hidden')) {
-            renderMonthsGrid(new Date().getFullYear()); // Render the current year by default
-        }
-    });
+    // Immediately display the months section when the document is ready
+    if (monthsSection) {
+        monthsSection.style.display = 'block';  // Ensure the section is always visible
+        renderMonthsGrid(new Date().getFullYear());  // Render the current year by default
+    }
 
     function renderMonthsGrid(year) {
         const monthsGrid = document.getElementById('monthsGrid');
@@ -154,13 +61,11 @@ document.addEventListener("DOMContentLoaded", function() {
             const month = document.createElement('div');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
-            if (selectedMonths.some(m => m.year === year && m.month === i)) {
-                month.classList.add('selected');
-            }
             month.onclick = () => toggleMonthSelection(year, i, month);
             monthsGrid.appendChild(month);
         }
 
+        // Navigation buttons for year change
         const prevYear = document.createElement('button');
         prevYear.textContent = '<';
         prevYear.className = 'year-nav';
@@ -175,14 +80,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function toggleMonthSelection(year, month, element) {
-        const index = selectedMonths.findIndex(m => m.year === year && m.month === month);
-        if (index === -1 && selectedMonths.length < 3) {
-            selectedMonths.push({ year, month });
-            element.classList.add('selected');
-        } else if (index !== -1) {
-            selectedMonths.splice(index, 1);
-            element.classList.remove('selected');
-        }
+        const monthOptions = document.querySelectorAll('.month-option');
+        monthOptions.forEach(mo => mo.classList.remove('selected'));
+        element.classList.add('selected');
     }
 });
 
@@ -202,33 +102,22 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Retrieve elements
-    const yesButton = document.getElementById('yesButton');
-    const noButton = document.getElementById('noButton');
+    // Directly show the slider container without condition
     const sliderContainer = document.getElementById('sliderContainer');
-    const budgetOptions = document.querySelector('.guest-options');
+    if (sliderContainer) {
+        sliderContainer.style.display = 'block';  // Force the slider container to be always visible
+    }
+
+    // Ensure the guest slider updates the display text as the user changes its value
     const guestSlider = document.getElementById('guestSlider');
     const sliderValue = document.getElementById('sliderValue');
-
-    // Event listener for the "Yes" button
-    yesButton.addEventListener('click', function() {
-        sliderContainer.classList.remove('hidden');  // Show the slider
-        budgetOptions.classList.add('hidden');       // Hide the budget options
-    });
-
-    // Event listener for the "No" button
-    noButton.addEventListener('click', function() {
-        sliderContainer.classList.add('hidden');    // Hide the slider
-        budgetOptions.classList.remove('hidden');   // Show the budget options
-    });
-    
-    // Update the displayed guest count when the slider is adjusted
-    guestSlider.addEventListener('input', function() {
-        sliderValue.textContent = guestSlider.value; // Update the text to match the slider's value
-    });
-
-    // Additional event handling code...
+    if (guestSlider && sliderValue) {
+        guestSlider.addEventListener('input', function() {
+            sliderValue.textContent = guestSlider.value; // Update the text to reflect the slider's value
+        });
+    }
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const guestButtons = document.querySelectorAll('.guest-btn');
