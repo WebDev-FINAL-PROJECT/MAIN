@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
             const month = document.createElement('button');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
+            month.type = 'button'; // Prevent form submission
 
             if (year === currentYear && i < currentMonth) {
                 month.disabled = true;
@@ -75,6 +76,11 @@ document.addEventListener("DOMContentLoaded", function () {
             monthsGrid.appendChild(month);
         }
 
+<<<<<<< HEAD
+=======
+
+        // Navigation buttons for year change
+>>>>>>> 1fe3b850f72e47072084ee7720a69dacbc1928d2
         const prevYear = document.createElement('button');
         prevYear.textContent = '<';
         prevYear.className = 'year-nav';
