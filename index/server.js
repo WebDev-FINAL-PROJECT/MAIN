@@ -80,10 +80,8 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (email === 'admin@admin.com' && password === 'admin') {
-        console.log("Admin credentials detected for email:", email);  // Debugging log for admin
         res.json({ message: 'Login successful', isAdmin: true });
     } else {
-        console.log("Checking database for regular user:", email); // Debugging log for non-admin
         const { data, error } = await supabase
             .from('User_information')
             .select('FName, LName')
@@ -92,14 +90,14 @@ app.post('/login', async (req, res) => {
             .single();
 
         if (error || !data) {
-            console.log("Login failed. User not found or incorrect password:", email); // Log login failure
+            // Return a 401 status for unauthorized access
             return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
         } else {
-            console.log("Regular user login detected for:", email);  // Log regular user success
             res.json({ message: 'Login successful', isAdmin: false });
         }
     }
 });
+
 app.post('/submit-event', async (req, res) => {
     const { chosen_event, celebrant_name, theme, event_date, invites, venue, agreements, other_details, budget } = req.body;
     const userId = req.session.user?.user_id;
