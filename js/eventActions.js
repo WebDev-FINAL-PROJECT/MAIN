@@ -76,11 +76,8 @@ document.addEventListener("DOMContentLoaded", function () {
             monthsGrid.appendChild(month);
         }
 
-<<<<<<< HEAD
-=======
 
         // Navigation buttons for year change
->>>>>>> 1fe3b850f72e47072084ee7720a69dacbc1928d2
         const prevYear = document.createElement('button');
         prevYear.textContent = '<';
         prevYear.className = 'year-nav';
