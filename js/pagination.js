@@ -167,17 +167,38 @@ document.addEventListener("DOMContentLoaded", function () {
 const scheduleButtons = document.querySelectorAll('.schedule-btn');
 const bookingFormContainer = document.getElementById('bookingFormContainer');
 
-
-// Add click event listener to each schedule button
 scheduleButtons.forEach(button => {
     button.addEventListener('click', () => {
-        bookingFormContainer.style.display = 'flex'; // Show the form container
+        bookingFormContainer.style.display = 'flex'; 
     });
 });
 
-// Close the form when clicking outside it
 window.addEventListener('click', (e) => {
     if (e.target === bookingFormContainer) {
-        bookingFormContainer.style.display = 'none'; // Hide the form container
+        bookingFormContainer.style.display = 'none'; 
     }
 });
+
+//Admin dashboard- makit first ang clients
+const homepageAdminDashboard = document.querySelector('.homepage-admin-dashboard');
+const dashboardMain = document.querySelector('.dashboard-main');
+const clientItems = document.querySelectorAll('.client .item');
+const backButton = document.getElementById('back-to-dashboard');
+homepageAdminDashboard.style.display = 'block';
+dashboardMain.style.display = 'none';
+
+function showDashboardMain() {
+    homepageAdminDashboard.style.display = 'none';
+    dashboardMain.style.display = 'flex';
+}
+
+function goBackToDashboard() {
+    dashboardMain.style.display = 'none';
+    homepageAdminDashboard.style.display = 'block';
+}
+
+clientItems.forEach(item => {
+    item.addEventListener('click', showDashboardMain);
+});
+
+backButton.addEventListener('click', goBackToDashboard);

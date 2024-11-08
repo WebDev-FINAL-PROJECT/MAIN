@@ -88,6 +88,24 @@ app.get('/start.html', (req, res) => {
 app.post('/signup', async (req, res) => {
     const { fName, lName, phone, email, password } = req.body;
 
+    // Define regex patterns
+    const namePattern = /^[A-Za-z\s]+$/; // Only letters and spaces
+    const phonePattern = /^\d+$/; // Only digits
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Standard email format
+
+    // Input validation
+    if (!namePattern.test(fName) || !namePattern.test(lName)) {
+        return res.status(400).json({ error: 'First name and last name must only contain letters.' });
+    }
+
+    if (!phonePattern.test(phone)) {
+        return res.status(400).json({ error: 'Phone number must only contain digits.' });
+    }
+
+    if (!emailPattern.test(email)) {
+        return res.status(400).json({ error: 'Invalid email format.' });
+    }
+
     try {
         // Insert user data into User_information
         const { data: userData, error: userError } = await supabase
@@ -115,37 +133,32 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-
-
-
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    if (email === 'admin@admin.com' && password === 'admin') {
-        req.session.user = { user_id: 'admin', fName: 'Admin', lName: 'User' };
-        res.json({ message: 'Login successful', isAdmin: true });
-    } else {
-        const { data, error } = await supabase
-            .from('User_information')
-            .select('id, FName, LName')
-            .eq('email', email)
-            .eq('Password', password)
-            .single();
+    const { data, error } = await supabase
+        .from('User_information')
+        .select('id, FName, LName')
+        .eq('email', email)
+        .eq('Password', password)
+        .single();
 
-        if (error || !data) {
-            return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
-        } else {
-            // Store user information in the session
-            req.session.user = {
-                user_id: data.id,
-                fName: data.FName,
-                lName: data.LName,
-            };
-
-            res.json({ message: 'Login successful', isAdmin: false, user: data });
-        }
+    if (error || !data) {
+        return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
     }
+
+    // Store user information in the session
+    req.session.user = {
+        user_id: data.id,
+        fName: data.FName,
+        lName: data.LName,
+    };
+
+    console.log('Session User ID:', req.session.user.user_id); // Add this line for debugging
+
+    res.json({ message: 'Login successful', isAdmin: false, user: data });
 });
+
 
 
 app.post('/submit-event', async (req, res) => {
@@ -197,7 +210,117 @@ app.post('/submit-event', async (req, res) => {
     }
 });
 
+// Route to fetch event data for the logged-in user
+app.get('/get-event-data', async (req, res) => {
+    const userId = req.session?.user?.user_id;
 
+    if (!userId) {
+        return res.status(401).json({ error: 'User not logged in.' });
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('user_choice')
+            .select('*')
+            .eq('user_id', userId)
+            .single();
+
+        if (error || !data) {
+            return res.status(404).json({ error: 'Event data not found.' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching event data:', error.message);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+// Route to update event data
+app.post('/update-event', async (req, res) => {
+    const userId = req.session?.user?.user_id;
+    const updatedData = req.body;
+
+    if (!userId) {
+        return res.status(401).json({ error: 'User must be logged in.' });
+    }
+
+    try {
+        const { error } = await supabase
+            .from('user_choice')
+            .update(updatedData)
+            .eq('user_id', userId);
+
+        if (error) {
+            throw error;
+        }
+
+        res.json({ message: 'Event details updated successfully.' });
+    } catch (error) {
+        console.error('Failed to update event details:', error.message);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+app.get('/get-user-event', async (req, res) => {
+    const userId = req.session?.user?.user_id;
+
+    console.log('Session User ID:', userId); // Debug log
+
+    if (!userId) {
+        return res.status(401).json({ error: 'User not logged in.' });
+    }
+
+    try {
+        const { data, error } = await supabase
+            .from('user_choice')
+            .select('*')
+            .eq('user_id', userId)
+            .single();
+
+        if (error) {
+            console.error('Supabase Error:', error.message);
+            return res.status(500).json({ error: 'Failed to fetch event data from database.' });
+        }
+
+        if (!data) {
+            return res.status(404).json({ error: 'Event data not found.' });
+        }
+
+        res.json(data);
+    } catch (error) {
+        console.error('Internal Server Error:', error.message);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+
+
+// Update user event data
+app.post('/update-user-event', async (req, res) => {
+    const userId = req.session?.user?.user_id;
+    const updatedData = req.body;
+
+    if (!userId) {
+        return res.status(401).json({ error: 'User not logged in.' });
+    }
+
+    try {
+        const { error } = await supabase
+            .from('user_choice')
+            .update(updatedData)
+            .eq('user_id', userId);
+
+        if (error) {
+            throw error;
+        }
+
+        res.json({ message: 'Event data updated successfully.' });
+    } catch (error) {
+        console.error('Error updating event data:', error.message);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
 
 
 const PORT = process.env.PORT || 3000;
