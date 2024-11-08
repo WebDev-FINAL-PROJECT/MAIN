@@ -46,44 +46,42 @@ app.get('/start.html', (req, res) => {
 
 app.post('/signup', async (req, res) => {
     const { fName, lName, phone, email, password } = req.body;
+    const clientName = `${fName} ${lName}`;
 
-    let { data: userData, error: userError } = await supabase
-        .from('User_information')
-        .insert([{ 
-            FName: fName,  
-            LName: lName,  
-            Phone_number: phone, 
-            email: email,  
-            Password: password  
-        }])
-        .select('*');
+    try {
+        let { data: userData, error: userError } = await supabase
+            .from('User_information')
+            .insert([{ 
+                FName: fName,  
+                LName: lName,  
+                Phone_number: phone, 
+                email: email,  
+                Password: password  
+            }])
+            .single();
 
-    if (userError || userData.length === 0) {
-        console.error('Error inserting user data:', userError ? userError.message : "No data returned");
-        return res.status(400).json({ error: userError ? userError.message : "User registration failed" });
+        if (userError) throw userError;
+
+        // Insert a placeholder record in user_choice
+        let { error: choicesError } = await supabase
+            .from('user_choice')
+            .insert([{ 
+                client_name: clientName
+            }]);
+
+        if (choicesError) throw choicesError;
+
+        req.session.user = { client_name: clientName }; // Store user info in session
+        res.json({ 
+            message: 'Signup successful. Record initialized in user_choice.', 
+            user: userData
+        });
+    } catch (error) {
+        console.error('Error during signup:', error.message);
+        res.status(400).json({ error: error.message });
     }
-
-    // Initiate session after successful registration
-    req.session.user = { client_name: `${fName} ${lName}` }; // Use template literals for session data
-
-    // Attempt to create a placeholder entry in user_choices
-    let { data: choicesData, error: choicesError } = await supabase
-        .from('user_choices')
-        .insert([{ 
-            client_name: `${fName} ${lName}` // Use template literals for client_name
-        }]);
-
-    if (choicesError) {
-        console.error('Error inserting into user choices:', choicesError.message);
-        return res.status(400).json({ error: choicesError.message });
-    }
-
-    res.json({ 
-        message: 'Signup successful, initial choice record created', 
-        user: userData[0],
-        choicesData 
-    });
 });
+
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
@@ -110,43 +108,73 @@ app.post('/login', async (req, res) => {
     }
 });
 app.post('/submit-event', async (req, res) => {
-    console.log("Request received to /submit-event");
-    const { chosen_event, celebrant_name, theme, budget, event_date, invites, venue, agreements, other_details } = req.body;
-    
+    const {
+        chosen_event,
+        celebrant_name,
+        theme,
+        event_date,
+        invites,
+        venue,
+        agreements,
+        other_details,
+        budget
+    } = req.body;
 
-    // Validate required fields
-    if (!chosen_event || !celebrant_name || !theme || !budget || !event_date) {
-        return res.status(400).json({ error: "Missing required fields. Please check your inputs." });
+    const clientName = req.session.user && req.session.user.client_name;
+
+    if (!clientName) {
+        return res.status(401).json({ error: "User must be logged in." });
     }
 
     try {
-        // Insert data into the user_choice table
-        const { data, error } = await supabase
-            .from('user_choice')  // Make sure the table name is correctly spelled as in your database
-            .insert([{
-                chosen_event,
-                celebrant_name,
-                theme,
-                budget,
-                event_date,
-                invites,
-                venue,
-                agreements,
-                other_details
-            }]);
+        // Fetch the most recent record for updates
+        const { data: recentData, error: fetchError } = await supabase
+            .from('user_choice')
+            .select('*')
+            .eq('client_name', clientName)
+            .order('id', { ascending: false })
+            .limit(1)
+            .single();
 
-        if (error) {
-            console.error("Failed to insert data into user_choice table:", error);
-            return res.status(400).json({ error: error.message });
+        if (fetchError || !recentData) {
+            throw new Error(fetchError?.message || "No existing record found to update.");
         }
 
-        // Send a successful response back to the client
-        res.json({ message: "Event submitted successfully", data });
+        // Prepare the update object based on fields that are null
+        const updatePayload = {};
+        if (chosen_event && recentData.chosen_event === null) updatePayload.chosen_event = chosen_event;
+        if (celebrant_name && recentData.celebrant_name === null) updatePayload.celebrant_name = celebrant_name;
+        if (theme && recentData.theme === null) updatePayload.theme = theme;
+        if (event_date && recentData.event_date === null) updatePayload.event_date = event_date;
+        if (invites && recentData.invites === null) updatePayload.invites = invites;
+        if (venue && recentData.venue === null) updatePayload.venue = venue;
+        if (agreements && recentData.agreements === null) updatePayload.agreements = agreements;
+        if (other_details && recentData.other_details === null) updatePayload.other_details = other_details;
+        if (budget && recentData.budget === null) updatePayload.budget = budget;
+
+        // Perform the update only if necessary
+        if (Object.keys(updatePayload).length > 0) {
+            const { error: updateError } = await supabase
+                .from('user_choice')
+                .update(updatePayload)
+                .eq('id', recentData.id);
+
+            if (updateError) {
+                throw new Error(updateError.message);
+            }
+
+            res.json({ message: "Event details successfully updated." });
+        } else {
+            res.json({ message: "No updates made as no null fields required updating or new data was provided." });
+        }
     } catch (error) {
-        console.error("Server error when submitting event:", error);
-        res.status(500).json({ error: "Internal server error" });
+        console.error("Error updating event details:", error.message);
+        res.status(500).json({ error: "Failed to update event details", details: error.message });
     }
 });
+
+
+
 
 
 const PORT = process.env.PORT || 3000;
