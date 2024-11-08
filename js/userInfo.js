@@ -98,3 +98,29 @@ document.addEventListener('DOMContentLoaded', async () => {
         editEventModal.classList.add('hidden');
     });
 });
+
+// Scroll to the top when the modal opens
+editEventButton.addEventListener('click', () => {
+    editEventModal.scrollTop = 0;
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const editEventModal = document.getElementById('editEventModal');
+    const closeModal = document.getElementById('closeModal');
+    const cancelEdit = document.getElementById('cancelEdit');
+
+    // Function to close the modal
+    function closeModalFunction() {
+        editEventModal.classList.add('hidden');
+    }
+
+    closeModal.addEventListener('click', closeModalFunction);
+
+    cancelEdit.addEventListener('click', closeModalFunction);
+
+    window.addEventListener('click', (event) => {
+        if (event.target === editEventModal) {
+            closeModalFunction();
+        }
+    });
+});
