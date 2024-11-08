@@ -253,6 +253,62 @@ nav a {
     background-color: #45a049;
 }
 
+/* Updated Layout for Homepage Admin Dashboard */
+.homepage-admin-dashboard {
+    display: flex;
+    flex: 1;
+    background-color: #f9f9f9;
+    padding: 20px;
+}
+
+.homepage-admin-dashboard .sidebar {
+    width: 250px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.client.content,
+.meetings.content {
+    flex: 1;
+    margin-left: 20px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Adjust Item List Layout */
+.client .item-list,
+.meetings .item-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Styling for Individual Items */
+.client .item,
+.meetings .item {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    padding: 15px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 1024px) {
+    .homepage-admin-dashboard {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .item-list {
+        gap: 10px;
+    }
+}
+
 /* Responsive Styling */
 @media (max-width: 1024px) {
     .hamburger {
