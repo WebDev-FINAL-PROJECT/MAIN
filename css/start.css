@@ -287,33 +287,19 @@ input[type="text"]::placeholder {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.month-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+    color: #888;
+}
+
+
 .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 10px;
     padding-top: 15px;
-}
-
-.day {
-    display: inline-block;
-    width: 35px; /* Increase day size */
-    height: 35px;
-    line-height: 35px;
-    text-align: center;
-    margin: 5px;
-    cursor: pointer;
-    border-radius: 50%;
-    font-size: 1rem; /* Increase font size for better readability */
-    background-color: #fff;
-}
-
-.day:hover {
-    background-color: #eaeaea;
-}
-
-.day.selected {
-    background-color: #ff8abc;
-    color: #fff;
 }
 
 /* Navigation Buttons */
@@ -339,14 +325,17 @@ input[type="text"]::placeholder {
 .month-option {
     padding: 10px;
     margin: 5px;
-    border: 1px solid pink; /* Adjust color as per your theme */
+    border: 1px solid #6e4c7c; /* Adjust color as per your theme */
     text-align: center;
     width: 100px;
     cursor: pointer;
+    background-color: white;
+    color: #6e4c7c;
 }
 
-.month-option.selected {
-    background-color: pink; /* Adjust color as per your theme */
+.month-option.selected, .month-option:hover {
+    background-color: #5d3a63; /* Adjust color as per your theme */
+    color: white;
 }
 
 .year-label {
