@@ -391,16 +391,22 @@ app.post('/submit-booking', async (req, res) => {
 
 app.get('/get-client-data', async (req, res) => {
     try {
-        const { data, error } = await supabase
+        let { data, error } = await supabase
             .from('user_choice')
-            .select('*'); // Adjust according to your actual data structure
-        if (error) throw error;
+            .select('celebrant_name, chosen_event');
+
+        if (error) {
+            throw error;
+        }
+
         res.json(data);
     } catch (error) {
-        console.error('Failed to fetch client data', error);
+        console.error('Failed to fetch client data:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
+
+
 
 
 
