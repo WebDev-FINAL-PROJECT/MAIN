@@ -202,3 +202,71 @@ clientItems.forEach(item => {
 });
 
 backButton.addEventListener('click', goBackToDashboard);
+
+// JavaScript for handling add.png clicks and showing the correct modal form
+document.addEventListener('DOMContentLoaded', () => {
+    // Function to show the modal and hide others
+    function showModal(modalId) {
+        const modals = document.querySelectorAll('.modal');
+        modals.forEach(modal => modal.classList.add('hidden')); // Hide all modals
+        document.getElementById(modalId).classList.remove('hidden'); // Show the specific modal
+    }
+
+    // Venue Section
+    const addVenueButton = document.querySelector('#venue .item img[src="add.png"]');
+    addVenueButton.addEventListener('click', () => showModal('addVenueModal'));
+
+    // Flowers Section
+    const addFlowerButton = document.querySelector('#flowers .item img[src="add.png"]');
+    addFlowerButton.addEventListener('click', () => showModal('addFlowerModal'));
+
+    // Invitations Section
+    const addAttendeesButton = document.querySelector('#invitations .item img[src="add.png"]');
+    addAttendeesButton.addEventListener('click', () => showModal('addAttendeesModal'));
+
+    // Makeup Section
+    const addArtistButton = document.querySelector('#makeup .item img[src="add.png"]');
+    addArtistButton.addEventListener('click', () => showModal('addArtistModal'));
+
+    // Music Section
+    const addMusicButton = document.querySelector('#music .item img[src="add.png"]');
+    addMusicButton.addEventListener('click', () => showModal('addMusicModal'));
+
+    // Officiant Section
+    const addOfficiantButton = document.querySelector('#officiant .item img[src="add.png"]');
+    addOfficiantButton.addEventListener('click', () => showModal('addOfficiantModal'));
+
+    // Photographer Section
+    const addPhotographerButton = document.querySelector('#photographer .item img[src="add.png"]');
+    addPhotographerButton.addEventListener('click', () => showModal('addPhotographerModal'));
+
+    // Function to close the modal
+    function closeModal(modalId) {
+        document.getElementById(modalId).classList.add('hidden');
+    }
+
+    // Close buttons for each modal
+    document.querySelectorAll('.close').forEach(closeButton => {
+        closeButton.addEventListener('click', () => {
+            const modal = closeButton.closest('.modal');
+            modal.classList.add('hidden');
+        });
+    });
+
+    // Cancel buttons for each modal
+    document.querySelectorAll('.cancel-btn').forEach(cancelButton => {
+        cancelButton.addEventListener('click', () => {
+            const modal = cancelButton.closest('.modal');
+            modal.classList.add('hidden');
+        });
+    });
+
+    // Close modal when clicking outside of the modal content
+    window.addEventListener('click', (event) => {
+        document.querySelectorAll('.modal').forEach(modal => {
+            if (event.target === modal) {
+                modal.classList.add('hidden');
+            }
+        });
+    });
+});
