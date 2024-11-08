@@ -5,8 +5,9 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
-
+const cors = require('cors');
 const app = express();
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());  // For parsing application/json
@@ -16,12 +17,52 @@ app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
 app.use(express.static(path.join(__dirname, '..', 'css')));
 app.use(express.static(path.join(__dirname, '..', 'js')));
 
+// CORS Middleware Configuration
+app.use(cors({
+    origin: 'http://localhost:3000', // Change this to your frontend's origin
+    credentials: true, // Allow session cookies
+}));
+
+// Session Configuration
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false } // Use false if you're not using HTTPS locally
+    cookie: {
+        secure: false, // Set to 'true' if using HTTPS
+        httpOnly: true,
+    }
 }));
+
+
+app.get('/get-user-info', async (req, res) => {
+    const userId = req.session?.user?.user_id;
+
+    // Check if user is logged in
+    if (!userId) {
+        return res.status(401).json({ error: 'User not logged in.' });
+    }
+
+    try {
+        // Fetch user information using the primary key (ID)
+        const { data, error } = await supabase
+            .from('User_information')
+            .select('FName, LName')
+            .eq('id', userId)
+            .single();
+
+        if (error || !data) {
+            return res.status(404).json({ error: 'User not found.' });
+        }
+
+        // Respond with the user's first and last name
+        res.json({ fName: data.FName, lName: data.LName });
+    } catch (error) {
+        console.error('Error fetching user information:', error.message);
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.ANON_KEY);
 
@@ -76,27 +117,36 @@ app.post('/signup', async (req, res) => {
 
 
 
+
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (email === 'admin@admin.com' && password === 'admin') {
+        req.session.user = { user_id: 'admin', fName: 'Admin', lName: 'User' };
         res.json({ message: 'Login successful', isAdmin: true });
     } else {
         const { data, error } = await supabase
             .from('User_information')
-            .select('FName, LName')
+            .select('id, FName, LName')
             .eq('email', email)
             .eq('Password', password)
             .single();
 
         if (error || !data) {
-            // Return a 401 status for unauthorized access
             return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
         } else {
-            res.json({ message: 'Login successful', isAdmin: false });
+            // Store user information in the session
+            req.session.user = {
+                user_id: data.id,
+                fName: data.FName,
+                lName: data.LName,
+            };
+
+            res.json({ message: 'Login successful', isAdmin: false, user: data });
         }
     }
 });
+
 
 app.post('/submit-event', async (req, res) => {
     const { chosen_event, celebrant_name, theme, event_date, invites, venue, agreements, other_details, budget } = req.body;
@@ -146,7 +196,6 @@ app.post('/submit-event', async (req, res) => {
         res.status(500).json({ error: "Internal server error during event update." });
     }
 });
-
 
 
 
