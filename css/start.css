@@ -18,9 +18,10 @@ body {
     width: 100%;
     max-width: 800px;
     background-color: #fff;
-    padding: 2rem;
+    padding: 30px; /* Increased padding for better form appearance */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    margin-bottom: 40px; /* Added margin to separate from other content */
 }
 
 /* Form and Section Styles */
@@ -29,7 +30,7 @@ form {
 }
 
 section {
-    display: none;
+    margin-bottom: 40px; /* Added space below each section for separation */
 }
 
 section.active {
@@ -39,12 +40,12 @@ section.active {
 h1, h2 {
     color: #6e4c7c;
     font-weight: 400;
-    margin-bottom: 1rem;
+    margin-bottom: 20px; /* Increased spacing for better separation */
 }
 
 p {
     color: #333;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px; /* Consistent spacing below paragraphs */
 }
 
 /* Button Styles */
@@ -52,11 +53,11 @@ button {
     background-color: #6e4c7c;
     color: white;
     border: none;
-    padding: 10px 20px;
+    padding: 12px 20px;
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    margin: 5px;
+    margin: 5px 0; /* Consistent vertical margin */
 }
 
 button:hover {
@@ -66,8 +67,8 @@ button:hover {
 input[type="text"] {
     width: 100%;
     padding: 12px;
-    margin-top: 8px;
-    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px; /* Increased spacing for consistency */
     border: 1px solid #ddd;
     border-radius: 5px;
     font-size: 1rem;
@@ -80,10 +81,11 @@ input[type="text"]::placeholder {
 }
 
 /* Event Type and Style Buttons */
-.event-kind, .style-buttons, .budget-options, .date, .items-container {
+.event-kind, .style-buttons, .budget-options, .date, .guest-buttons, .venue-buttons, .agreement-buttons {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 15px; /* Consistent gap between buttons */
+    margin-bottom: 50px; /* Added margin for spacing */
 }
 
 .event-kind button, .style-buttons button, .budget-options button, .date button {
@@ -147,11 +149,9 @@ input[type="text"]::placeholder {
 }
 
 /* Additional Section Styles */
-.venue-info, .items-container {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    padding-top: 15px;
+.venue-info {
+    margin-top: 20px;
+    padding-top: 10px;
 }
 
 /* Submit Button */
@@ -163,8 +163,7 @@ input[type="text"]::placeholder {
     font-size: 1rem;
     border-radius: 5px;
     cursor: pointer;
-    display: block;
-    margin: 20px auto;
+    margin: 30px auto;
     width: 100%;
     max-width: 200px;
     text-align: center;
@@ -264,9 +263,10 @@ input[type="text"]::placeholder {
 
 #calendarSection {
     padding: 20px;
-    background-color: #f9f9f9; /* Light grey background */
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .calendar-grid {
@@ -354,31 +354,88 @@ input[type="text"]::placeholder {
 .agreement-buttons button {
     border: none;
     background: none;
-    color: #FF69B4; /* Or any other color */
-    font-size: 1em;
+    color: #6e4c7c; /* Or any other color */
     padding: 10px 20px;
     margin: 5px;
     border-radius: 5px;
 }
 
+.agreement-btn {
+    background-color: #fff; /* White background */
+    color: #6e4c7c; /* Pink text color */
+    border: 2px solid #6e4c7c; /* Pink border */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: 2px solid #6e4c7c; /* Pink outline */
+}
+
 .agreement-buttons button.selected {
-    background-color: #FF69B4;
+    background-color: #5d3a63;
     color: white;
+}
+
+.service {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px; /* Space between the buttons */
+    margin-top: 20px; /* Add margin for separation */
+    margin-bottom: 20px;
 }
 
 .service-btn {
-    display: inline-block;
-    width: 100px; /* Adjust size as needed */
-    height: 100px;
-    margin: 5px;
-    border-radius: 5px;
-    border: 1px solid #FF69B4; /* Pink border */
-    color: #FF69B4;
-    font-size: 0.9em;
-    background: #FFF;
+    padding: 15px;
+    border: 2px solid #6e4c7c; /* Pink border */
+    border-radius: 10px;
+    background-color: #FFF; /* White background */
+    color: #6e4c7c;
+    font-size: 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.service-btn:hover {
+    background-color: #5d3a63; /* Pink background on hover */
+    color: #FFF; /* White text on hover */
 }
 
 .service-btn.selected {
-    color: white;
-    background-color: #FF69B4;
+    background-color:#5d3a63; /* Pink background when selected */
+    color: #FFF; /* White text when selected */
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: #fff;
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#nav-name {
+    font-size: 1.5rem;
+    color: #6e4c7c;
+    margin: 0; /* Removes any margin around the title */
+    font-family: 'Newsreader';
+}
+
+body {
+    padding-top: 75px; /* Add padding to account for the fixed header */
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* Consistent spacing between input fields */
+    margin-bottom: 20px;
 }
