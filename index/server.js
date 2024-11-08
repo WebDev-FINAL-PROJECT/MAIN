@@ -47,52 +47,85 @@ app.get('/start.html', (req, res) => {
 app.post('/signup', async (req, res) => {
     const { fName, lName, phone, email, password } = req.body;
 
-    let { data: userData, error: userError } = await supabase
-        .from('User_information')
-        .insert([{ 
-            FName: fName,  
-            LName: lName,  
-            Phone_number: phone, 
-            email: email,  
-            Password: password  
-        }])
-        .select('*');
+    try {
+        // Step 1: Check if the user already exists using maybeSingle()
+        const { data: existingUser, error: checkError } = await supabase
+            .from('User_information')
+            .select('email')
+            .eq('email', email)
+            .maybeSingle();
 
-    if (userError || userData.length === 0) {
-        console.error('Error inserting user data:', userError ? userError.message : "No data returned");
-        return res.status(400).json({ error: userError ? userError.message : "User registration failed" });
+        console.log('Existing user check result:', existingUser);
+
+        // If the user already exists, return a 409 Conflict status
+        if (existingUser !== null) {
+            console.error('User already exists:', email);
+            return res.status(409).json({ error: 'User already exists. Please use a different email.' });
+        }
+
+        // Handle unexpected errors during user existence check
+        if (checkError) {
+            console.error("Error checking for existing user:", checkError);
+            return res.status(500).json({ error: 'Internal server error. Please try again.' });
+        }
+
+        // Step 2: Attempt to insert new user into User_information table
+        const { data: userData, error: userError } = await supabase
+            .from('User_information')
+            .insert([{ 
+                FName: fName,  
+                LName: lName,  
+                Phone_number: phone, 
+                email: email,  
+                Password: password  
+            }])
+            .select('*');
+
+        // Check for insert errors (e.g., duplicate key error from unique constraint)
+        if (userError) {
+            console.error('Error inserting user data:', userError.message);
+            if (userError.message.includes('duplicate key value')) {
+                return res.status(409).json({ error: 'User already exists. Please use a different email.' });
+            }
+            return res.status(400).json({ error: 'User registration failed.' });
+        }
+
+        // Step 3: Initialize session data
+        req.session.user = { client_name: `${fName} ${lName}` };
+
+        // Step 4: Create a placeholder entry in user_choices table
+        const { data: choicesData, error: choicesError } = await supabase
+            .from('user_choices')
+            .insert([{ 
+                client_name: `${fName} ${lName}` 
+            }]);
+
+        if (choicesError) {
+            console.error('Error inserting into user choices:', choicesError.message);
+            return res.status(400).json({ error: choicesError.message });
+        }
+
+        // Step 5: Send success response
+        res.json({ 
+            message: 'Signup successful! Initial choice record created.', 
+            user: userData[0],
+            choicesData 
+        });
+
+    } catch (error) {
+        console.error('Unexpected error during signup:', error);
+        res.status(500).json({ error: 'Unexpected error. Please try again later.' });
     }
-
-    // Initiate session after successful registration
-    req.session.user = { client_name: `${fName} ${lName}` }; // Use template literals for session data
-
-    // Attempt to create a placeholder entry in user_choices
-    let { data: choicesData, error: choicesError } = await supabase
-        .from('user_choices')
-        .insert([{ 
-            client_name: `${fName} ${lName}` // Use template literals for client_name
-        }]);
-
-    if (choicesError) {
-        console.error('Error inserting into user choices:', choicesError.message);
-        return res.status(400).json({ error: choicesError.message });
-    }
-
-    res.json({ 
-        message: 'Signup successful, initial choice record created', 
-        user: userData[0],
-        choicesData 
-    });
 });
+
+
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
     if (email === 'admin@admin.com' && password === 'admin') {
-        console.log("Admin credentials detected for email:", email);  // Debugging log for admin
         res.json({ message: 'Login successful', isAdmin: true });
     } else {
-        console.log("Checking database for regular user:", email); // Debugging log for non-admin
         const { data, error } = await supabase
             .from('User_information')
             .select('FName, LName')
@@ -101,14 +134,14 @@ app.post('/login', async (req, res) => {
             .single();
 
         if (error || !data) {
-            console.log("Login failed. User not found or incorrect password:", email); // Log login failure
+            // Return a 401 status for unauthorized access
             return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
         } else {
-            console.log("Regular user login detected for:", email);  // Log regular user success
             res.json({ message: 'Login successful', isAdmin: false });
         }
     }
 });
+
 app.post('/submit-event', async (req, res) => {
     console.log("Request received to /submit-event");
     const { chosen_event, celebrant_name, theme, budget, event_date, invites, venue, agreements, other_details } = req.body;
