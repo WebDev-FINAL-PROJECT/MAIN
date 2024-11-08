@@ -40,28 +40,41 @@ document.addEventListener('DOMContentLoaded', function() {
     // Theme selection and other existing functionality here...
 });
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const monthsSection = document.getElementById('flexibleDateSection');
+    const currentYear = new Date().getFullYear(); // Get the current year
+    const currentMonth = new Date().getMonth(); // Get the current month (0-11)
 
     // Immediately display the months section when the document is ready
     if (monthsSection) {
-        monthsSection.style.display = 'block';  // Ensure the section is always visible
-        renderMonthsGrid(new Date().getFullYear());  // Render the current year by default
+        monthsSection.style.display = 'block'; // Ensure the section is always visible
+        renderMonthsGrid(currentYear); // Render the current year by default
     }
 
     function renderMonthsGrid(year) {
         const monthsGrid = document.getElementById('monthsGrid');
         monthsGrid.innerHTML = ''; // Clear the grid first
+
+        // Create year label
         const yearLabel = document.createElement('span');
         yearLabel.textContent = year;
         yearLabel.className = 'year-label';
         monthsGrid.appendChild(yearLabel);
 
+        // Generate month options
         for (let i = 0; i < 12; i++) {
-            const month = document.createElement('div');
+            const month = document.createElement('button');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
-            month.onclick = () => toggleMonthSelection(year, i, month);
+
+            // Disable month options if they have already passed in the current year
+            if (year === currentYear && i < currentMonth) {
+                month.disabled = true;
+                month.classList.add('disabled'); // Optional: Add a disabled style
+            } else {
+                month.onclick = () => toggleMonthSelection(year, i, month);
+            }
+
             monthsGrid.appendChild(month);
         }
 
@@ -69,7 +82,11 @@ document.addEventListener("DOMContentLoaded", function() {
         const prevYear = document.createElement('button');
         prevYear.textContent = '<';
         prevYear.className = 'year-nav';
-        prevYear.onclick = () => renderMonthsGrid(year - 1);
+        prevYear.onclick = () => {
+            if (year > currentYear) {
+                renderMonthsGrid(year - 1);
+            }
+        };
         monthsGrid.insertBefore(prevYear, monthsGrid.firstChild);
 
         const nextYear = document.createElement('button');
@@ -85,6 +102,8 @@ document.addEventListener("DOMContentLoaded", function() {
         element.classList.add('selected');
     }
 });
+
+
 
 document.addEventListener("DOMContentLoaded", function() {
     const budgetButtons = document.querySelectorAll('.budget-btn');

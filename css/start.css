@@ -263,45 +263,49 @@ input[type="text"]::placeholder {
 
 #calendarSection {
     padding: 20px;
-    margin-bottom: 20px;
     background-color: #f9f9f9;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Make the calendar take full width */
+    max-width: 1000px; /* Increase max width for larger display */
+    height: auto;
+    margin: 20px auto;
 }
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Three months per row */
-    gap: 10px;
-    margin-bottom: 10px;
+    grid-template-columns: repeat(2, 1fr); /* Two months per row */
+    gap: 20px; /* Increase gap for better spacing */
 }
 
 .month {
-    padding: 10px;
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    padding: 15px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.2rem; /* Increase font size */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.day {
-    display: inline-block;
-    width: 25px;
-    height: 25px;
-    line-height: 25px;
-    text-align: center;
-    margin: 2px;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: #fff; /* White background for days */
+.month-option.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #e0e0e0;
+    color: #888;
 }
 
-.day:hover {
-    background-color: #eaeaea; /* Light hover effect */
+
+.days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    padding-top: 15px;
 }
 
-.day.selected {
-    background-color: #ff8abc; /* Selected day background */
-    color: white;
+/* Navigation Buttons */
+.calendar-navigation button {
+    font-size: 1.5rem; /* Increase arrow size */
+    color: #6e4c7c;
 }
 
 #clearSelection {
@@ -321,14 +325,17 @@ input[type="text"]::placeholder {
 .month-option {
     padding: 10px;
     margin: 5px;
-    border: 1px solid pink; /* Adjust color as per your theme */
+    border: 1px solid #6e4c7c; /* Adjust color as per your theme */
     text-align: center;
     width: 100px;
     cursor: pointer;
+    background-color: white;
+    color: #6e4c7c;
 }
 
-.month-option.selected {
-    background-color: pink; /* Adjust color as per your theme */
+.month-option.selected, .month-option:hover {
+    background-color: #5d3a63; /* Adjust color as per your theme */
+    color: white;
 }
 
 .year-label {
