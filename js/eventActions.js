@@ -1,54 +1,4 @@
-//js/eventActions
-
-
-document.addEventListener('DOMContentLoaded', function() {
-    // Handle the form submission for event details
-    const form = document.getElementById('start');
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent default form submission
-
-        // Check which event type is selected and get the correct celebrant name
-        let celebrantName = '';
-        if (document.querySelector('.event-choice.active').id === 'wedding') {
-            celebrantName = document.getElementById('wedding-name').value + ' and ' + document.getElementById('partner-name').value;
-        } else if (document.querySelector('.event-choice.active').id === 'birthday') {
-            celebrantName = document.getElementById('birthday-name').value;
-        } else if (document.querySelector('.event-choice.active').id === 'other') {
-            celebrantName = document.getElementById('other-event-name').value;
-        }
-
-        const theme = document.getElementById('other-theme').value; // Get the theme from the textbox
-        const clientName = sessionStorage.getItem('clientName'); // Get the client name from session storage
-
-        // Construct the data object to be sent
-        const data = {
-            chosen_event: document.querySelector('.event-choice.active').textContent,
-            celebrant_name: celebrantName,
-            theme: theme,
-            client_name: clientName
-            // Add other fields if needed
-        };
-
-        console.log("Data to be submitted:", data); // Log the data to confirm
-
-        // Send the data to the server
-        fetch('/submit-event', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Event submitted:', data);
-            alert('Event details submitted successfully!');
-            window.location.href = '/dashboard.html'; // Redirect on success
-        })
-        .catch(error => {
-            console.error('Failed to submit event:', error);
-            alert('Failed to submit event details');
-        });
-    });
-});
+//js/eventActions//
 
 document.addEventListener("DOMContentLoaded", function() {
     const themeButtons = document.querySelectorAll('.theme-btn');
@@ -90,17 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Theme selection and other existing functionality here...
 });
 
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", function() {
     const specificDateButton = document.getElementById('specificDateButton');
     const calendarSection = document.getElementById('calendarSection');
     const clearSelectionButton = document.getElementById('clearSelection');
     const displayMonths = document.getElementById('displayMonths');
+    const eventDateInput = document.createElement('input');
+    eventDateInput.type = 'hidden';
+    eventDateInput.name = 'event_date';
+    document.getElementById('start').appendChild(eventDateInput); // Add hidden input to form
+
     let currentYear = new Date().getFullYear();
     let currentMonth = new Date().getMonth();
     let selectedDates = [];
@@ -130,6 +79,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     clearSelectionButton.addEventListener('click', function() {
         selectedDates = [];
+        eventDateInput.value = ''; // Clear hidden input
         renderTwoMonthsCalendar(currentYear, currentMonth);
     });
 
@@ -174,8 +124,12 @@ document.addEventListener("DOMContentLoaded", function() {
             selectedDates.splice(index, 1);
             element.classList.remove('selected');
         }
+
+        // Update hidden input value with selected dates as a comma-separated string
+        eventDateInput.value = selectedDates.join(', ');
     }
 });
+
 document.addEventListener("DOMContentLoaded", function() {
     const flexibleDateButton = document.getElementById('flexibleDateButton');
     const monthsSection = document.getElementById('flexibleDateSection');
@@ -247,7 +201,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-
 document.addEventListener('DOMContentLoaded', function() {
     // Retrieve elements
     const yesButton = document.getElementById('yesButton');
@@ -256,7 +209,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const budgetOptions = document.querySelector('.guest-options');
     const guestSlider = document.getElementById('guestSlider');
     const sliderValue = document.getElementById('sliderValue');
-
 
     // Event listener for the "Yes" button
     yesButton.addEventListener('click', function() {
@@ -277,6 +229,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Additional event handling code...
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     const guestButtons = document.querySelectorAll('.guest-btn');
 
@@ -287,6 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     const yesButton = document.getElementById('venueYesButton');
     const noButton = document.getElementById('venueNoButton');
@@ -304,6 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.classList.add('selected'); // Mark the noButton as selected
     });
 });
+
 document.addEventListener('DOMContentLoaded', function() {
     const yesButton = document.getElementById('agreementYes');
     const noButton = document.getElementById('agreementNo');
@@ -327,5 +282,89 @@ document.addEventListener('DOMContentLoaded', function() {
         button.addEventListener('click', function() {
             this.classList.toggle('selected'); // Toggle service selection
         });
+    });
+});
+
+//DATABASE//
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('start');
+
+    form.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        // Gather event data
+        const chosenEvent = document.querySelector('.event-choice.active')?.textContent || '';
+        const celebrantName = document.getElementById('wedding-name').value + ' and ' + document.getElementById('partner-name').value ||
+                              document.getElementById('birthday-name').value ||
+                              document.getElementById('other-event-name').value || '';
+        const theme = document.getElementById('other-theme').value || '';
+        const budget = document.querySelector('.budget-btn.selected')?.textContent || '';
+        const eventDate = document.getElementById('specificDateButton').classList.contains('selected') ?
+                          document.getElementById('calendar').textContent :
+                          document.getElementById('monthsGrid').textContent || '';
+        const invites = document.getElementById('guestSlider')?.value || '';
+        const venue = document.getElementById('venueNoButton').classList.contains('selected') ?
+                      "None" : document.getElementById('venue-name').value || '';
+        const agreements = Array.from(document.querySelectorAll('.service-btn.selected')).map(btn => btn.textContent).join(', ') || '';
+        const otherDetails = document.getElementById('extra-details').value || '';
+
+        // Log the gathered data for debugging
+        console.log("Chosen Event:", chosenEvent);
+        console.log("Celebrant Name:", celebrantName);
+        console.log("Theme:", theme);
+        console.log("Budget:", budget);
+        console.log("Event Date:", eventDate);
+        console.log("Invites:", invites);
+        console.log("Venue:", venue);
+        console.log("Agreements:", agreements);
+        console.log("Other Details:", otherDetails);
+
+        // Check if required fields are filled
+        if (!chosenEvent || !celebrantName || !theme || !budget || !eventDate) {
+            alert("Please fill out all required fields.");
+            return;
+        }
+
+        // Prepare the data object for submission
+        const eventData = {
+            chosen_event: chosenEvent,
+            celebrant_name: celebrantName,
+            theme: theme,
+            budget: budget,
+            event_date: eventDate,
+            invites: invites,
+            venue: venue,
+            agreements: agreements,
+            other_details: otherDetails
+        };
+
+        // Log the data to be submitted
+        console.log("Data to be submitted:", eventData);
+
+        try {
+            // Submit the event data to the server
+            const response = await fetch('/submit-event', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(eventData)
+            });
+
+            // Check the response status
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Server error:', errorText);
+                alert('Failed to submit event details: ' + errorText);
+                return;
+            }
+
+            // Parse the response data
+            const data = await response.json();
+            console.log('Event submitted successfully:', data);
+            alert('Event details submitted successfully. Welcome to the dashboard!');
+            window.location.href = '/client-dashboard.html'; // Redirect to client dashboard on success
+        } catch (error) {
+            console.error('Failed to submit event:', error);
+            alert('Network error, please try again later.');
+        }
     });
 });

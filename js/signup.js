@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             const result = await response.json();
             if (response.ok) {
-                alert('Signup successful! Please log in.');
+                alert('Signup successful! Welcome to Colors.');
                 closeSignupModal(); // Close the signup modal
-                openLoginModal(); // Open the login modal
+                window.location.href = '/start.html'; // Redirect to start.html
             } else {
                 alert('Signup failed: ' + result.error);
             }
@@ -30,31 +30,44 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('login-form');
-    loginForm.addEventListener('submit', function(event) {
+    loginForm.addEventListener('submit', async function(event) {
         event.preventDefault();
         const email = document.getElementById('login-email').value;
         const password = document.getElementById('login-password').value;
 
-        fetch('/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password })
-        })  
-        .then(response => response.json())
-        .then(data => {
-            if (data.message === 'Login successful') {
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            console.log("Received data from server:", data);  // Log server response
+
+            if (response.ok) {
                 alert(data.message);
-                window.location.href = '/start.html'; // Redirects to dashboard page
+
+                if (data.isAdmin) {
+                    console.log("Redirecting to admin dashboard...");  // Log redirection for admin
+                    window.location.href = '/dashboard.html';
+                } else {
+                    console.log("Redirecting to client dashboard...");  // Log redirection for regular user
+                    window.location.href = '/client-dashboard.html';
+                }
             } else {
                 alert(data.message);
             }
-        })
-        .catch(error => {
+        } catch (error) {
             console.error('Login error:', error);
             alert('Failed to log in');
-        });
+        }
     });
 });
+
+
+
+
 
 function closeSignupModal() {
     const modal = document.getElementById('signupModal');
