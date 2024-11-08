@@ -300,12 +300,10 @@ app.post('/update-event', async (req, res) => {
 });
 
 app.get('/get-user-event', async (req, res) => {
-    const userId = req.session?.user?.user_id;
-
-    console.log('Session User ID:', userId); // Debug log
+    const userId = req.query.user_id;
 
     if (!userId) {
-        return res.status(401).json({ error: 'User not logged in.' });
+        return res.status(400).json({ error: 'User ID is required.' });
     }
 
     try {
@@ -315,18 +313,13 @@ app.get('/get-user-event', async (req, res) => {
             .eq('user_id', userId)
             .single();
 
-        if (error) {
-            console.error('Supabase Error:', error.message);
-            return res.status(500).json({ error: 'Failed to fetch event data from database.' });
-        }
-
-        if (!data) {
+        if (error || !data) {
             return res.status(404).json({ error: 'Event data not found.' });
         }
 
         res.json(data);
     } catch (error) {
-        console.error('Internal Server Error:', error.message);
+        console.error('Error fetching event data:', error.message);
         res.status(500).json({ error: 'Internal server error.' });
     }
 });
@@ -393,7 +386,7 @@ app.get('/get-client-data', async (req, res) => {
     try {
         let { data, error } = await supabase
             .from('user_choice')
-            .select('celebrant_name, chosen_event');
+            .select('user_id, celebrant_name, chosen_event');
 
         if (error) {
             throw error;

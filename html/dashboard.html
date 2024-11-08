@@ -8,6 +8,19 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&display=swap" rel="stylesheet">
+    <style>
+        .dashboard-main {
+            display: none;
+        }
+        
+        .dashboard-main.show {
+            display: block;
+        }
+
+        .homepage-admin-dashboard.hide {
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -79,6 +92,7 @@
     </section>
     
     <main class="dashboard-main">
+        <button id="backToClients" class="btn back-btn">← Back to Clients</button>
         <div class="overlay" id="overlay"></div> <!-- Existing overlay -->
         <aside class="sidebar" id="sidebar">
             <!-- Back to Dashboard Button -->
@@ -530,10 +544,82 @@
             }
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async function () {
+            const userId = sessionStorage.getItem('selectedUserId');
+            if (!userId) {
+                alert('No client selected. Redirecting to the main page.');
+                window.location.href = '/homepage.html';
+                return;
+            }
+    
+            try {
+                const response = await fetch(`/get-user-event?user_id=${userId}`);
+                if (!response.ok) {
+                    throw new Error('Failed to fetch client event data');
+                }
+                const eventData = await response.json();
+                renderClientDetails(eventData);
+            } catch (error) {
+                console.error('Error fetching event data:', error);
+                alert('Failed to load client details.');
+            }
+        });
+    
+        function renderClientDetails(data) {
+            // Populate venue section
+            document.querySelector('#venue .item-title').textContent = data.venue || 'No Venue Selected';
+            document.querySelector('#venue .item-description').textContent = data.venue_details || 'Venue details not provided';
+    
+            // Populate flowers section
+            document.querySelector('#flowers .item-title').textContent = data.flowers || 'No Flowers Selected';
+            document.querySelector('#flowers .item-description').textContent = data.flowers_details || 'Flowers details not provided';
+    
+            // Populate makeup section
+            document.querySelector('#makeup .item-title').textContent = data.makeup_artist || 'No Makeup Artist Selected';
+            document.querySelector('#makeup .item-description').textContent = data.makeup_details || 'Makeup details not provided';
+    
+            // Populate photographer section
+            document.querySelector('#photographer .item-title').textContent = data.photographer || 'No Photographer Selected';
+            document.querySelector('#photographer .item-description').textContent = data.photographer_details || 'Photographer details not provided';
+    
+            // Populate music section
+            document.querySelector('#music .item-title').textContent = data.music || 'No Music Selected';
+            document.querySelector('#music .item-description').textContent = data.music_details || 'Music details not provided';
+    
+            // Populate officiant section
+            document.querySelector('#officiant .item-title').textContent = data.officiant || 'No Officiant Selected';
+            document.querySelector('#officiant .item-description').textContent = data.officiant_details || 'Officiant details not provided';
+    
+            // Populate invitations section
+            document.querySelector('#invitations .item-title').textContent = data.invites || 'No Invitations';
+            document.querySelector('#invitations .item-description').textContent = `${data.invites} guests invited`;
+    
+            // Populate payment section
+            document.querySelector('#payment .item-title').textContent = 'Payment Details';
+            document.querySelector('#payment .item-description').textContent = data.payment_status || 'No payment information available';
+        }
+    </script>
+    
+    
     <script src="../pagination.js"></script>
     <script src="../fetchClients.js" defer></script>
     <script src="../eventActions.js" defer></script>
     <script src="../server.js" defer></script>
+
+    <script>
+        // Add back button functionality
+        document.getElementById('backToClients').addEventListener('click', () => {
+            // Show the homepage admin dashboard
+            document.querySelector('.homepage-admin-dashboard').classList.remove('hide');
+            
+            // Hide the main dashboard
+            document.querySelector('.dashboard-main').classList.remove('show');
+            
+            // Clear the selected user ID
+            sessionStorage.removeItem('selectedUserId');
+        });
+    </script>
 
 </body>
 </html>

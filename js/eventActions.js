@@ -179,7 +179,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const form = document.getElementById('start');
 
     form.addEventListener('submit', async function (event) {
-        event.preventDefault();
+        event.preventDefault(); // Prevent the default form submission behavior
 
         // Gather event data
         const chosenEvent = document.querySelector('.event-choice.active')?.textContent || '';
@@ -188,27 +188,14 @@ document.addEventListener('DOMContentLoaded', function () {
                               document.getElementById('other-event-name').value || '';
         const theme = document.getElementById('other-theme').value || '';
         const budget = document.querySelector('.budget-btn.selected')?.textContent || '';
-        const eventDate = document.getElementById('specificDateButton').classList.contains('selected') ?
-                          document.getElementById('calendar').textContent :
-                          document.getElementById('monthsGrid').textContent || '';
+        const eventDate = document.getElementById('monthsGrid').textContent || '';
         const invites = document.getElementById('guestSlider')?.value || '';
         const venue = document.getElementById('venueNoButton').classList.contains('selected') ?
                       "None" : document.getElementById('venue-name').value || '';
         const agreements = Array.from(document.querySelectorAll('.service-btn.selected')).map(btn => btn.textContent).join(', ') || '';
         const otherDetails = document.getElementById('extra-details').value || '';
 
-        // Log the gathered data for debugging
-        console.log("Chosen Event:", chosenEvent);
-        console.log("Celebrant Name:", celebrantName);
-        console.log("Theme:", theme);
-        console.log("Budget:", budget);
-        console.log("Event Date:", eventDate);
-        console.log("Invites:", invites);
-        console.log("Venue:", venue);
-        console.log("Agreements:", agreements);
-        console.log("Other Details:", otherDetails);
-
-        // Check if required fields are filled
+        // Validate required fields
         if (!chosenEvent || !celebrantName || !theme || !budget || !eventDate) {
             alert("Please fill out all required fields.");
             return;
@@ -227,18 +214,19 @@ document.addEventListener('DOMContentLoaded', function () {
             other_details: otherDetails
         };
 
-        // Log the data to be submitted
         console.log("Data to be submitted:", eventData);
 
         try {
-            // Submit the event data to the server
+            // Submit the data using fetch (AJAX)
             const response = await fetch('/submit-event', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json',
+                },
                 body: JSON.stringify(eventData)
             });
 
-            // Check the response status
+            // Check if the response is okay
             if (!response.ok) {
                 const errorText = await response.text();
                 console.error('Server error:', errorText);
@@ -249,44 +237,12 @@ document.addEventListener('DOMContentLoaded', function () {
             // Parse the response data
             const data = await response.json();
             console.log('Event submitted successfully:', data);
-            alert('Event details submitted successfully. Welcome to the dashboard!');
-            window.location.href = '/client-dashboard.html'; // Redirect to client dashboard on success
+            alert('Event details submitted successfully. Redirecting to the dashboard...');
+            window.location.href = '/client-dashboard.html'; // Redirect to the dashboard
         } catch (error) {
             console.error('Failed to submit event:', error);
             alert('Network error, please try again later.');
         }
-    });
-});
-document.getElementById('submit-btn').addEventListener('click', function(e) {
-    e.preventDefault(); // Prevent default form submission behavior
-
-    const formData = {
-        chosen_event: document.getElementById('chosen-event').value,
-        celebrant_name: document.getElementById('celebrant-name').value,
-        theme: document.getElementById('theme').value,
-        budget: document.getElementById('budget').value,
-        event_date: document.getElementById('event-date').value,
-        invites: document.getElementById('invites').value,
-        venue: document.getElementById('venue').value,
-        agreements: document.getElementById('agreements').value,
-        other_details: document.getElementById('other-details').value
-    };
-
-    fetch('/submit-event', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formData)
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        alert('Event submitted successfully!');
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Failed to submit event details.');
     });
 });
 
