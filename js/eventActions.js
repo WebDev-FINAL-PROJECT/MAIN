@@ -368,3 +368,36 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+document.getElementById('submit-btn').addEventListener('click', function(e) {
+    e.preventDefault(); // Prevent default form submission behavior
+
+    const formData = {
+        chosen_event: document.getElementById('chosen-event').value,
+        celebrant_name: document.getElementById('celebrant-name').value,
+        theme: document.getElementById('theme').value,
+        budget: document.getElementById('budget').value,
+        event_date: document.getElementById('event-date').value,
+        invites: document.getElementById('invites').value,
+        venue: document.getElementById('venue').value,
+        agreements: document.getElementById('agreements').value,
+        other_details: document.getElementById('other-details').value
+    };
+
+    fetch('/submit-event', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        alert('Event submitted successfully!');
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Failed to submit event details.');
+    });
+});
+

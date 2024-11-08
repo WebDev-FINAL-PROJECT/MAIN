@@ -9,7 +9,8 @@ const { createClient } = require('@supabase/supabase-js');
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json()); // For parsing application/json
+app.use(express.json());  // For parsing application/json
+
 
 app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
 app.use(express.static(path.join(__dirname, '..', 'css')));
@@ -109,7 +110,9 @@ app.post('/login', async (req, res) => {
     }
 });
 app.post('/submit-event', async (req, res) => {
+    console.log("Request received to /submit-event");
     const { chosen_event, celebrant_name, theme, budget, event_date, invites, venue, agreements, other_details } = req.body;
+    
 
     // Validate required fields
     if (!chosen_event || !celebrant_name || !theme || !budget || !event_date) {
