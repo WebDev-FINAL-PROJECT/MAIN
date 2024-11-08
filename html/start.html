@@ -80,8 +80,7 @@
            <!-- Date Section -->
            <h2>Date</h2>
            <p>Do you have a specific month in mind? Note that this can be changed throughout the meetings.</p>
-           <!-- Date Section -->
-           <!-- Flexible Date Section -->
+
             <div id="flexibleDateSection" class="hidden">
                 <div id="monthsGrid" class="months-grid"></div>
             </div>
@@ -138,6 +137,36 @@
             <button type="submit" class="submit-btn">Submit</button>
         </form>
     </div>
+    <!-- Inside your existing HTML file where the form is located -->
+    <script>
+        document.getElementById('addVenueForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent the normal submission of the form
+        
+            const formData = new FormData(this);
+            const fileInput = document.getElementById('venueImage');
+        
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                formData.append('venue_image', file);
+            }
+        
+            fetch('/admin/add-venue', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('Venue added successfully!');
+                // Optionally clear the form or handle UI changes
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Error adding venue. Please try again.');
+            });
+        });
+    </script>
+    
 
     <script src="eventActions.js"></script>
     <script src="formHandler.js"></script>

@@ -38,7 +38,6 @@
         <aside class="sidebar" id="sidebar">
             <ul class="sidebar-list">
                 <li><a href="#clients" class="sidebar-link">Clients</a></li>
-                <li><a href="#meetings" class="sidebar-link">Calendar Meetings</a></li>
             </ul>
         </aside>
     
@@ -46,58 +45,26 @@
         <div class="main-content">
             <!-- Clients Section -->
             <section id="clients" class="client content">
-                <div class="search-bar">
-                    <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                    <input type="text" class="search-input" placeholder="Search for clients...">
-                    <button class="btn search-btn">&#x1F50D;</button>
-                </div>
                 <div class="item-list">
-                    <div class="item">
+                    <div class="item" data-client-id="1">
                         <div class="item-details">
-                            <h2 class="item-title">Client 1 Name</h2>
-                            <p class="item-description">Type of event here.</p>
+                            <h2 class="item-title">EDIT EVENTS</h2>
+                            <p class="item-description">Here, you can add vendors for the event of the clients</p>
                         </div>
-                    </div>
+                    </div>                    
         
                 </div>
             </section>
     
-            <!-- Meetings Section -->
-            <section id="meetings" class="meetings content">
-                <div class="item-list">
-                    <div class="item">
-                        <div class="item-details">
-                            <h2 class="item-title name">Client 1 Name</h2>
-                            <p class="item-description date">Date format MM/DD/YYYY</p>
-                            <p class="item-description time">Time format 00:00</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="item-details">
-                            <h2 class="item-title name">Client 2 Name</h2>
-                            <p class="item-description date">Date format MM/DD/YYYY</p>
-                            <p class="item-description time">Time format 00:00</p>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="item-details">
-                            <h2 class="item-title name">Client 3 Name</h2>
-                            <p class="item-description date">Date format MM/DD/YYYY</p>
-                            <p class="item-description time">Time format 00:00</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
+            
     </section>
     
     <main class="dashboard-main">
-        <button id="backToClients" class="btn back-btn">← Back to Clients</button>
+        
         <div class="overlay" id="overlay"></div> <!-- Existing overlay -->
         <aside class="sidebar" id="sidebar">
             <!-- Back to Dashboard Button -->
             <button class="btn back-btn" id="back-to-dashboard">← Back to Dashboard</button>
-            
             <!-- Sidebar Links -->
             <ul class="sidebar-list">
                 <li><a href="#venue" class="sidebar-link">Venue</a></li>
@@ -122,49 +89,39 @@
                 <div class="item">
                     <img src="https://via.placeholder.com/100" alt="Venue Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Venue Name</h2>
-                        <p class="item-description">Details about the venue.</p>
+                        <h2 class="title">Venue Name</h2>
+                        <p class="description">Details about the venue.</p>
                     </div>
                 </div>
                 <div class="item">
                     <img src="add.png" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Add a venue</h2>
+                        <h2 class="title">Add a venue</h2>
                     </div>
                 </div>
             </div>            
         </section>
         <!-- Add Venue Form Modal -->
+        <!-- Add Venue Form Modal -->
         <div id="addVenueModal" class="modal hidden">
             <div class="modal-content">
                 <span id="closeAddVenueModal" class="close">&times;</span>
                 <h2>Add a New Venue</h2>
-                <form id="addVenueForm">
+                <form id="addVenueForm" enctype="multipart/form-data" method="post">
                     <label for="venueName">Venue Name:</label>
-                    <input type="text" id="venueName" name="venue_name" placeholder="Enter venue name" required>
+                    <input type="text" id="venueName" name="venueName" placeholder="Enter venue name" required>
 
                     <label for="venueLocation">Location:</label>
-                    <input type="text" id="venueLocation" name="venue_location" placeholder="Enter location" required>
+                    <input type="text" id="venueLocation" name="venueLocation" placeholder="Enter location" required>
 
                     <label for="venueType">Type of Venue:</label>
-                    <select id="venueType" name="venue_type" required>
-                        <option value="">Select type</option>
-                        <option value="Function Hall">Function Hall</option>
-                        <option value="Garden">Garden</option>
-                        <option value="Others">Others</option>
-                    </select>
+                    <input type="text" id="venueType" name="venueType" placeholder="Enter type of venue (Hall, Garden, etc.)" required>
 
                     <label for="venuePrice">Venue Price:</label>
-                    <input type="text" id="venuePrice" name="venue_price" placeholder="Enter value in peso" required>
-                    
-                    <!-- Additional input for "Others" -->
-                    <div id="otherVenueTypeContainer" class="hidden">
-                        <label for="otherVenueType">Specify Venue Type:</label>
-                        <input type="text" id="otherVenueType" name="other_venue_type" placeholder="Enter venue type">
-                    </div>
+                    <input type="text" id="venuePrice" name="venuePrice" placeholder="Enter value in peso" required>
 
                     <label for="venueImage">Upload Venue Image:</label>
-                    <input type="file" id="venueImage" name="venue_image" accept="image/*">
+                    <input type="file" id="venueImage" name="venueImage" accept="image/*">
 
                     <button type="submit" class="btn">Add Venue</button>
                     <button type="button" id="cancelAddVenue" class="btn cancel-btn">Cancel</button>
@@ -182,14 +139,14 @@
                 <div class="item">
                     <img src="https://via.placeholder.com/100" alt="Flowers Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Flowers Name</h2>
-                        <p class="item-description">Details about the flowers.</p>
+                        <h2 class="title">Flowers Name</h2>
+                        <p class="description">Details about the flowers.</p>
                     </div>
                 </div>
                 <div class="item">
                     <img src="add.png" class="item-image">
-                    <div class="item-details">
-                        <h2 class="item-title">Add flower and decorations</h2>
+                    <div class="details">
+                        <h2 class="title">Add flower and decorations</h2>
                     </div>
                 </div>
             </div>            
@@ -445,11 +402,6 @@
         </div>
 
         <section id="payment" class="payment content">
-            <div class="search-bar">
-                <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
-                <input type="text" class="search-input" placeholder="Search for photographer...">
-                <button class="btn search-btn">&#x1F50D;</button>
-            </div>
             <div class="item-list">
                 <div class="item">
                     <div class="item-details">
@@ -491,10 +443,45 @@
             
             <button class="schedule-btn">Schedule Meeting with the client.</button>
         </section>
-        <button id="refreshClients" class="btn">Refresh Clients</button>
+        
 
     </main>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const clientItems = document.querySelectorAll('#clients .item'); // Get all client items
+        
+            clientItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const clientId = this.dataset.clientId; // Get client ID from data attribute
+                    sessionStorage.setItem('selectedClientId', clientId); // Store the client ID in session storage
+                    showClientDashboard(clientId); // Call function to load and display the client dashboard
+                });
+            });
+        });
+        
+        function showClientDashboard(clientId) {
+            // Fetch and display the client's data
+            fetch(`/get-user-event?user_id=${clientId}`)
+                .then(response => response.json())
+                .then(data => {
+                    renderClientDetails(data); // Function to render client details
+                    document.querySelector('.homepage-admin-dashboard').classList.add('hide');
+                    document.querySelector('.dashboard-main').classList.add('show');
+                })
+                .catch(error => {
+                    console.error('Failed to fetch client details:', error);
+                    alert('Failed to load client details.');
+                });
+        }
+        
+        function renderClientDetails(data) {
+            // Example: Update details in dashboard-main
+            document.querySelector('#venue .item-title').textContent = data.venue || 'No Venue Selected';
+            // Update other sections similarly
+        }
+        </script>
+        
     <script>
         const hamburgerButtons = document.querySelectorAll('.hamburger');
         const sidebar = document.getElementById('sidebar');
@@ -546,13 +533,7 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', async function () {
-            const userId = sessionStorage.getItem('selectedUserId');
-            if (!userId) {
-                alert('No client selected. Redirecting to the main page.');
-                window.location.href = '/homepage.html';
-                return;
-            }
-    
+            
             try {
                 const response = await fetch(`/get-user-event?user_id=${userId}`);
                 if (!response.ok) {
@@ -605,7 +586,7 @@
     <script src="../pagination.js"></script>
     <script src="../fetchClients.js" defer></script>
     <script src="../eventActions.js" defer></script>
-    <script src="../server.js" defer></script>
+    <script src="../adminDashboard.js" defer></script>
 
     <script>
         // Add back button functionality

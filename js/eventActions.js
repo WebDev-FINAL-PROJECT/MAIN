@@ -1,5 +1,4 @@
-//js/eventActions//
-
+//js/eventActions.js//
 document.addEventListener("DOMContentLoaded", function() {
     const themeButtons = document.querySelectorAll('.theme-btn');
     const otherThemeInput = document.getElementById('other-theme');
@@ -42,43 +41,40 @@ document.addEventListener('DOMContentLoaded', function() {
 
 document.addEventListener("DOMContentLoaded", function () {
     const monthsSection = document.getElementById('flexibleDateSection');
-    const currentYear = new Date().getFullYear(); // Get the current year
-    const currentMonth = new Date().getMonth(); // Get the current month (0-11)
+    const currentYear = new Date().getFullYear();
+    const currentMonth = new Date().getMonth();
 
-    // Immediately display the months section when the document is ready
     if (monthsSection) {
-        monthsSection.style.display = 'block'; // Ensure the section is always visible
-        renderMonthsGrid(currentYear); // Render the current year by default
+        monthsSection.style.display = 'block';
+        renderMonthsGrid(currentYear);
     }
 
     function renderMonthsGrid(year) {
         const monthsGrid = document.getElementById('monthsGrid');
-        monthsGrid.innerHTML = ''; // Clear the grid first
+        monthsGrid.innerHTML = '';
 
-        // Create year label
         const yearLabel = document.createElement('span');
         yearLabel.textContent = year;
         yearLabel.className = 'year-label';
         monthsGrid.appendChild(yearLabel);
 
-        // Generate month options
         for (let i = 0; i < 12; i++) {
             const month = document.createElement('button');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
 
-            // Disable month options if they have already passed in the current year
             if (year === currentYear && i < currentMonth) {
                 month.disabled = true;
-                month.classList.add('disabled'); // Optional: Add a disabled style
+                month.classList.add('disabled');
             } else {
-                month.onclick = () => toggleMonthSelection(year, i, month);
+                month.onclick = () => {
+                    toggleMonthSelection(year, i, month);
+                };
             }
 
             monthsGrid.appendChild(month);
         }
 
-        // Navigation buttons for year change
         const prevYear = document.createElement('button');
         prevYear.textContent = '<';
         prevYear.className = 'year-nav';
@@ -97,9 +93,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function toggleMonthSelection(year, month, element) {
-        const monthOptions = document.querySelectorAll('.month-option');
-        monthOptions.forEach(mo => mo.classList.remove('selected'));
+        document.querySelectorAll('.month-option').forEach(mo => mo.classList.remove('selected'));
         element.classList.add('selected');
+        updateFormWithSelectedMonth(year, month);
+    }
+
+    function updateFormWithSelectedMonth(year, month) {
+        const dateInput = document.getElementById('eventDate'); // Assuming you have an input field with this ID
+        dateInput.value = `${year}-${month + 1}`; // Store the month as a full date string
     }
 });
 
@@ -313,6 +314,65 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+document.addEventListener("DOMContentLoaded", function() {
+    // This code assumes your client items are selectable by the class 'item'
+    const clientItems = document.querySelectorAll('.item');
+
+    clientItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const clientId = this.dataset.clientId; // This retrieves the data-client-id attribute
+            showClientDashboard(clientId); // Function to handle the display of dashboard-main
+        });
+    });
+});
+
+function showClientDashboard(clientId) {
+    // This function needs to do several things:
+    // 1. Hide the current main content or any visible content sections
+    document.querySelector('.homepage-admin-dashboard').classList.add('hide');
+    // 2. Show the dashboard-main content
+    document.querySelector('.dashboard-main').classList.remove('hide');
+
+    // Optionally fetch client-specific data
+    fetch(`/get-client-details?clientId=${clientId}`) // Make sure the URL and parameters are correct
+        .then(response => response.json())
+        .then(data => {
+            // Update the dashboard-main with the data returned
+            updateDashboard(data);
+        })
+        .catch(error => console.error('Error fetching client details:', error));
+}
+
+function updateDashboard(data) {
+    // Assuming you have elements within dashboard-main to display this data
+    document.querySelector('#clientName').textContent = data.name;
+    document.querySelector('#clientEvent').textContent = data.eventType;
+    // Add more elements as needed
+}
 
 
+document.getElementById('addVenueForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // to prevent the default form submission behavior
 
+    const formData = new FormData(this);
+
+    fetch('/add-venue', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Failed to add venue');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        alert('Venue added successfully!');
+        // Optionally redirect the user or clear the form
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Failed to add venue');
+    });
+});
