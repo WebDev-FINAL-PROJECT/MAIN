@@ -88,12 +88,13 @@ app.get('/start.html', (req, res) => {
 app.post('/signup', async (req, res) => {
     const { fName, lName, phone, email, password } = req.body;
 
-    // Define regex patterns
-    const namePattern = /^[A-Za-z\s]+$/; // Only letters and spaces
-    const phonePattern = /^\d+$/; // Only digits
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Standard email format
+    console.log('Signup request received:', req.body);
 
     // Input validation
+    const namePattern = /^[A-Za-z\s]+$/;
+    const phonePattern = /^\d+$/;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     if (!namePattern.test(fName) || !namePattern.test(lName)) {
         return res.status(400).json({ error: 'First name and last name must only contain letters.' });
     }
@@ -107,31 +108,67 @@ app.post('/signup', async (req, res) => {
     }
 
     try {
-        // Insert user data into User_information
+        // Insert user data into `User_information`
         const { data: userData, error: userError } = await supabase
             .from('User_information')
             .insert([{ FName: fName, LName: lName, Phone_number: phone, email, Password: password }])
             .select('id')
             .single();
 
-        if (userError) throw userError;
+        if (userError) {
+            console.error('User insertion error:', userError.message);
+            throw userError;
+        }
 
         const userId = userData.id;
+        console.log(`New user ID: ${userId}`);
 
-        // Create a placeholder entry in user_choice with the foreign key user_id
-        const { error: choicesError } = await supabase
+        // Insert record into `user_choice` table
+        const { error: choiceError } = await supabase
             .from('user_choice')
             .insert([{ user_id: userId }]);
 
-        if (choicesError) throw choicesError;
+        if (choiceError) {
+            console.error('User choice insertion error:', choiceError.message);
+            throw choiceError;
+        }
 
+        console.log('User choice record inserted successfully.');
+
+        // Insert a record into `meeting_schedules` table with only `user_id`, others default to NULL
+        // Insert a record into `meeting_schedules` table with only `user_id`
+        const { error: meetingError } = await supabase
+            .from('meeting_schedules')
+            .insert([{ user_id: userId }]);
+
+
+        if (meetingError) {
+            console.error('Meeting schedule insertion error:', meetingError.message);
+            throw meetingError;
+        }
+
+        console.log('Meeting schedule record inserted successfully with NULL values for other fields.');
+
+        // Set session user data
         req.session.user = { user_id: userId };
-        res.json({ message: 'Signup successful. Record initialized in user_choice.', user: userData });
+
+        // Respond with success
+        res.json({
+            message: 'Signup successful. Records initialized in user_choice and meeting_schedules.',
+            user: userData,
+        });
     } catch (error) {
         console.error('Error during signup:', error.message);
         res.status(400).json({ error: error.message });
     }
 });
+
+
+
+
+
+
+
 
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
