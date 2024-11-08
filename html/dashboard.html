@@ -131,6 +131,43 @@
                 </div>
             </div>            
         </section>
+        <!-- Add Venue Form Modal -->
+        <div id="addVenueModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddVenueModal" class="close">&times;</span>
+                <h2>Add a New Venue</h2>
+                <form id="addVenueForm">
+                    <label for="venueName">Venue Name:</label>
+                    <input type="text" id="venueName" name="venue_name" placeholder="Enter venue name" required>
+
+                    <label for="venueLocation">Location:</label>
+                    <input type="text" id="venueLocation" name="venue_location" placeholder="Enter location" required>
+
+                    <label for="venueType">Type of Venue:</label>
+                    <select id="venueType" name="venue_type" required>
+                        <option value="">Select type</option>
+                        <option value="Function Hall">Function Hall</option>
+                        <option value="Garden">Garden</option>
+                        <option value="Others">Others</option>
+                    </select>
+
+                    <label for="venuePrice">Venue Price:</label>
+                    <input type="text" id="venuePrice" name="venue_price" placeholder="Enter value in peso" required>
+                    
+                    <!-- Additional input for "Others" -->
+                    <div id="otherVenueTypeContainer" class="hidden">
+                        <label for="otherVenueType">Specify Venue Type:</label>
+                        <input type="text" id="otherVenueType" name="other_venue_type" placeholder="Enter venue type">
+                    </div>
+
+                    <label for="venueImage">Upload Venue Image:</label>
+                    <input type="file" id="venueImage" name="venue_image" accept="image/*">
+
+                    <button type="submit" class="btn">Add Venue</button>
+                    <button type="button" id="cancelAddVenue" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
 
         <section id="flowers" class="flowers content">
             <div class="search-bar">
@@ -154,6 +191,40 @@
                 </div>
             </div>            
         </section>
+        <!-- Add Flower Form Modal -->
+        <div id="addFlowerModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddFlowerModal" class="close">&times;</span>
+                <h2>Add a New Flower</h2>
+                <form id="addFlowerForm">
+                    <label for="flowerShop">Flower Shop:</label>
+                    <input type="text" id="flowerShop" name="flower_shop" placeholder="Enter flower shop name" required>
+
+                    <label for="flowerType">Type of Flower:</label>
+                    <select id="flowerType" name="flower_type" required>
+                        <option value="">Select type</option>
+                        <option value="Rose">Rose</option>
+                        <option value="Lily">Lily</option>
+                        <option value="Others">Others</option>
+                    </select>
+
+                    <!-- Additional input for "Others" -->
+                    <div id="otherFlowerTypeContainer" class="hidden">
+                        <label for="otherFlowerType">Specify Flower Type:</label>
+                        <input type="text" id="otherFlowerType" name="other_flower_type" placeholder="Enter flower type">
+                    </div>
+
+                    <label for="flowerImage">Upload Flower Image:</label>
+                    <input type="file" id="flowerImage" name="flower_image" accept="image/*">
+                    
+                    <label for="flowerPrice">Flower Price:</label>
+                    <input type="text" id="flowePrice" name="flower_price" placeholder="Enter value in peso" required>
+
+                    <button type="submit" class="btn">Add Flower</button>
+                    <button type="button" id="cancelAddFlower" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
 
         <section id="invitations" class="invitations content">
             <div class="search-bar">
@@ -176,6 +247,20 @@
                 </div>
             </div>            
         </section>
+        <!-- Add Attendees Form Modal -->
+        <div id="addAttendeesModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddAttendeesModal" class="close">&times;</span>
+                <h2>Add Number of Attendees</h2>
+                <form id="addAttendeesForm">
+                    <label for="numberOfAttendees">Number of Attendees:</label>
+                    <input type="number" id="numberOfAttendees" name="number_of_attendees" placeholder="Enter number of attendees" required min="1">
+
+                    <button type="submit" class="btn">Add Attendees</button>
+                    <button type="button" id="cancelAddAttendees" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
 
         <section id="makeup" class="makeup content">
             <div class="search-bar">
@@ -200,6 +285,33 @@
             </div>            
         </section>
 
+        <!-- Add Hair and Make-up Artist Form Modal -->
+        <div id="addArtistModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddArtistModal" class="close">&times;</span>
+                <h2>Add Hair and Make-up Artist</h2>
+                <form id="addArtistForm">
+                    <label for="makeupArtistName">Name of Make-up Artist:</label>
+                    <input type="text" id="makeupArtistName" name="makeup_artist_name" placeholder="Enter make-up artist's name" required>
+
+                    <label for="hairstylistName">Name of Hairstylist:</label>
+                    <input type="text" id="hairstylistName" name="hairstylist_name" placeholder="Enter hairstylist's name" required>
+
+                    <label for="makeupCharge">Make-up Artist Charge/Rate:</label>
+                    <input type="number" id="makeupCharge" name="makeup_charge" placeholder="Enter charge/rate" required min="0">
+
+                    <label for="hairstylistCharge">Hairstylist Charge/Rate:</label>
+                    <input type="number" id="hairstylistCharge" name="hairstylist_charge" placeholder="Enter charge/rate" required min="0">
+
+                    <label for="artistImage">Upload Artist Image:</label>
+                    <input type="file" id="artistImage" name="artist_image" accept="image/*">
+
+                    <button type="submit" class="btn">Add Artist</button>
+                    <button type="button" id="cancelAddArtist" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
+
         <section id="music" class="music content">
             <div class="search-bar">
                 <button class="hamburger">&#9776;</button> <!-- Hamburger button -->
@@ -222,6 +334,26 @@
                 </div>
             </div>            
         </section>
+        <!-- Add Music/Band Form Modal -->
+        <div id="addMusicModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddMusicModal" class="close">&times;</span>
+                <h2>Add a New Band/Singer</h2>
+                <form id="addMusicForm">
+                    <label for="musicName">Name of the Band/Singer:</label>
+                    <input type="text" id="musicName" name="music_name" placeholder="Enter band/singer's name" required>
+
+                    <label for="musicCharge">Charge/Rate:</label>
+                    <input type="number" id="musicCharge" name="music_charge" placeholder="Enter charge/rate" required min="0">
+
+                    <label for="musicImage">Upload Band/Singer Image:</label>
+                    <input type="file" id="musicImage" name="music_image" accept="image/*">
+
+                    <button type="submit" class="btn">Add Music/Band</button>
+                    <button type="button" id="cancelAddMusic" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
 
         <section id="officiant" class="officiant content">
             <div class="search-bar">
@@ -245,6 +377,26 @@
                 </div>
             </div>            
         </section>
+        <!-- Add Officiant/Host Form Modal -->
+        <div id="addOfficiantModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddOfficiantModal" class="close">&times;</span>
+                <h2>Add a New Officiant/Host</h2>
+                <form id="addOfficiantForm">
+                    <label for="officiantName">Name of the Officiant/Host:</label>
+                    <input type="text" id="officiantName" name="officiant_name" placeholder="Enter officiant/host's name" required>
+
+                    <label for="officiantCharge">Charge/Rate:</label>
+                    <input type="number" id="officiantCharge" name="officiant_charge" placeholder="Enter charge/rate" required min="0">
+
+                    <label for="officiantImage">Upload Officiant/Host Image:</label>
+                    <input type="file" id="officiantImage" name="officiant_image" accept="image/*">
+
+                    <button type="submit" class="btn">Add Officiant/Host</button>
+                    <button type="button" id="cancelAddOfficiant" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
 
         <section id="photographer" class="photographer content">
             <div class="search-bar">
@@ -268,6 +420,26 @@
                 </div>
             </div>            
         </section>
+        <!-- Add Photographer/Videographer Form Modal -->
+        <div id="addPhotographerModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeAddPhotographerModal" class="close">&times;</span>
+                <h2>Add a New Photographer/Videographer</h2>
+                <form id="addPhotographerForm">
+                    <label for="photographerName">Name of the Photographer/Videographer:</label>
+                    <input type="text" id="photographerName" name="photographer_name" placeholder="Enter photographer/videographer's name" required>
+
+                    <label for="photographerCharge">Charge/Rate:</label>
+                    <input type="number" id="photographerCharge" name="photographer_charge" placeholder="Enter charge/rate" required min="0">
+
+                    <label for="photographerImage">Upload Photographer Image:</label>
+                    <input type="file" id="photographerImage" name="photographer_image" accept="image/*">
+
+                    <button type="submit" class="btn">Add Photographer</button>
+                    <button type="button" id="cancelAddPhotographer" class="btn cancel-btn">Cancel</button>
+                </form>
+            </div>
+        </div>
 
         <section id="payment" class="payment content">
             <div class="search-bar">
@@ -303,12 +475,6 @@
                 <div class="item">
                     <div class="item-details">
                         <h2 class="item-title">Hair and Make-up</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Invitations</h2>
                         <p class="item-description">Details and Price...</p>
                     </div>
                 </div>
