@@ -423,6 +423,336 @@ nav a {
     border-radius: 5px;
 }
 
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Edit Button Styling */
+#editEventButton {
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin: 20px auto;
+}
+
+#editEventButton:hover {
+    background-color: #5c3a66;
+}
+/* Modal Overlay */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto; /* Enable scrolling */
+}
+
+/* Modal Content Styling */
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh; /* Limit height */
+    overflow-y: auto; /* Add scrolling for overflow content */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Form Styling */
+#editEventForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input and Textarea Styling */
+#editEventForm input,
+#editEventForm textarea {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%; /* Ensure inputs fit within the form */
+    box-sizing: border-box;
+}
+
+/* Fix for Wide Input (Venue) */
+#venue {
+    width: 100%; /* Ensure it doesn't overflow */
+}
+
+/* Close Button */
+#closeModal {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+#editEventForm label {
+    font-size: 1rem;
+    color: #6e4c7c;
+    font-weight: bold;
+}
+
+#editEventForm input:focus,
+#editEventForm textarea:focus {
+    border-color: #6e4c7c;
+    outline: none;
+}
+
+#editEventForm button[type="submit"],
+#cancelEdit {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    max-width: 200px;
+    margin: 10px auto;
+}
+
+#editEventForm button[type="submit"] {
+    background-color: #6e4c7c;
+    color: #fff;
+}
+
+#editEventForm button[type="submit"]:hover {
+    background-color: #5c3a66;
+}
+
+#cancelEdit {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+#cancelEdit:hover {
+    background-color: #c5c5c5;
+}
+.hidden {
+    display: none;
+}
+
+
+/* Form Styling */
+#addPhotographerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Styling */
+#addPhotographerForm input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Form Styling */
+#addOfficiantForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Styling */
+#addOfficiantForm input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Form Styling */
+#addMusicForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Styling */
+#addMusicForm input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Form Styling */
+#addArtistForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Styling */
+#addArtistForm input {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Form Styling */
+#addFlowerForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input and Select Styling */
+#addFlowerForm input,
+#addFlowerForm select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Form Styling */
+#addAttendeesForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input Styling */
+#numberOfAttendees {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Modal Overlay */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+/* Modal Content Styling */
+.modal-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    color: #333;
+    cursor: pointer;
+}
+
+/* Form Styling */
+#addVenueForm {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Input and Select Styling */
+#addVenueForm input,
+#addVenueForm select {
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Hidden Container for Other Venue Type */
+.hidden {
+    display: none;
+}
+
+/* Submit and Cancel Buttons */
+.btn {
+    padding: 10px;
+    background-color: #6e4c7c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cancel-btn {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.btn:hover {
+    background-color: #5c3a66;
+}
+
+.cancel-btn:hover {
+    background-color: #c5c5c5;
+}
 
 @media (max-width: 1024px) {
     .homepage-admin-dashboard {

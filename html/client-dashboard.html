@@ -14,12 +14,15 @@
         <div class="logo">
             <h1 class="logo-text">Colors.</h1>
         </div>
-        <button class="nav-hamburger" id="nav-hamburger">&#9776;</button> <!-- New hamburger for navbar -->
+        <div class="user-info" id="user-info">
+            <!-- User name will be inserted here -->
+        </div>
+        <button class="nav-hamburger" id="nav-hamburger">&#9776;</button>
         <nav class="nav-menu" id="nav-menu">
             <button class="btn logout-btn">Logout</button>
         </nav>
     </header>
-
+    
     <main class="dashboard-main">
         <div class="overlay" id="overlay"></div> <!-- Added overlay -->
         <aside class="sidebar" id="sidebar">
@@ -173,6 +176,66 @@
             </div>            
             <button class="btn schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
+        <!-- Edit Event Modal -->
+        <div id="editEventModal" class="modal hidden">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Edit Your Event</h2>
+                <form id="editEventForm">
+                    <label for="chosenEvent">Chosen Event:</label>
+                    <input type="text" id="chosenEvent" name="chosen_event">
+
+                    <label for="celebrantName">Celebrant Name:</label>
+                    <input type="text" id="celebrantName" name="celebrant_name">
+
+                    <label for="theme">Theme:</label>
+                    <input type="text" id="theme" name="theme">
+
+                    <label for="budget">Budget:</label>
+                    <input type="text" id="budget" name="budget">
+
+                    <label for="eventDate">Event Date:</label>
+                    <input type="text" id="eventDate" name="event_date">
+
+                    <label for="invites">Number of Invites:</label>
+                    <input type="text" id="invites" name="invites">
+
+                    <label for="venue">Venue:</label>
+                    <input type="text" id="venue" name="venue">
+
+                    <label for="agreements">Agreements:</label>
+                    <input type="text" id="agreements" name="agreements">
+
+                    <label for="otherDetails">Other Details:</label>
+                    <textarea id="otherDetails" name="other_details"></textarea>
+
+                    <button type="submit">Save Changes</button>
+                    <button type="button" id="cancelEdit">Cancel</button>
+                </form>
+            </div>
+        </div>
+        <div class="container" id="bookingFormContainer">
+            <h2>Booking Form</h2>
+            <form id="bookingForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+                <label for="date">Booking Date</label>
+                <input type="date" id="date" name="date" required>
+        
+                <label for="time">Booking Time</label>
+                <input type="time" id="time" name="time" required>
+        
+                <label for="description">Purpose of Booking</label>
+                <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
+        
+                <button type="submit" id="submitBookingButton">Submit</button>
+    
+    
+            </form>
+        </div>
+
+
 
         <section id="payment" class="payment content">
             <div class="search-bar">
@@ -225,27 +288,13 @@
             </div>
             <button class="schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
-        <button id="editEventButton">Edit Event</button>
+        
     </main>
 
-    <div class="container" id="bookingFormContainer">
-        <h2>Booking Form</h2>
-        <form action="/submit_booking" method="POST">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
     
-            <label for="date">Booking Date</label>
-            <input type="date" id="date" name="date" required>
     
-            <label for="time">Booking Time</label>
-            <input type="time" id="time" name="time" required>
     
-            <label for="description">Purpose of Booking</label>
-            <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
     
-            <button type="submit">Submit</button>
-        </form>
-    </div>
     
 
     <script>
@@ -299,8 +348,11 @@
         
     </script>
     <script src="../pagination.js"></script>
-    <script>
-        
-    </script>
+    <script src="../userInfo.js"></script>
+    <script src="../eventActions.js"></script>
+
+    
+    
+    <button id="editEventButton">Edit Event</button>
 </body>
 </html>

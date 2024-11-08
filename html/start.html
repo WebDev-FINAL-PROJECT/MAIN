@@ -76,28 +76,11 @@
                 <button type="button" class="budget-btn" data-budget="25-50K">₱ 25-50K</button>
                 <button type="button" class="budget-btn" data-budget="50K+">₱ 50K+</button>
             </div>
-            
-
-
-
+          
            <!-- Date Section -->
            <h2>Date</h2>
-           <p>Do you have a specific date in mind or are you flexible?</p>
+           <p>Do you have a specific date in mind? Note that this can be changed throughout the meetings.</p>
            <!-- Date Section -->
-            <div class="date">
-                <button type="button" id="specificDateButton">Specific Date</button>
-                <button type="button" id="flexibleDateButton">I'm flexible</button>
-                <!-- Calendar Section, initially hidden -->
-                <div id="calendarSection" class="hidden">
-                    <div class="calendar-navigation">
-                        <button id="prevMonth">&#60;</button>
-                        <span id="displayMonths"></span>
-                        <button id="nextMonth">&#62;</button>
-                    </div>
-                    <div id="calendar" class="calendar-grid"></div>
-                    <button id="clearSelection">Clear selection</button>
-                </div>
-            </div>
            <!-- Flexible Date Section -->
             <div id="flexibleDateSection" class="hidden">
                 <div id="monthsGrid" class="months-grid"></div>
@@ -109,20 +92,10 @@
                 <p>Do you know how many guests you are inviting?</p>
                 <small>Of course, this may change during the planning process and you can change it later, but a raw estimate.</small>
             </div>
-            <div class="guest-buttons">
-                <button type="button" id="yesButton" class="guest-button">Yes</button>
-                <button type="button" id="noButton" class="guest-button">No</button>
-            </div>
             <div id="sliderContainer" class="hidden">
                 <input type="range" id="guestSlider" min="0" max="500" value="183" class="slider">
                 <p>Guests: <span id="sliderValue">183</span></p>
             </div>
-            <div class="guest-options hidden">
-                <button type="button" class="guest-btn">>50</button>
-                <button type="button" class="guest-btn">50-100</button>
-                <button type="button" class="guest-btn">100-200</button>
-                <button type="button" class="guest-btn">200+</button>
-            </div>  
             <!-- Venue Section -->
             <h2>Venue</h2>
             <p>Have you already decided on your wedding venue?</p>
@@ -134,7 +107,6 @@
                 <p>Please input the name of the chosen venue:</p>
                 <input type="text" id="venue-name" placeholder="Enter a location">
             </div>
-
 
             <!-- Additional Details Section -->
             <h2>Any agreements already?</h2>
@@ -152,12 +124,10 @@
                     <button type="button" class="service-btn">Photo Booths</button>
                     <button type="button" class="service-btn">Videographer</button>
                     <button type="button" class="service-btn">Make-Up and Hair</button>
-                    <button type="button" class="service-btn">Cake and Sweet Corner</button>
                     <button type="button" class="service-btn">Flowers and decorations</button>
                     <button type="button" class="service-btn">Transportation</button>
                     <button type="button" class="service-btn">Invitations and handicraft</button>
                     <button type="button" class="service-btn">Rental service</button>
-                    <button type="button" class="service-btn">Wedding planning</button>
                 </div>
             </div>
 
