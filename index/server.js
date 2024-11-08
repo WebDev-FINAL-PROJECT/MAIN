@@ -359,6 +359,56 @@ app.post('/update-user-event', async (req, res) => {
     }
 });
 
+app.post('/submit-booking', async (req, res) => {
+    const { name, meeting_date, meeting_time, purpose } = req.body;
+    const userId = req.session?.user?.user_id; // Assuming user session management is handled
+
+    if (!userId) {
+        return res.status(401).send('User must be logged in.');
+    }
+
+    try {
+        const { error } = await supabase
+            .from('meeting_schedules')
+            .insert({
+                user_id: userId,
+                name: name,
+                meeting_date: meeting_date,
+                meeting_time: meeting_time,
+                purpose: purpose
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        res.status(200).json({ message: 'Booking submitted successfully.' });
+    } catch (error) {
+        console.error('Error submitting booking:', error);
+        res.status(500).json({ error: 'Failed to submit booking.' });
+    }
+});
+
+app.get('/get-client-data', async (req, res) => {
+    try {
+        const { data, error } = await supabase
+            .from('user_choice')
+            .select('*'); // Adjust according to your actual data structure
+        if (error) throw error;
+        res.json(data);
+    } catch (error) {
+        console.error('Failed to fetch client data', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+
+
+
+
+
+
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

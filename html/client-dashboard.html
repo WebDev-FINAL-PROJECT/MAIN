@@ -214,6 +214,26 @@
                 </form>
             </div>
         </div>
+        <div class="container" id="bookingFormContainer">
+            <h2>Booking Form</h2>
+            <form id="bookingForm">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+                <label for="date">Booking Date</label>
+                <input type="date" id="date" name="date" required>
+        
+                <label for="time">Booking Time</label>
+                <input type="time" id="time" name="time" required>
+        
+                <label for="description">Purpose of Booking</label>
+                <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
+        
+                <button type="submit" id="submitBookingButton">Submit</button>
+    
+    
+            </form>
+        </div>
 
 
 
@@ -268,26 +288,13 @@
             </div>
             <button class="schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
+        
     </main>
 
-    <div class="container" id="bookingFormContainer">
-        <h2>Booking Form</h2>
-        <form action="/submit_booking" method="POST">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Enter your name" required>
     
-            <label for="date">Booking Date</label>
-            <input type="date" id="date" name="date" required>
     
-            <label for="time">Booking Time</label>
-            <input type="time" id="time" name="time" required>
     
-            <label for="description">Purpose of Booking</label>
-            <textarea id="description" name="description" placeholder="Enter the purpose of the booking" required></textarea>
     
-            <button type="submit">Submit</button>
-        </form>
-    </div>
     
 
     <script>
@@ -342,6 +349,9 @@
     </script>
     <script src="../pagination.js"></script>
     <script src="../userInfo.js"></script>
+    <script src="../eventActions.js"></script>
+
+    
     
 
 

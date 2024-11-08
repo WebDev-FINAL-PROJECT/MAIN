@@ -401,3 +401,54 @@ document.getElementById('submit-btn').addEventListener('click', function(e) {
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+    const bookingForm = document.getElementById('bookingForm');
+
+    bookingForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the default form submission
+
+        const name = document.getElementById('name').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+        const description = document.getElementById('description').value;
+
+        // Validate input here if needed
+        if (!name || !date || !time || !description) {
+            alert('Please fill out all fields.');
+            return;
+        }
+
+        const bookingData = {
+            name: name,
+            meeting_date: date,
+            meeting_time: time,
+            purpose: description
+        };
+
+        fetch('/submit-booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bookingData)
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Booking submitted successfully:', data);
+            alert('Booking submitted successfully!');
+           
+        })
+        .catch(error => {
+            console.error('Failed to submit booking:', error);
+            alert('Failed to submit booking.');
+        });
+    });
+});
+
+
+
