@@ -162,3 +162,22 @@ document.addEventListener("DOMContentLoaded", function () {
         // You can store or send the selectedThemes as needed before continuing to the next section
     });
 });
+
+//Booking of the client form
+const scheduleButtons = document.querySelectorAll('.schedule-btn');
+const bookingFormContainer = document.getElementById('bookingFormContainer');
+
+
+// Add click event listener to each schedule button
+scheduleButtons.forEach(button => {
+    button.addEventListener('click', () => {
+        bookingFormContainer.style.display = 'flex'; // Show the form container
+    });
+});
+
+// Close the form when clicking outside it
+window.addEventListener('click', (e) => {
+    if (e.target === bookingFormContainer) {
+        bookingFormContainer.style.display = 'none'; // Hide the form container
+    }
+});

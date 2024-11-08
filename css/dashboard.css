@@ -190,6 +190,68 @@ nav a {
     display: block;
     opacity: 1;
 }
+ /* Booking Form Modal */
+ #bookingFormContainer {
+    display: none; /* Hide by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Dark overlay */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* Centered Form Styling */
+#bookingFormContainer form {
+    background-color: #fff;
+    padding: 20px 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
+
+#bookingFormContainer h2 {
+    margin-top: 0;
+    font-family: 'Newsreader', sans-serif;
+    font-size: 1.5em;
+    color: #333;
+}
+
+#bookingFormContainer label {
+    display: block;
+    margin: 10px 0 5px;
+    font-size: 0.9em;
+    color: #555;
+}
+
+#bookingFormContainer input,
+#bookingFormContainer textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 0.9em;
+}
+
+#bookingFormContainer button[type="submit"] {
+    background-color: #6e4c7c;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+}
+
+#bookingFormContainer button[type="submit"]:hover {
+    background-color: #45a049;
+}
 
 /* Responsive Styling */
 @media (max-width: 1024px) {
