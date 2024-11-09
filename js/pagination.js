@@ -285,3 +285,76 @@ addVenueForm.addEventListener("submit", (event) => {
     // Close the modal
     addVenueModal.classList.add("hidden");
 });
+
+// Adding New Flower Item to Item List
+const addFlowerForm = document.getElementById("addFlowerForm");
+const addFlowerModal = document.getElementById("addFlowerModal");
+const flowerItemList = document.querySelector("#flowers .item-list");
+
+// Function to create and add a new flower item
+function addFlowerItem(shopName, flowerType, price, imageUrl) {
+    // Create new item element
+    const newItem = document.createElement("div");
+    newItem.classList.add("item");
+
+    // Set the flower image
+    const imageElement = document.createElement("img");
+    imageElement.src = imageUrl || "../flower.jpg"; // Default image if none uploaded
+    imageElement.alt = "Flower Image";
+    imageElement.classList.add("item-image");
+
+    // Set the flower details
+    const detailsElement = document.createElement("div");
+    detailsElement.classList.add("item-details");
+
+    const titleElement = document.createElement("h2");
+    titleElement.classList.add("item-title");
+    titleElement.textContent = shopName;
+
+    const typeElement = document.createElement("p");
+    typeElement.classList.add("item-description");
+    typeElement.textContent = flowerType;
+
+    const priceElement = document.createElement("p");
+    priceElement.classList.add("item-description");
+    priceElement.textContent = `Php ${price}`;
+
+    // Append details to the details element
+    detailsElement.appendChild(titleElement);
+    detailsElement.appendChild(typeElement);
+    detailsElement.appendChild(priceElement);
+
+    // Append image and details to the new item
+    newItem.appendChild(imageElement);
+    newItem.appendChild(detailsElement);
+
+    // Insert the new item at the beginning of the item list
+    flowerItemList.insertBefore(newItem, flowerItemList.firstElementChild);
+}
+
+// Handle form submission
+addFlowerForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // Get input values from the form
+    const shopName = document.getElementById("flowerShop").value;
+    const flowerType = document.getElementById("flowerType").value;
+    const otherFlowerType = document.getElementById("otherFlowerType").value;
+    const selectedFlowerType = flowerType === "Others" ? otherFlowerType : flowerType;
+    const price = document.getElementById("flowePrice").value;
+    const imageFile = document.getElementById("flowerImage").files[0];
+    const imageUrl = imageFile ? URL.createObjectURL(imageFile) : "";
+
+    // Call function to add the new flower item
+    addFlowerItem(shopName, selectedFlowerType, price, imageUrl);
+
+    // Reset form inputs
+    addFlowerForm.reset();
+
+    // Close the modal
+    addFlowerModal.classList.add("hidden");
+});
+
+if (imageFile) {
+    URL.revokeObjectURL(imageUrl);
+}
