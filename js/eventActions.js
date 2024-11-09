@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthsSection = document.getElementById('flexibleDateSection');
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
+    const selectedMonthInput = document.getElementById('selectedMonth'); // Hidden input field
 
     if (monthsSection) {
         monthsSection.style.display = 'block';
@@ -62,8 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const month = document.createElement('button');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
+            month.type = 'button'; // Prevent form submission
 
-            // Disable past months
+            // Disable past months in the current year
             if (year === currentYear && i < currentMonth) {
                 month.disabled = true;
                 month.classList.add('disabled');
@@ -126,8 +128,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
 });
-
-
 
 
 document.addEventListener("DOMContentLoaded", function() {

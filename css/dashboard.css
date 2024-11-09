@@ -389,6 +389,7 @@ nav a {
 
 
 
+
 /* Meetings Section Styling */
 .meetings.content {
     width: 100%;
@@ -753,6 +754,12 @@ nav a {
 
 .cancel-btn:hover {
     background-color: #c5c5c5;
+}
+
+.item-image{
+    width: 200px;
+    height: 180px;;
+
 }
 
 @media (max-width: 1024px) {
