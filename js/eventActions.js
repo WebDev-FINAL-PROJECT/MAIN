@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const monthsSection = document.getElementById('flexibleDateSection');
     const currentYear = new Date().getFullYear();
     const currentMonth = new Date().getMonth();
+    const selectedMonthInput = document.getElementById('selectedMonth'); // Hidden input field
 
     if (monthsSection) {
         monthsSection.style.display = 'block';
@@ -62,8 +63,9 @@ document.addEventListener("DOMContentLoaded", function () {
             const month = document.createElement('button');
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
+            month.type = 'button'; // Prevent form submission
 
-            // Disable past months
+            // Disable past months in the current year
             if (year === currentYear && i < currentMonth) {
                 month.disabled = true;
                 month.classList.add('disabled');
@@ -102,13 +104,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function updateFormWithSelectedMonth(year, month) {
-        const dateInput = document.getElementById('eventDate'); // Assuming you have an input field with this ID
-        dateInput.value = `${year}-${String(month + 1).padStart(2, '0')}`; // Store the month as a full date string
-        console.log(`Selected month: ${dateInput.value}`); // Log the selected month for debugging
+        const selectedMonthName = new Date(year, month).toLocaleString('default', { month: 'long' });
+        selectedMonthInput.value = `${selectedMonthName} ${year}`; // Store the selected month and year as a string
+        console.log(`Selected month: ${selectedMonthInput.value}`); // For debugging
     }
 });
-
-
 
 
 document.addEventListener("DOMContentLoaded", function() {
