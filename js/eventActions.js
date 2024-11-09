@@ -448,3 +448,43 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Selected date: ${dateInput.value}`); // Format: YYYY-MM-DD
     });
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("start");
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault(); // Prevent normal form submission
+
+        // Collect the form data
+        const formData = {
+            chosen_event: document.getElementById("chosen-event").value,
+            celebrant_name: document.getElementById("birthday-name").value || document.getElementById("wedding-name").value,
+            theme: document.getElementById("other-theme").value || Array.from(document.querySelectorAll('.theme-btn.selected')).map(btn => btn.value).join(", "),
+            event_date: document.getElementById("eventDate").value,
+            invites: document.getElementById("sliderValue").textContent,
+            venue: document.getElementById("venue-name") ? document.getElementById("venue-name").value : null,
+            agreements: document.querySelector('#agreementYes').classList.contains('selected') ? 'Yes' : 'No',
+            other_details: document.getElementById("extra-details").value,
+            budget: Array.from(document.querySelectorAll('.budget-btn.selected')).map(btn => btn.dataset.budget).join(", "),
+        };
+
+        // Send the data to the server via POST request
+        try {
+            const response = await fetch('/submit-event', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+
+            const data = await response.json();
+            if (response.ok) {
+                alert('Event details submitted successfully!');
+            } else {
+                alert('Failed to submit event details: ' + data.error);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Failed to submit event details. Please try again.');
+        }
+    });
+});
