@@ -213,3 +213,75 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = "homepage.html";
     });
 });
+
+// Adding New Venue Item to Item List
+const addVenueForm = document.getElementById("addVenueForm");
+const addVenueModal = document.getElementById("addVenueModal");
+const itemList = document.querySelector("#venue .item-list");
+
+// Function to create and add a new venue item
+function addVenueItem(name, location, type, price, imageUrl) {
+    // Create new item element
+    const newItem = document.createElement("div");
+    newItem.classList.add("item");
+
+    // Set the venue image
+    const imageElement = document.createElement("img");
+    imageElement.src = imageUrl || "../venue.jpg";
+    imageElement.alt = "Venue Image";
+    imageElement.classList.add("item-image");
+
+    // Set the venue details
+    const detailsElement = document.createElement("div");
+    detailsElement.classList.add("item-details");
+
+    const titleElement = document.createElement("h2");
+    titleElement.classList.add("item-title");
+    titleElement.textContent = name;
+
+    const locationElement = document.createElement("p");
+    locationElement.classList.add("item-description");
+    locationElement.textContent = location;
+
+    const typeElement = document.createElement("p");
+    typeElement.classList.add("item-description");
+    typeElement.textContent = type;
+
+    const priceElement = document.createElement("p");
+    priceElement.classList.add("item-description");
+    priceElement.textContent = `Php ${price}`;
+
+    // Append details to the details element
+    detailsElement.appendChild(titleElement);
+    detailsElement.appendChild(locationElement);
+    detailsElement.appendChild(typeElement);
+    detailsElement.appendChild(priceElement);
+
+    // Append image and details to the new item
+    newItem.appendChild(imageElement);
+    newItem.appendChild(detailsElement);
+
+    // Add the new item to the item list
+    itemList.insertBefore(newItem, itemList.firstElementChild);
+}
+
+// Handle form submission
+addVenueForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    // Get input values from the form
+    const venueName = document.getElementById("venueName").value;
+    const venueLocation = document.getElementById("venueLocation").value;
+    const venueType = document.getElementById("venueType").value;
+    const venuePrice = document.getElementById("venuePrice").value;
+    const venueImage = document.getElementById("venueImage").value;
+
+    // Call function to add the new venue item
+    addVenueItem(venueName, venueLocation, venueType, venuePrice, venueImage);
+
+    // Reset form inputs
+    addVenueForm.reset();
+
+    // Close the modal
+    addVenueModal.classList.add("hidden");
+});
