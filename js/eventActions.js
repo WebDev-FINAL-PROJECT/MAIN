@@ -219,55 +219,54 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 //DATABASE//
-document.getElementById('start').addEventListener('submit', async function (event) {
-    event.preventDefault();
+// Add Venue Form Submission
+document.getElementById('addVenueForm').addEventListener('submit', async function (event) {
+    event.preventDefault(); // Prevent default form submission
 
-    let celebrantName = '';
-    if (!document.getElementById('wedding-section').classList.contains('hidden')) {
-        celebrantName = `${document.getElementById('wedding-name').value} and ${document.getElementById('partner-name').value}`;
-    } else if (!document.getElementById('birthday-section').classList.contains('hidden')) {
-        celebrantName = document.getElementById('birthday-name').value;
-    } else {
-        celebrantName = document.getElementById('other-event-name').value;
-    }
+    // Get form input values
+    const venueName = document.getElementById('venueName').value;
+    const venueLocation = document.getElementById('venueLocation').value;
+    const venueType = document.getElementById('venueType').value;
+    const venuePrice = document.getElementById('venuePrice').value;
+    const venueImage = document.getElementById('venueImage').value;
 
-    const eventData = {
-        chosen_event: document.querySelector('.event-choice.active')?.textContent || '',
-        celebrant_name: celebrantName,
-        theme: document.getElementById('other-theme').value || '',
-        budget: document.querySelector('.budget-btn.selected')?.textContent || '',
-        event_date: document.getElementById('eventDate')?.value || '',
-        invites: document.getElementById('guestSlider')?.value || '',
-        venue: document.getElementById('venueNoButton').classList.contains('selected') ? "None" : document.getElementById('venue-name').value || '',
-        agreements: Array.from(document.querySelectorAll('.service-btn.selected')).map(btn => btn.textContent).join(', '),
-        other_details: document.getElementById('extra-details').value || ''
+    // Create an object with form data
+    const venueData = {
+        venue_name: venueName,
+        venue_location: venueLocation,
+        venue_type: venueType,
+        venue_price: parseFloat(venuePrice),
+        venue_img: venueImage,
     };
 
     try {
-        const response = await fetch('/submit-event', {
+        // Send a POST request to the server to save the venue data
+        const response = await fetch('/add-venue', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
-            body: JSON.stringify(eventData)
+            body: JSON.stringify(venueData),
         });
 
         if (!response.ok) {
             const errorText = await response.text();
             console.error('Server error:', errorText);
-            alert('Failed to submit event details: ' + errorText);
+            alert('Failed to add venue: ' + errorText);
             return;
         }
 
         const data = await response.json();
-        console.log('Event submitted successfully:', data);
-        alert('Event details submitted successfully.');
-        window.location.href = '/client-dashboard.html';
+        console.log('Venue added successfully:', data);
+        alert('Venue added successfully!');
+        // Optionally, clear the form after successful submission
+        document.getElementById('addVenueForm').reset();
     } catch (error) {
         console.error('Network error:', error);
         alert('Network error, please try again later.');
     }
 });
+
 
 document.addEventListener('DOMContentLoaded', function() {
     const bookingForm = document.getElementById('bookingForm');

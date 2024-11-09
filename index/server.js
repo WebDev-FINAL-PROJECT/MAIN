@@ -232,6 +232,33 @@ app.get('/get-user-info', async (req, res) => {
         res.status(500).json({ error: 'Internal server error.' });
     }
 });
+app.post('/add-venue', async (req, res) => {
+    const { venue_name, venue_location, venue_type, venue_price, venue_img } = req.body;
+
+    try {
+        // Insert the venue data into the "venue" table in Supabase
+        const { data, error } = await supabase
+            .from('venue')
+            .insert([
+                {
+                    venue_name: venue_name,
+                    venue_location: venue_location,
+                    venue_type: venue_type,
+                    venue_price: venue_price,
+                    venue_img: venue_img,
+                },
+            ]);
+
+        if (error) {
+            throw error;
+        }
+
+        res.json({ message: 'Venue added successfully', data });
+    } catch (error) {
+        console.error('Error adding venue:', error.message);
+        res.status(500).json({ error: 'Failed to add venue. Please try again.' });
+    }
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
