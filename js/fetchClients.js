@@ -13,9 +13,11 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch('/get-client-data')
             .then(response => response.json())
             .then(data => {
+                console.log('Client Data:', data); // Debugging log
                 populateClientsData(data);
             })
             .catch(error => console.error('Error fetching client data:', error));
+
     }
 });
 

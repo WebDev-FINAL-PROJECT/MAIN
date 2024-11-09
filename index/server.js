@@ -7,13 +7,11 @@ const path = require('path');
 const { createClient } = require('@supabase/supabase-js');
 const cors = require('cors');
 const app = express();
-const adminDashboardRouter = require('./js/adminDashboard');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());  // For parsing application/json
 
-app.use('/admin', adminDashboardRouter);
 
 
 app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
@@ -387,12 +385,19 @@ app.post('/submit-booking', async (req, res) => {
 
 app.get('/get-client-data', async (req, res) => {
     try {
-        let { data, error } = await supabase
+        const { data, error } = await supabase
             .from('user_choice')
             .select('user_id, celebrant_name, chosen_event');
 
+        console.log('Supabase Response:', data); // Debugging log
+
         if (error) {
             throw error;
+        }
+
+        if (!data || data.length === 0) {
+            console.error('No client data found.');
+            return res.status(404).json({ error: 'No clients found' });
         }
 
         res.json(data);
@@ -402,51 +407,6 @@ app.get('/get-client-data', async (req, res) => {
     }
 });
 
-
-
-adminRouter.post('/add-venue', ensureLoggedIn, async (req, res) => {
-    if (!req.files || !req.files.venueImage) {
-        return res.status(400).send('No image file uploaded.');
-    }
-
-    let { venueImage } = req.files;
-    let { venueName, venueLocation, venueType, venuePrice } = req.body;
-    const fileName = `venues/${Date.now()}_${venueImage.name}`;
-
-    try {
-        // Upload the image to Supabase Storage
-        const { data: uploadData, error: uploadError } = await supabase
-            .storage
-            .from('venue-images')
-            .upload(fileName, venueImage.data);
-
-        if (uploadError) throw uploadError;
-
-        // Get the public URL of the uploaded image
-        const { publicURL } = supabase
-            .storage
-            .from('venue-images')
-            .getPublicUrl(fileName);
-
-        // Insert venue data along with image URL into the 'venue' table
-        const { data, error } = await supabase
-            .from('venue')
-            .insert([{
-                venue_name: venueName,
-                location: venueLocation,
-                type: venueType,
-                price: venuePrice,
-                venue_img: publicURL
-            }]);
-
-        if (error) throw error;
-
-        res.json({ message: 'Venue added successfully', data });
-    } catch (error) {
-        console.error('Error in adding venue:', error.message);
-        res.status(500).json({ error: 'Internal server error' });
-    }
-});
 
 
 

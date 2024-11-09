@@ -79,10 +79,9 @@ adminRouter.post('/add-venue', ensureLoggedIn, async (req, res) => {
         if (uploadError) throw uploadError;
 
         // Get the public URL of the uploaded image
-        const { publicURL } = supabase
-            .storage
-            .from('venue-images')
-            .getPublicUrl(fileName);
+        const { data: publicData } = supabase.storage.from('venue-images').getPublicUrl(fileName);
+        const publicURL = publicData.publicUrl;
+
 
         // Insert venue data along with image URL into the 'venue' table
         const { data, error } = await supabase
