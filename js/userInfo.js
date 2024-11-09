@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const userInfo = document.getElementById('user-info');
 
         if (data.fName && data.lName) {
-            userInfo.textContent = `Welcome ${data.fName} ${data.lName}!`;
+            userInfo.textContent = `Welcome ${data.fName} ${data.lName}!!`;
         } else {
             userInfo.textContent = 'User information not available.';
         }
