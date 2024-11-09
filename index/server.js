@@ -1,27 +1,501 @@
-//index/server.js
-require('dotenv').config();
-const session = require('express-session');
-const express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
-const { createClient } = require('@supabase/supabase-js');
-const cors = require('cors');
+// //index/server.js
+
+// import express from 'express';
+// import session from 'express-session';
+// import bodyParser from 'body-parser';
+// import path from 'path';
+// import { createClient } from '@supabase/supabase-js';
+// import cors from 'cors';
+// import dotenv from 'dotenv';
+// dotenv.config();
+
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(express.json());  // For parsing application/json
+
+// app.use(cors({
+//     origin: 'http://localhost:3000',
+//     credentials: true
+// }));
+
+// app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
+// app.use(express.static(path.join(__dirname, '..', 'css')));
+// app.use(express.static(path.join(__dirname, '..', 'js')));
+
+// // Session Configuration
+// app.use(session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         secure: false, // Set to 'true' if using HTTPS
+//         httpOnly: true,
+//     }
+// }));
+
+// // Move this near the top of the file, after your middleware setup but before other routes
+// app.post('/add-venue', async (req, res) => {
+//     console.log('Received request body:', req.body); // Debug log
+
+//     try {
+//         const { venueName, venueLocation, venueType, venuePrice, venueImage } = req.body;
+
+//         // Validate required fields
+//         if (!venueName || !venueLocation || !venueType || !venuePrice) {
+//             console.log('Missing required fields'); // Debug log
+//             return res.status(400).json({ 
+//                 success: false, 
+//                 message: 'Missing required fields' 
+//             });
+//         }
+
+//         // Insert into venue table
+//         const { data, error } = await supabase
+//             .from('venue')
+//             .insert([
+//                 {
+//                     venue_name: venueName,
+//                     venue_location: venueLocation,
+//                     venue_type: venueType,
+//                     venue_price: parseInt(venuePrice), // Convert to integer
+//                     venue_img: venueImage || null // Allow null if no image
+//                 }
+//             ])
+//             .select(); // Add this to get the inserted data back
+
+//         if (error) {
+//             console.error('Supabase error:', error); // Debug log
+//             throw error;
+//         }
+
+//         console.log('Venue added successfully:', data); // Debug log
+
+//         return res.status(200).json({ 
+//             success: true, 
+//             message: 'Venue added successfully',
+//             data 
+//         });
+//     } catch (error) {
+//         console.error('Server error:', error); // Debug log
+//         return res.status(500).json({ 
+//             success: false, 
+//             message: 'Failed to add venue: ' + error.message
+//         });
+//     }
+// });
+
+// app.get('/get-user-info', async (req, res) => {
+//     const userId = req.session?.user?.user_id;
+
+//     // Check if user is logged in
+//     if (!userId) {
+//         return res.status(401).json({ error: 'User not logged in.' });
+//     }
+
+//     try {
+//         // Fetch user information using the primary key (ID)
+//         const { data, error } = await supabase
+//             .from('User_information')
+//             .select('FName, LName')
+//             .eq('id', userId)
+//             .single();
+
+//         if (error || !data) {
+//             return res.status(404).json({ error: 'User not found.' });
+//         }
+
+//         // Respond with the user's first and last name
+//         res.json({ fName: data.FName, lName: data.LName });
+//     } catch (error) {
+//         console.error('Error fetching user information:', error.message);
+//         res.status(500).json({ error: 'Internal server error.' });
+//     }
+// });
+
+
+// const supabase = createClient(process.env.SUPABASE_URL, process.env.ANON_KEY);
+
+// app.get('/', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'html', 'homepage.html')); // Serve the homepage
+// });
+
+// function ensureLoggedIn(req, res, next) {
+//     if (!req.session || !req.session.user) {
+//         return res.status(401).json({ error: 'Unauthorized: No session available' });
+//     }
+//     next();
+// }
+
+// app.get('/dashboard.html', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'html', 'dashboard.html')); // Serve the dashboard page
+// });
+
+// app.get('/start.html', (req, res) => {
+//     res.sendFile(path.join(__dirname, '..', 'html', 'start.html')); // Serve the start page
+// });
+
+// app.post('/signup', async (req, res) => {
+//     const { fName, lName, phone, email, password } = req.body;
+
+//     console.log('Signup request received:', req.body);
+
+//     // Input validation
+//     const namePattern = /^[A-Za-z\s]+$/;
+//     const phonePattern = /^\d+$/;
+//     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+//     if (!namePattern.test(fName) || !namePattern.test(lName)) {
+//         return res.status(400).json({ error: 'First name and last name must only contain letters.' });
+//     }
+
+//     if (!phonePattern.test(phone)) {
+//         return res.status(400).json({ error: 'Phone number must only contain digits.' });
+//     }
+
+//     if (!emailPattern.test(email)) {
+//         return res.status(400).json({ error: 'Invalid email format.' });
+//     }
+
+//     try {
+//         // Insert user data into `User_information`
+//         const { data: userData, error: userError } = await supabase
+//             .from('User_information')
+//             .insert([{ FName: fName, LName: lName, Phone_number: phone, email, Password: password }])
+//             .select('id')
+//             .single();
+
+//         if (userError) {
+//             console.error('User insertion error:', userError.message);
+//             throw userError;
+//         }
+
+//         const userId = userData.id;
+//         console.log(`New user ID: ${userId}`);
+
+//         // Insert record into `user_choice` table
+//         const { error: choiceError } = await supabase
+//             .from('user_choice')
+//             .insert([{ user_id: userId }]);
+
+//         if (choiceError) {
+//             console.error('User choice insertion error:', choiceError.message);
+//             throw choiceError;
+//         }
+
+//         console.log('User choice record inserted successfully.');
+
+//         // Insert a record into `meeting_schedules` table with only `user_id`, others default to NULL
+//         // Insert a record into `meeting_schedules` table with only `user_id`
+//         const { error: meetingError } = await supabase
+//             .from('meeting_schedules')
+//             .insert([{ user_id: userId }]);
+
+
+//         if (meetingError) {
+//             console.error('Meeting schedule insertion error:', meetingError.message);
+//             throw meetingError;
+//         }
+
+//         console.log('Meeting schedule record inserted successfully with NULL values for other fields.');
+
+//         // Set session user data
+//         req.session.user = { user_id: userId };
+
+//         // Respond with success
+//         res.json({
+//             message: 'Signup successful. Records initialized in user_choice and meeting_schedules.',
+//             user: userData,
+//         });
+//     } catch (error) {
+//         console.error('Error during signup:', error.message);
+//         res.status(400).json({ error: error.message });
+//     }
+// });
+
+
+
+
+
+
+
+
+// app.post('/login', async (req, res) => {
+//     const { email, password } = req.body;
+
+//     const { data, error } = await supabase
+//         .from('User_information')
+//         .select('id, FName, LName')
+//         .eq('email', email)
+//         .eq('Password', password)
+//         .single();
+
+//     if (error || !data) {
+//         return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
+//     }
+
+//     // Store user information in the session
+//     req.session.user = {
+//         user_id: data.id,
+//         fName: data.FName,
+//         lName: data.LName,
+//     };
+
+//     console.log('Session User ID:', req.session.user.user_id); // Add this line for debugging
+
+//     res.json({ message: 'Login successful', isAdmin: false, user: data });
+// });
+
+
+
+// app.post('/submit-event', async (req, res) => {
+//     const { chosen_event, celebrant_name, theme, event_date, invites, venue, agreements, other_details, budget } = req.body;
+//     const userId = req.session.user?.user_id;
+
+//     if (!userId) {
+//         return res.status(401).json({ error: "User must be logged in." });
+//     }
+
+//     try {
+//         // Fetch the current record to check for NULL fields
+//         const { data: currentData, error: fetchError } = await supabase
+//             .from('user_choice')
+//             .select('*')
+//             .eq('user_id', userId)
+//             .single();
+
+//         if (fetchError) throw fetchError;
+
+//         // Prepare the update payload, only filling NULL columns
+//         const updatePayload = {};
+//         if (currentData.chosen_event === null && chosen_event) updatePayload.chosen_event = chosen_event;
+//         if (currentData.celebrant_name === null && celebrant_name) updatePayload.celebrant_name = celebrant_name;
+//         if (currentData.theme === null && theme) updatePayload.theme = theme;
+//         if (currentData.event_date === null && event_date) updatePayload.event_date = event_date;
+//         if (currentData.invites === null && invites) updatePayload.invites = invites;
+//         if (currentData.venue === null && venue) updatePayload.venue = venue;
+//         if (currentData.agreements === null && agreements) updatePayload.agreements = agreements;
+//         if (currentData.other_details === null && other_details) updatePayload.other_details = other_details;
+//         if (currentData.budget === null && budget) updatePayload.budget = budget;
+
+//         // Update the row if there are changes to be made
+//         if (Object.keys(updatePayload).length > 0) {
+//             const { error: updateError } = await supabase
+//                 .from('user_choice')
+//                 .update(updatePayload)
+//                 .eq('user_id', userId);
+
+//             if (updateError) throw updateError;
+
+//             res.json({ message: "Event details updated successfully." });
+//         } else {
+//             res.json({ message: "No updates were made, as there were no NULL columns to replace." });
+//         }
+//     } catch (error) {
+//         console.error("Failed to update event details:", error);
+//         res.status(500).json({ error: "Internal server error during event update." });
+//     }
+// });
+
+// // Route to fetch event data for the logged-in user
+// app.get('/get-event-data', async (req, res) => {
+//     const userId = req.session?.user?.user_id;
+
+//     if (!userId) {
+//         return res.status(401).json({ error: 'User not logged in.' });
+//     }
+
+//     try {
+//         const { data, error } = await supabase
+//             .from('user_choice')
+//             .select('*')
+//             .eq('user_id', userId)
+//             .single();
+
+//         if (error || !data) {
+//             return res.status(404).json({ error: 'Event data not found.' });
+//         }
+
+//         res.json(data);
+//     } catch (error) {
+//         console.error('Error fetching event data:', error.message);
+//         res.status(500).json({ error: 'Internal server error.' });
+//     }
+// });
+
+// // Route to update event data
+// app.post('/update-event', async (req, res) => {
+//     const userId = req.session?.user?.user_id;
+//     const updatedData = req.body;
+
+//     if (!userId) {
+//         return res.status(401).json({ error: 'User must be logged in.' });
+//     }
+
+//     try {
+//         const { error } = await supabase
+//             .from('user_choice')
+//             .update(updatedData)
+//             .eq('user_id', userId);
+
+//         if (error) {
+//             throw error;
+//         }
+
+//         res.json({ message: 'Event details updated successfully.' });
+//     } catch (error) {
+//         console.error('Failed to update event details:', error.message);
+//         res.status(500).json({ error: 'Internal server error.' });
+//     }
+// });
+
+// app.get('/get-user-event', async (req, res) => {
+//     const userId = req.query.user_id;
+
+//     if (!userId) {
+//         return res.status(400).json({ error: 'User ID is required.' });
+//     }
+
+//     try {
+//         const { data, error } = await supabase
+//             .from('user_choice')
+//             .select('*')
+//             .eq('user_id', userId)
+//             .single();
+
+//         if (error || !data) {
+//             return res.status(404).json({ error: 'Event data not found.' });
+//         }
+
+//         res.json(data);
+//     } catch (error) {
+//         console.error('Error fetching event data:', error.message);
+//         res.status(500).json({ error: 'Internal server error.' });
+//     }
+// });
+
+
+
+// // Update user event data
+// app.post('/update-user-event', async (req, res) => {
+//     const userId = req.session?.user?.user_id;
+//     const updatedData = req.body;
+
+//     if (!userId) {
+//         return res.status(401).json({ error: 'User not logged in.' });
+//     }
+
+//     try {
+//         const { error } = await supabase
+//             .from('user_choice')
+//             .update(updatedData)
+//             .eq('user_id', userId);
+
+//         if (error) {
+//             throw error;
+//         }
+
+//         res.json({ message: 'Event data updated successfully.' });
+//     } catch (error) {
+//         console.error('Error updating event data:', error.message);
+//         res.status(500).json({ error: 'Internal server error.' });
+//     }
+// });
+
+// app.post('/submit-booking', async (req, res) => {
+//     const { name, meeting_date, meeting_time, purpose } = req.body;
+//     const userId = req.session?.user?.user_id; // Assuming user session management is handled
+
+//     if (!userId) {
+//         return res.status(401).send('User must be logged in.');
+//     }
+
+//     try {
+//         const { error } = await supabase
+//             .from('meeting_schedules')
+//             .insert({
+//                 user_id: userId,
+//                 name: name,
+//                 meeting_date: meeting_date,
+//                 meeting_time: meeting_time,
+//                 purpose: purpose
+//             });
+
+//         if (error) {
+//             throw error;
+//         }
+
+//         res.status(200).json({ message: 'Booking submitted successfully.' });
+//     } catch (error) {
+//         console.error('Error submitting booking:', error);
+//         res.status(500).json({ error: 'Failed to submit booking.' });
+//     }
+// });
+
+// app.get('/get-client-data', async (req, res) => {
+//     try {
+//         const { data, error } = await supabase
+//             .from('user_choice')
+//             .select('celebrant_name, chosen_event');
+
+//         console.log('Supabase Response:', data); // Debugging log
+
+//         if (error) {
+//             throw error;
+//         }
+
+//         if (!data || data.length === 0) {
+//             console.error('No client data found.');
+//             return res.status(404).json({ error: 'No clients found' });
+//         }
+
+//         res.json(data);
+//     } catch (error) {
+//         console.error('Failed to fetch client data:', error);
+//         res.status(500).json({ error: 'Internal server error' });
+//     }
+// });
+
+// const PORT = process.env.PORT || 3000;
+// app.listen(PORT, () => {
+//     console.log(`Server running on http://localhost:${PORT}`); // Fixed template literal syntax
+// });
+import express from 'express';
+import session from 'express-session';
+import bodyParser from 'body-parser';
+import path from 'path';
+import { createClient } from '@supabase/supabase-js';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+dotenv.config();
+
 const app = express();
 
+// ES6 Module workaround for __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Initialize Supabase client
+const supabase = createClient(process.env.SUPABASE_URL, process.env.ANON_KEY);
+
+// Middleware setup
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.json());  // For parsing application/json
+app.use(express.json());
 
 app.use(cors({
     origin: 'http://localhost:3000',
-    credentials: true
+    credentials: true,
 }));
 
+// Serve static files
 app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
 app.use(express.static(path.join(__dirname, '..', 'css')));
 app.use(express.static(path.join(__dirname, '..', 'js')));
 
-// Session Configuration
+// Session configuration
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
@@ -32,429 +506,139 @@ app.use(session({
     }
 }));
 
-// Move this near the top of the file, after your middleware setup but before other routes
-app.post('/add-venue', async (req, res) => {
-    console.log('Received request body:', req.body); // Debug log
+// Route: Homepage
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'html', 'homepage.html'));
+});
 
+// Route: Dashboard
+app.get('/dashboard.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'html', 'dashboard.html'));
+});
+
+// Route: Start page
+app.get('/start.html', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'html', 'start.html'));
+});
+
+// POST: Add venue
+app.post('/add-venue', async (req, res) => {
     try {
         const { venueName, venueLocation, venueType, venuePrice, venueImage } = req.body;
 
-        // Validate required fields
         if (!venueName || !venueLocation || !venueType || !venuePrice) {
-            console.log('Missing required fields'); // Debug log
-            return res.status(400).json({ 
-                success: false, 
-                message: 'Missing required fields' 
-            });
+            return res.status(400).json({ success: false, message: 'Missing required fields' });
         }
 
-        // Insert into venue table
         const { data, error } = await supabase
             .from('venue')
-            .insert([
-                {
-                    venue_name: venueName,
-                    venue_location: venueLocation,
-                    venue_type: venueType,
-                    venue_price: parseInt(venuePrice), // Convert to integer
-                    venue_img: venueImage || null // Allow null if no image
-                }
-            ])
-            .select(); // Add this to get the inserted data back
+            .insert([{ venue_name: venueName, venue_location: venueLocation, venue_type: venueType, venue_price: parseInt(venuePrice), venue_img: venueImage || null }])
+            .select();
 
-        if (error) {
-            console.error('Supabase error:', error); // Debug log
-            throw error;
-        }
+        if (error) throw error;
 
-        console.log('Venue added successfully:', data); // Debug log
-
-        return res.status(200).json({ 
-            success: true, 
-            message: 'Venue added successfully',
-            data 
-        });
+        res.status(200).json({ success: true, message: 'Venue added successfully', data });
     } catch (error) {
-        console.error('Server error:', error); // Debug log
-        return res.status(500).json({ 
-            success: false, 
-            message: 'Failed to add venue: ' + error.message
-        });
+        res.status(500).json({ success: false, message: 'Failed to add venue: ' + error.message });
     }
 });
 
-app.get('/get-user-info', async (req, res) => {
-    const userId = req.session?.user?.user_id;
-
-    // Check if user is logged in
-    if (!userId) {
-        return res.status(401).json({ error: 'User not logged in.' });
-    }
-
-    try {
-        // Fetch user information using the primary key (ID)
-        const { data, error } = await supabase
-            .from('User_information')
-            .select('FName, LName')
-            .eq('id', userId)
-            .single();
-
-        if (error || !data) {
-            return res.status(404).json({ error: 'User not found.' });
-        }
-
-        // Respond with the user's first and last name
-        res.json({ fName: data.FName, lName: data.LName });
-    } catch (error) {
-        console.error('Error fetching user information:', error.message);
-        res.status(500).json({ error: 'Internal server error.' });
-    }
-});
-
-
-const supabase = createClient(process.env.SUPABASE_URL, process.env.ANON_KEY);
-
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'html', 'homepage.html')); // Serve the homepage
-});
-
-function ensureLoggedIn(req, res, next) {
-    if (!req.session || !req.session.user) {
-        return res.status(401).json({ error: 'Unauthorized: No session available' });
-    }
-    next();
-}
-
-app.get('/dashboard.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'html', 'dashboard.html')); // Serve the dashboard page
-});
-
-app.get('/start.html', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'html', 'start.html')); // Serve the start page
-});
-
+// POST: Signup
 app.post('/signup', async (req, res) => {
     const { fName, lName, phone, email, password } = req.body;
 
-    console.log('Signup request received:', req.body);
-
-    // Input validation
-    const namePattern = /^[A-Za-z\s]+$/;
-    const phonePattern = /^\d+$/;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!namePattern.test(fName) || !namePattern.test(lName)) {
-        return res.status(400).json({ error: 'First name and last name must only contain letters.' });
-    }
-
-    if (!phonePattern.test(phone)) {
-        return res.status(400).json({ error: 'Phone number must only contain digits.' });
-    }
-
-    if (!emailPattern.test(email)) {
-        return res.status(400).json({ error: 'Invalid email format.' });
-    }
-
     try {
-        // Insert user data into `User_information`
         const { data: userData, error: userError } = await supabase
             .from('User_information')
             .insert([{ FName: fName, LName: lName, Phone_number: phone, email, Password: password }])
             .select('id')
             .single();
 
-        if (userError) {
-            console.error('User insertion error:', userError.message);
-            throw userError;
-        }
+        if (userError) throw userError;
 
         const userId = userData.id;
-        console.log(`New user ID: ${userId}`);
 
-        // Insert record into `user_choice` table
-        const { error: choiceError } = await supabase
-            .from('user_choice')
-            .insert([{ user_id: userId }]);
+        await supabase.from('user_choice').insert([{ user_id: userId }]);
+        await supabase.from('meeting_schedules').insert([{ user_id: userId }]);
 
-        if (choiceError) {
-            console.error('User choice insertion error:', choiceError.message);
-            throw choiceError;
-        }
-
-        console.log('User choice record inserted successfully.');
-
-        // Insert a record into `meeting_schedules` table with only `user_id`, others default to NULL
-        // Insert a record into `meeting_schedules` table with only `user_id`
-        const { error: meetingError } = await supabase
-            .from('meeting_schedules')
-            .insert([{ user_id: userId }]);
-
-
-        if (meetingError) {
-            console.error('Meeting schedule insertion error:', meetingError.message);
-            throw meetingError;
-        }
-
-        console.log('Meeting schedule record inserted successfully with NULL values for other fields.');
-
-        // Set session user data
         req.session.user = { user_id: userId };
-
-        // Respond with success
-        res.json({
-            message: 'Signup successful. Records initialized in user_choice and meeting_schedules.',
-            user: userData,
-        });
+        res.json({ message: 'Signup successful', user: userData });
     } catch (error) {
-        console.error('Error during signup:', error.message);
         res.status(400).json({ error: error.message });
     }
 });
 
-
-
-
-
-
-
-
+// POST: Login
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
 
-    const { data, error } = await supabase
-        .from('User_information')
-        .select('id, FName, LName')
-        .eq('email', email)
-        .eq('Password', password)
-        .single();
-
-    if (error || !data) {
-        return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
-    }
-
-    // Store user information in the session
-    req.session.user = {
-        user_id: data.id,
-        fName: data.FName,
-        lName: data.LName,
-    };
-
-    console.log('Session User ID:', req.session.user.user_id); // Add this line for debugging
-
-    res.json({ message: 'Login successful', isAdmin: false, user: data });
-});
-
-
-
-app.post('/submit-event', async (req, res) => {
-    const { chosen_event, celebrant_name, theme, event_date, invites, venue, agreements, other_details, budget } = req.body;
-    const userId = req.session.user?.user_id;
-
-    if (!userId) {
-        return res.status(401).json({ error: "User must be logged in." });
-    }
-
-    try {
-        // Fetch the current record to check for NULL fields
-        const { data: currentData, error: fetchError } = await supabase
-            .from('user_choice')
-            .select('*')
-            .eq('user_id', userId)
-            .single();
-
-        if (fetchError) throw fetchError;
-
-        // Prepare the update payload, only filling NULL columns
-        const updatePayload = {};
-        if (currentData.chosen_event === null && chosen_event) updatePayload.chosen_event = chosen_event;
-        if (currentData.celebrant_name === null && celebrant_name) updatePayload.celebrant_name = celebrant_name;
-        if (currentData.theme === null && theme) updatePayload.theme = theme;
-        if (currentData.event_date === null && event_date) updatePayload.event_date = event_date;
-        if (currentData.invites === null && invites) updatePayload.invites = invites;
-        if (currentData.venue === null && venue) updatePayload.venue = venue;
-        if (currentData.agreements === null && agreements) updatePayload.agreements = agreements;
-        if (currentData.other_details === null && other_details) updatePayload.other_details = other_details;
-        if (currentData.budget === null && budget) updatePayload.budget = budget;
-
-        // Update the row if there are changes to be made
-        if (Object.keys(updatePayload).length > 0) {
-            const { error: updateError } = await supabase
-                .from('user_choice')
-                .update(updatePayload)
-                .eq('user_id', userId);
-
-            if (updateError) throw updateError;
-
-            res.json({ message: "Event details updated successfully." });
-        } else {
-            res.json({ message: "No updates were made, as there were no NULL columns to replace." });
-        }
-    } catch (error) {
-        console.error("Failed to update event details:", error);
-        res.status(500).json({ error: "Internal server error during event update." });
-    }
-});
-
-// Route to fetch event data for the logged-in user
-app.get('/get-event-data', async (req, res) => {
-    const userId = req.session?.user?.user_id;
-
-    if (!userId) {
-        return res.status(401).json({ error: 'User not logged in.' });
-    }
-
     try {
         const { data, error } = await supabase
-            .from('user_choice')
-            .select('*')
-            .eq('user_id', userId)
+            .from('User_information')
+            .select('id, FName, LName')
+            .eq('email', email)
+            .eq('Password', password)
             .single();
 
         if (error || !data) {
-            return res.status(404).json({ error: 'Event data not found.' });
+            return res.status(401).json({ message: 'Login failed: Incorrect email or password' });
         }
 
-        res.json(data);
+        req.session.user = { user_id: data.id, fName: data.FName, lName: data.LName };
+        res.json({ message: 'Login successful', user: data });
     } catch (error) {
-        console.error('Error fetching event data:', error.message);
-        res.status(500).json({ error: 'Internal server error.' });
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 
-// Route to update event data
-app.post('/update-event', async (req, res) => {
-    const userId = req.session?.user?.user_id;
-    const updatedData = req.body;
-
-    if (!userId) {
-        return res.status(401).json({ error: 'User must be logged in.' });
-    }
-
-    try {
-        const { error } = await supabase
-            .from('user_choice')
-            .update(updatedData)
-            .eq('user_id', userId);
-
-        if (error) {
-            throw error;
-        }
-
-        res.json({ message: 'Event details updated successfully.' });
-    } catch (error) {
-        console.error('Failed to update event details:', error.message);
-        res.status(500).json({ error: 'Internal server error.' });
-    }
-});
-
-app.get('/get-user-event', async (req, res) => {
-    const userId = req.query.user_id;
-
-    if (!userId) {
-        return res.status(400).json({ error: 'User ID is required.' });
-    }
-
-    try {
-        const { data, error } = await supabase
-            .from('user_choice')
-            .select('*')
-            .eq('user_id', userId)
-            .single();
-
-        if (error || !data) {
-            return res.status(404).json({ error: 'Event data not found.' });
-        }
-
-        res.json(data);
-    } catch (error) {
-        console.error('Error fetching event data:', error.message);
-        res.status(500).json({ error: 'Internal server error.' });
-    }
-});
-
-
-
-// Update user event data
-app.post('/update-user-event', async (req, res) => {
-    const userId = req.session?.user?.user_id;
-    const updatedData = req.body;
-
-    if (!userId) {
-        return res.status(401).json({ error: 'User not logged in.' });
-    }
-
-    try {
-        const { error } = await supabase
-            .from('user_choice')
-            .update(updatedData)
-            .eq('user_id', userId);
-
-        if (error) {
-            throw error;
-        }
-
-        res.json({ message: 'Event data updated successfully.' });
-    } catch (error) {
-        console.error('Error updating event data:', error.message);
-        res.status(500).json({ error: 'Internal server error.' });
-    }
-});
-
+// POST: Submit booking
 app.post('/submit-booking', async (req, res) => {
     const { name, meeting_date, meeting_time, purpose } = req.body;
-    const userId = req.session?.user?.user_id; // Assuming user session management is handled
+    const userId = req.session?.user?.user_id;
 
     if (!userId) {
         return res.status(401).send('User must be logged in.');
     }
 
     try {
-        const { error } = await supabase
-            .from('meeting_schedules')
-            .insert({
-                user_id: userId,
-                name: name,
-                meeting_date: meeting_date,
-                meeting_time: meeting_time,
-                purpose: purpose
-            });
-
-        if (error) {
-            throw error;
-        }
-
+        await supabase.from('meeting_schedules').insert({ user_id: userId, name, meeting_date, meeting_time, purpose });
         res.status(200).json({ message: 'Booking submitted successfully.' });
     } catch (error) {
-        console.error('Error submitting booking:', error);
         res.status(500).json({ error: 'Failed to submit booking.' });
     }
 });
 
-app.get('/get-client-data', async (req, res) => {
+// GET: Get user event data
+app.get('/get-user-event', async (req, res) => {
+    const userId = req.query.user_id;
+
     try {
-        const { data, error } = await supabase
-            .from('user_choice')
-            .select('celebrant_name, chosen_event');
-
-        console.log('Supabase Response:', data); // Debugging log
-
-        if (error) {
-            throw error;
-        }
-
-        if (!data || data.length === 0) {
-            console.error('No client data found.');
-            return res.status(404).json({ error: 'No clients found' });
+        const { data, error } = await supabase.from('user_choice').select('*').eq('user_id', userId).single();
+        if (error || !data) {
+            return res.status(404).json({ error: 'Event data not found.' });
         }
 
         res.json(data);
     } catch (error) {
-        console.error('Failed to fetch client data:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error.' });
     }
 });
 
+// POST: Update user event data
+app.post('/update-user-event', async (req, res) => {
+    const userId = req.session?.user?.user_id;
+    const updatedData = req.body;
+
+    try {
+        await supabase.from('user_choice').update(updatedData).eq('user_id', userId);
+        res.json({ message: 'Event data updated successfully.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Internal server error.' });
+    }
+});
+
+// Start the server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`); // Fixed template literal syntax
+    console.log(`Server running on http://localhost:${PORT}`);
 });
