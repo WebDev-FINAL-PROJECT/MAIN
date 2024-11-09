@@ -18,7 +18,11 @@
 <body>
     <div class="container">
         <form id="start" class="start" action="/submit-event" method="POST">
+<<<<<<< HEAD
+
+=======
             <input type="hidden" id="selectedMonth" name="selectedMonth">
+>>>>>>> 7f5d4b57e6af1d2e593423aebeba24070e4fb1a6
             <h1>Event Planner Form</h1>
             <p>What event are you planning?</p>
             <div class="event-kind">
@@ -78,13 +82,13 @@
                 <button type="button" class="budget-btn" data-budget="50K+">₱ 50K+</button>
             </div>
           
-           <!-- Date Section -->
-           <h2>Date</h2>
-           <p>Do you have a specific month in mind? Note that this can be changed throughout the meetings.</p>
-
-            <div id="flexibleDateSection" class="hidden">
-                <div id="monthsGrid" class="months-grid"></div>
+           <!-- Updated Date Section -->
+            <h2>Date</h2>
+            <p>Please choose a specific date for your event:</p>
+            <div class="input-group">
+                <input type="date" id="eventDate" name="event_date" required>
             </div>
+
 
             <!-- Guest Count Section -->
             <h2>Guest Count</h2>

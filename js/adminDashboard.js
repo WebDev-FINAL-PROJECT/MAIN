@@ -103,32 +103,63 @@ adminRouter.post('/add-venue', ensureLoggedIn, async (req, res) => {
     }
 });
 
-document.getElementById('addVenueForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent the normal submission of the form
+document.addEventListener('DOMContentLoaded', function () {
+    const addVenueForm = document.getElementById('addVenueForm');
+    const addVenueButton = document.querySelector('#addVenueForm button[type="submit"]');
+    const modal = document.getElementById('addVenueModal');
 
-    const formData = new FormData(this);
-    const fileInput = document.getElementById('venueImage');
+    // Prevent the modal from closing when clicking the submit button
+    addVenueButton.addEventListener('click', function (event) {
+        event.stopPropagation(); // Stop event from bubbling and closing the modal
+    });
 
-    // Append the file if it exists
-    if (fileInput.files.length > 0) {
-        const file = fileInput.files[0];
-        formData.append('venueImage', file, file.name);
-    }
+    // Form submission handler
+    addVenueForm.addEventListener('submit', async function (event) {
+        event.preventDefault(); // Prevent the normal form submission behavior
 
-    // Send the form data to the server endpoint using fetch API
-    fetch('/admin/add-venue', {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        alert('Venue added successfully!');
-        // Optionally, clear the form or handle other UI response
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Error adding venue. Please try again.');
+        // Get form input values
+        const venueName = document.getElementById('venueName').value;
+        const venueLocation = document.getElementById('venueLocation').value;
+        const venueType = document.getElementById('venueType').value;
+        const venuePrice = document.getElementById('venuePrice').value;
+        const fileInput = document.getElementById('venueImage');
+
+        // Create FormData object
+        const formData = new FormData();
+        formData.append('venueName', venueName);
+        formData.append('venueLocation', venueLocation);
+        formData.append('venueType', venueType);
+        formData.append('venuePrice', venuePrice);
+
+        // Check if an image file is selected
+        if (fileInput.files.length > 0) {
+            const file = fileInput.files[0];
+            formData.append('venueImage', file, file.name);
+        }
+
+        try {
+            // Send form data to the server using fetch API
+            const response = await fetch('/admin/add-venue', {
+                method: 'POST',
+                body: formData,
+            });
+
+            // Parse the response
+            const data = await response.json();
+
+            if (response.ok) {
+                alert('Venue added successfully!');
+                console.log('Success:', data);
+
+                // Optionally clear the form and close the modal
+                addVenueForm.reset();
+                modal.classList.add('hidden');
+            } else {
+                throw new Error(data.error || 'Failed to add venue');
+            }
+        } catch (error) {
+            console.error('Error adding venue:', error);
+            alert('Error adding venue. Please try again.');
+        }
     });
 });
-
