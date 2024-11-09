@@ -107,24 +107,26 @@
             <div class="modal-content">
                 <span id="closeAddVenueModal" class="close">&times;</span>
                 <h2>Add a New Venue</h2>
-                <form id="addVenueForm" enctype="multipart/form-data" method="post">
+                <form id="addVenueForm">
                     <label for="venueName">Venue Name:</label>
-                    <input type="text" id="venueName" name="venueName" placeholder="Enter venue name" required>
+                    <input type="text" id="venueName" name="venueName" required>
 
                     <label for="venueLocation">Location:</label>
-                    <input type="text" id="venueLocation" name="venueLocation" placeholder="Enter location" required>
+                    <input type="text" id="venueLocation" name="venueLocation" required>
 
                     <label for="venueType">Type of Venue:</label>
-                    <input type="text" id="venueType" name="venueType" placeholder="Enter type of venue (Hall, Garden, etc.)" required>
+                    <input type="text" id="venueType" name="venueType" required>
 
                     <label for="venuePrice">Venue Price:</label>
-                    <input type="text" id="venuePrice" name="venuePrice" placeholder="Enter value in peso" required>
+                    <input type="number" id="venuePrice" name="venuePrice" required>
 
-                    <label for="venueImage">Upload Venue Image:</label>
-                    <input type="file" id="venueImage" name="venueImage" accept="image/*">
+                    <label for="venueImage">Venue Image URL:</label>
+                    <input type="text" id="venueImage" name="venueImage">
 
-                    <button type="submit" class="btn">Add Venue</button>
-                    <button type="button" id="cancelAddVenue" class="btn cancel-btn">Cancel</button>
+                    <div class="button-group">
+                        <button type="submit" class="btn">Add Venue</button>
+                        <button type="button" id="cancelAddVenue" class="btn cancel-btn">Cancel</button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -531,56 +533,7 @@
             }
         });
     </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async function () {
-            
-            try {
-                const response = await fetch(`/get-user-event?user_id=${userId}`);
-                if (!response.ok) {
-                    throw new Error('Failed to fetch client event data');
-                }
-                const eventData = await response.json();
-                renderClientDetails(eventData);
-            } catch (error) {
-                console.error('Error fetching event data:', error);
-                alert('Failed to load client details.');
-            }
-        });
     
-        function renderClientDetails(data) {
-            // Populate venue section
-            document.querySelector('#venue .item-title').textContent = data.venue || 'No Venue Selected';
-            document.querySelector('#venue .item-description').textContent = data.venue_details || 'Venue details not provided';
-    
-            // Populate flowers section
-            document.querySelector('#flowers .item-title').textContent = data.flowers || 'No Flowers Selected';
-            document.querySelector('#flowers .item-description').textContent = data.flowers_details || 'Flowers details not provided';
-    
-            // Populate makeup section
-            document.querySelector('#makeup .item-title').textContent = data.makeup_artist || 'No Makeup Artist Selected';
-            document.querySelector('#makeup .item-description').textContent = data.makeup_details || 'Makeup details not provided';
-    
-            // Populate photographer section
-            document.querySelector('#photographer .item-title').textContent = data.photographer || 'No Photographer Selected';
-            document.querySelector('#photographer .item-description').textContent = data.photographer_details || 'Photographer details not provided';
-    
-            // Populate music section
-            document.querySelector('#music .item-title').textContent = data.music || 'No Music Selected';
-            document.querySelector('#music .item-description').textContent = data.music_details || 'Music details not provided';
-    
-            // Populate officiant section
-            document.querySelector('#officiant .item-title').textContent = data.officiant || 'No Officiant Selected';
-            document.querySelector('#officiant .item-description').textContent = data.officiant_details || 'Officiant details not provided';
-    
-            // Populate invitations section
-            document.querySelector('#invitations .item-title').textContent = data.invites || 'No Invitations';
-            document.querySelector('#invitations .item-description').textContent = `${data.invites} guests invited`;
-    
-            // Populate payment section
-            document.querySelector('#payment .item-title').textContent = 'Payment Details';
-            document.querySelector('#payment .item-description').textContent = data.payment_status || 'No payment information available';
-        }
-    </script>
     
     
     <script src="../pagination.js"></script>
@@ -589,16 +542,36 @@
     <script src="../adminDashboard.js" defer></script>
 
     <script>
-        // Add back button functionality
-        document.getElementById('backToClients').addEventListener('click', () => {
-            // Show the homepage admin dashboard
-            document.querySelector('.homepage-admin-dashboard').classList.remove('hide');
-            
-            // Hide the main dashboard
-            document.querySelector('.dashboard-main').classList.remove('show');
-            
-            // Clear the selected user ID
-            sessionStorage.removeItem('selectedUserId');
+        // Modal handling
+        document.addEventListener('DOMContentLoaded', function() {
+            const addVenueButton = document.querySelector('.item-details .title').closest('.item');
+            const modal = document.getElementById('addVenueModal');
+            const closeBtn = document.getElementById('closeAddVenueModal');
+            const cancelBtn = document.getElementById('cancelAddVenue');
+
+            if (addVenueButton && modal && closeBtn && cancelBtn) {
+                // Show modal when clicking "Add a venue"
+                addVenueButton.addEventListener('click', function() {
+                    modal.classList.remove('hidden');
+                });
+
+                // Close modal functions
+                function closeModal() {
+                    modal.classList.add('hidden');
+                }
+
+                closeBtn.addEventListener('click', closeModal);
+                cancelBtn.addEventListener('click', closeModal);
+
+                // Close modal when clicking outside
+                window.addEventListener('click', function(event) {
+                    if (event.target === modal) {
+                        closeModal();
+                    }
+                });
+            } else {
+                console.error('Some modal elements are missing');
+            }
         });
     </script>
 
