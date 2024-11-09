@@ -17,6 +17,7 @@ app.use(cors({
     credentials: true
 }));
 
+
 app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
 app.use(express.static(path.join(__dirname, '..', 'css')));
 app.use(express.static(path.join(__dirname, '..', 'js')));
@@ -27,10 +28,11 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     cookie: {
-        secure: false, // Set to 'true' if using HTTPS
+        secure: false, // Set to true if using HTTPS
         httpOnly: true,
-    }
+    },
 }));
+
 
 // Move this near the top of the file, after your middleware setup but before other routes
 app.post('/add-venue', async (req, res) => {
@@ -297,6 +299,8 @@ app.post('/submit-event', async (req, res) => {
 
 // Route to fetch event data for the logged-in user
 app.get('/get-event-data', async (req, res) => {
+    console.log('Session data:', req.session); // Add this line for debugging
+
     const userId = req.session?.user?.user_id;
 
     if (!userId) {
@@ -320,6 +324,7 @@ app.get('/get-event-data', async (req, res) => {
         res.status(500).json({ error: 'Internal server error.' });
     }
 });
+
 
 // Route to update event data
 app.post('/update-event', async (req, res) => {
@@ -348,7 +353,7 @@ app.post('/update-event', async (req, res) => {
 });
 
 app.get('/get-user-event', async (req, res) => {
-    const userId = req.query.user_id;
+    const userId = req.session?.user?.user_id;
 
     if (!userId) {
         return res.status(400).json({ error: 'User ID is required.' });

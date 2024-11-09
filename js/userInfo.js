@@ -37,13 +37,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     async function fetchEventData() {
         try {
             console.log("Fetching event data..."); // Debug log
-            const response = await fetch('/get-user-event', {
+            const response = await fetch('/get-event-data', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include', // Ensures session cookie is sent
+                credentials: 'include', // Add this line
             });
+            
+            
 
             if (!response.ok) {
                 const errorText = await response.text();

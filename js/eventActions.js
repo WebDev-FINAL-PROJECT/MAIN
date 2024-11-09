@@ -63,11 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
             month.className = 'month-option';
             month.textContent = new Date(year, i).toLocaleString('default', { month: 'long' });
 
+            // Disable past months
             if (year === currentYear && i < currentMonth) {
                 month.disabled = true;
                 month.classList.add('disabled');
             } else {
-                month.onclick = () => {
+                month.onclick = (event) => {
+                    event.preventDefault(); // Prevent form submission
                     toggleMonthSelection(year, i, month);
                 };
             }
@@ -75,6 +77,7 @@ document.addEventListener("DOMContentLoaded", function () {
             monthsGrid.appendChild(month);
         }
 
+        // Navigation buttons
         const prevYear = document.createElement('button');
         prevYear.textContent = '<';
         prevYear.className = 'year-nav';
@@ -100,9 +103,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function updateFormWithSelectedMonth(year, month) {
         const dateInput = document.getElementById('eventDate'); // Assuming you have an input field with this ID
-        dateInput.value = `${year}-${month + 1}`; // Store the month as a full date string
+        dateInput.value = `${year}-${String(month + 1).padStart(2, '0')}`; // Store the month as a full date string
+        console.log(`Selected month: ${dateInput.value}`); // Log the selected month for debugging
     }
 });
+
 
 
 
@@ -201,17 +206,28 @@ document.addEventListener('DOMContentLoaded', function () {
     form.addEventListener('submit', async function (event) {
         event.preventDefault(); // Prevent the default form submission behavior
 
-        // Gather event data
+        // Determine which event section is visible and get the appropriate celebrant name
+        let celebrantName = '';
+
+        if (!document.getElementById('wedding-section').classList.contains('hidden')) {
+            // Wedding section is active
+            const weddingName = document.getElementById('wedding-name').value;
+            const partnerName = document.getElementById('partner-name').value;
+            celebrantName = `${weddingName} and ${partnerName}`;
+        } else if (!document.getElementById('birthday-section').classList.contains('hidden')) {
+            // Birthday section is active
+            celebrantName = document.getElementById('birthday-name').value;
+        } else if (!document.getElementById('other-section').classList.contains('hidden')) {
+            // Other section is active
+            celebrantName = document.getElementById('other-event-name').value;
+        }
+
         const chosenEvent = document.querySelector('.event-choice.active')?.textContent || '';
-        const celebrantName = document.getElementById('wedding-name').value + ' and ' + document.getElementById('partner-name').value ||
-                              document.getElementById('birthday-name').value ||
-                              document.getElementById('other-event-name').value || '';
         const theme = document.getElementById('other-theme').value || '';
         const budget = document.querySelector('.budget-btn.selected')?.textContent || '';
         const eventDate = document.getElementById('monthsGrid').textContent || '';
         const invites = document.getElementById('guestSlider')?.value || '';
-        const venue = document.getElementById('venueNoButton').classList.contains('selected') ?
-                      "None" : document.getElementById('venue-name').value || '';
+        const venue = document.getElementById('venueNoButton').classList.contains('selected') ? "None" : document.getElementById('venue-name').value || '';
         const agreements = Array.from(document.querySelectorAll('.service-btn.selected')).map(btn => btn.textContent).join(', ') || '';
         const otherDetails = document.getElementById('extra-details').value || '';
 
@@ -374,5 +390,61 @@ document.getElementById('addVenueForm').addEventListener('submit', function(even
     .catch((error) => {
         console.error('Error:', error);
         alert('Failed to add venue');
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const editEventButton = document.getElementById('editEventButton');
+    const editEventModal = document.getElementById('editEventModal');
+    const closeModal = document.getElementById('closeModal');
+    const editEventForm = document.getElementById('editEventForm');
+
+    // Event listener for "Edit Event" button
+    editEventButton.addEventListener('click', async function () {
+        try {
+            // Fetch the event data for the logged-in user
+            const response = await fetch('/get-event-data', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                const errorText = await response.text();
+                console.error('Error fetching event data:', errorText);
+                alert('Failed to fetch event data. Please try again.');
+                return;
+            }
+
+            const eventData = await response.json();
+            console.log('Fetched event data:', eventData);
+
+            // Populate the form fields with the fetched data
+            document.getElementById('chosenEvent').value = eventData.chosen_event || '';
+            document.getElementById('celebrantName').value = eventData.celebrant_name || '';
+            document.getElementById('theme').value = eventData.theme || '';
+            document.getElementById('budget').value = eventData.budget || '';
+            document.getElementById('eventDate').value = eventData.event_date || '';
+            document.getElementById('invites').value = eventData.invites || '';
+            document.getElementById('venue').value = eventData.venue || '';
+            document.getElementById('agreements').value = eventData.agreements || '';
+            document.getElementById('otherDetails').value = eventData.other_details || '';
+
+            // Show the modal
+            editEventModal.classList.remove('hidden');
+        } catch (error) {
+            console.error('Error during edit event fetch:', error);
+            alert('An error occurred while fetching event details.');
+        }
+    });
+
+    // Event listener for closing the modal
+    closeModal.addEventListener('click', function () {
+        editEventModal.classList.add('hidden');
+    });
+
+    // Optional: Add a listener for the "Cancel" button
+    document.getElementById('cancelEdit').addEventListener('click', function () {
+        editEventModal.classList.add('hidden');
     });
 });
