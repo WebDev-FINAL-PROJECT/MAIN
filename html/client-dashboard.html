@@ -47,10 +47,12 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="Venue Image" class="item-image">
+                    <img src="../venue.jpg" alt="Venue Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Venue Name</h2>
-                        <p class="item-description">Details about the venue.</p>
+                        <h2 class="item-title">Dusit Thani</h2>
+                        <p class="item-description">Stella Hizon Reyes Drive, Barrio Pampanga, 8000 Davao City Davao Region</p>
+                        <p class="item-description">Convention Hall</p>
+                        <p class="item-description">Php 200,000</p>
                     </div> 
                 </div>
             </div>            
@@ -65,10 +67,11 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="Flowers Image" class="item-image">
+                    <img src="../flower.jpg" alt="Flowers Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Flowers Name</h2>
-                        <p class="item-description">Details about the flowers.</p>
+                        <h2 class="item-title">Golden Star Flower Shop</h2>
+                        <p class="item-description">Roses</p>
+                        <p class="item-description">Php 10,000</p>
                     </div>
                 </div>
                 
@@ -85,8 +88,8 @@
             <div class="item-list">
                 <div class="item">
                     <div class="item-details">
-                        <h2 class="item-title"># of attendees</h2>
-                        <p class="item-description">"#" are attending this event.</p>
+                        <h2 class="item-title">150</h2>
+                        <p class="item-description">150 guests are attending this event.</p>
                     </div>
                 </div>
                 
@@ -102,10 +105,13 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="Artist Image" class="item-image">
+                    <img src="../hmua.jpg" alt="Artist Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Hair and Make-up Artist Name</h2>
-                        <p class="item-description">Details about the artist.</p>
+                        <h2 class="item-title">Hair and Make-up Artist</h2>
+                        <p class="item-description">Hairstylist: Anna Hermoso</p>
+                        <p class="item-description">Hairstylist Rate: Php 3,000</p>
+                        <p class="item-description">Make-up artist: Ian Carl Solana</p>
+                        <p class="item-description">Make-up artist: Php 3,000</p>
                     </div>
                 </div>
                 
@@ -121,10 +127,10 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="Band Image" class="item-image">
+                    <img src="../band.jpg" alt="Band Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Music/Band Name</h2>
-                        <p class="item-description">Details about the music.</p>
+                        <h2 class="item-title">Precal Droputs</h2>
+                        <p class="item-description">Php 20,000</p>
                     </div>
                 </div>
                 
@@ -140,10 +146,10 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="Officiant Image" class="item-image">
+                    <img src="host.jpg" alt="Officiant Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Officiant Name</h2>
-                        <p class="item-description">Details about the officiant.</p>
+                        <h2 class="item-title">Jero Testado</h2>
+                        <p class="item-description">Php 3,000</p>
                     </div>
                 </div>
                 
@@ -159,10 +165,10 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <img src="https://via.placeholder.com/100" alt="Photographer Image" class="item-image">
+                    <img src="../photographer.jpeg" alt="Photographer Image" class="item-image">
                     <div class="item-details">
-                        <h2 class="item-title">Photographer Name</h2>
-                        <p class="item-description">Details about the photographer.</p>
+                        <h2 class="item-title">Marlon Guillano Photography</h2>
+                        <p class="item-description">Php 10,000</p>
                     </div>
                 </div>
                
@@ -173,38 +179,40 @@
         <div id="editEventModal" class="modal hidden">
             <div class="modal-content">
                 <span id="closeModal" class="close">&times;</span>
-                
+                <h2>Edit Your Event</h2>
                 <form id="editEventForm">
                     <label for="chosenEvent">Chosen Event:</label>
                     <input type="text" id="chosenEvent" name="chosen_event">
-        
+
                     <label for="celebrantName">Celebrant Name:</label>
                     <input type="text" id="celebrantName" name="celebrant_name">
-        
+
                     <label for="theme">Theme:</label>
                     <input type="text" id="theme" name="theme">
-        
+
                     <label for="budget">Budget:</label>
                     <input type="text" id="budget" name="budget">
-        
+
                     <label for="eventDate">Event Date:</label>
                     <input type="text" id="eventDate" name="event_date">
-        
+
                     <label for="invites">Number of Invites:</label>
                     <input type="text" id="invites" name="invites">
 
+                    <label for="venue">Venue:</label>
+                    <input type="text" id="venue" name="venue">
+
                     <label for="agreements">Agreements:</label>
                     <input type="text" id="agreements" name="agreements">
-        
+
                     <label for="otherDetails">Other Details:</label>
                     <textarea id="otherDetails" name="other_details"></textarea>
-        
-                   
+
+                    <button type="submit">Save Changes</button>
                     <button type="button" id="cancelEdit">Cancel</button>
                 </form>
             </div>
         </div>
-        
 
 
 
@@ -216,48 +224,42 @@
             </div>
             <div class="item-list">
                 <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Venue</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
+                    <h2>Venue</h2>
+                    <p>Php 200,000</p>
                 </div>
+                <br>
                 <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Officiant</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
+                    <h2>Officiant/Host</h2>
+                    <p>Php 3,000</p>
                 </div>
+                <br>
                 <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Music</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
-                </div>
+                    <h2>Music</h2>
+                    <p>Php 20,000</p>
+                </div> 
+                <br>
                 <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Photographer</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
-                </div>
+                    <h2>Photographer</h2>
+                    <p>Php 10,000</p>
+                </div> 
+                <br>
                 <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Hair and Make-up</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
+                    <h2>Hair and Make-up</h2>
+                    <p>Php 6,000</p>
                 </div>
+                <br>
+                <br>
                 <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Invitations</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
+                    <h2>Flowers and Decorations</h2>
+                    <p>Php 10,000</p>
                 </div>
-                <div class="item">
-                    <div class="item-details">
-                        <h2 class="item-title">Flowers and Decorations</h2>
-                        <p class="item-description">Details and Price...</p>
-                    </div>
+                <br>
+                <br>
+                <div class="total_price">
+                    <h2>Total Price: Php 249,000</h2>
                 </div>
-            </div>            
+                <br>
+            </div>
             <button class="schedule-btn">Schedule Meeting with the Organizer</button>
         </section>
     </main>
@@ -335,6 +337,6 @@
     <script src="../pagination.js"></script>
     <script src="../userInfo.js"></script>
     
-    <button id="editEventButton">View Event Planner Form</button>
+    <button id="editEventButton">Edit Event</button>
 </body>
 </html>

@@ -755,6 +755,12 @@ nav a {
     background-color: #c5c5c5;
 }
 
+.item-image{
+    width: 200px;
+    height: 180px;;
+
+}
+
 @media (max-width: 1024px) {
     .homepage-admin-dashboard {
         flex-direction: column;
