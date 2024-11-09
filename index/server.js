@@ -12,17 +12,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());  // For parsing application/json
 
-
+app.use(cors({
+    origin: 'http://localhost:3000',
+    credentials: true
+}));
 
 app.use(express.static(path.join(__dirname, '..', 'html'), { index: false }));
 app.use(express.static(path.join(__dirname, '..', 'css')));
 app.use(express.static(path.join(__dirname, '..', 'js')));
-
-// CORS Middleware Configuration
-app.use(cors({
-    origin: 'http://localhost:3000', // Change this to your frontend's origin
-    credentials: true, // Allow session cookies
-}));
 
 // Session Configuration
 app.use(session({
@@ -35,6 +32,56 @@ app.use(session({
     }
 }));
 
+// Move this near the top of the file, after your middleware setup but before other routes
+app.post('/add-venue', async (req, res) => {
+    console.log('Received request body:', req.body); // Debug log
+
+    try {
+        const { venueName, venueLocation, venueType, venuePrice, venueImage } = req.body;
+
+        // Validate required fields
+        if (!venueName || !venueLocation || !venueType || !venuePrice) {
+            console.log('Missing required fields'); // Debug log
+            return res.status(400).json({ 
+                success: false, 
+                message: 'Missing required fields' 
+            });
+        }
+
+        // Insert into venue table
+        const { data, error } = await supabase
+            .from('venue')
+            .insert([
+                {
+                    venue_name: venueName,
+                    venue_location: venueLocation,
+                    venue_type: venueType,
+                    venue_price: parseInt(venuePrice), // Convert to integer
+                    venue_img: venueImage || null // Allow null if no image
+                }
+            ])
+            .select(); // Add this to get the inserted data back
+
+        if (error) {
+            console.error('Supabase error:', error); // Debug log
+            throw error;
+        }
+
+        console.log('Venue added successfully:', data); // Debug log
+
+        return res.status(200).json({ 
+            success: true, 
+            message: 'Venue added successfully',
+            data 
+        });
+    } catch (error) {
+        console.error('Server error:', error); // Debug log
+        return res.status(500).json({ 
+            success: false, 
+            message: 'Failed to add venue: ' + error.message
+        });
+    }
+});
 
 app.get('/get-user-info', async (req, res) => {
     const userId = req.session?.user?.user_id;
@@ -387,7 +434,7 @@ app.get('/get-client-data', async (req, res) => {
     try {
         const { data, error } = await supabase
             .from('user_choice')
-            .select('user_id, celebrant_name, chosen_event');
+            .select('celebrant_name, chosen_event');
 
         console.log('Supabase Response:', data); // Debugging log
 
@@ -406,13 +453,6 @@ app.get('/get-client-data', async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 });
-
-
-
-
-
-
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
